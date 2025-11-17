@@ -55,7 +55,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.googol.android.mediaplayer"
+        applicationId = "com.google.android.apps.oneplayer"
         minSdk = 28
         targetSdk = 36
         versionCode = 1
