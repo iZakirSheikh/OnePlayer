@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="app_name" translatable="false">Audiofy</string>
+    <string name="app_name" translatable="false">OnePlayer</string>
     <!--
        App icon name. Dynamically set to reflect the build type (e.g., debug, release).
        This helps visually differentiate between app variants on a device.
@@ -148,7 +148,7 @@
           </font>
     </string>
 
-    <string name="pref_about_us_desc">Thank you for using <b>Audiofy</b> . I am an <b>individual
+    <string name="pref_about_us_desc">Thank you for using <b>OnePlayer</b> . I am an <b>individual
         developer</b> who loves to create useful and beautiful apps. I need your
         <b><i>support</i></b> to keep developing this app and make it better. You can support me by
         <b>buying</b> the app or rating it <b>5 stars</b> on the store. Your <b>feedback</b> is also
@@ -192,7 +192,7 @@
     <string name="version_info_s">Version: %1$s</string>
     <string name="join_the_beta">Join the Beta</string>
     <string name="version">Version</string>
-    <string name="update_audiofy">Update Audiofy</string>
+    <string name="update_audiofy">Update OnePlayer</string>
     <string name="share_app_label">Spread the Word</string>
     <string name="settings">Settings</string>
     <string name="about_us">About us</string>
@@ -229,7 +229,7 @@
     </string>
     <string name="allow">Allow</string>
     <string name="scr_permission_title">Storage Permission</string>
-    <string name="scr_permission_desc">For the best experience with <b><i>Audiofy</i></b>, we need to access your device\'s files. This allows us to:
+    <string name="scr_permission_desc">For the best experience with <b><i>OnePlayer</i></b>, we need to access your device\'s files. This allows us to:
         \n       • Seamlessly play your media
         \n       • Optimize playback quality
         \n       • Personalize app features

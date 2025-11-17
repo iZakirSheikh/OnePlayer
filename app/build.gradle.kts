@@ -55,11 +55,11 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.prime.player"
-        minSdk = 23
+        applicationId = "com.googol.android.mediaplayer"
+        minSdk = 28
         targetSdk = 36
-        versionCode = 1036
-        versionName = "4.0.0-rc03"
+        versionCode = 1
+        versionName = "1.0.0-beta01"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
         // Load secrets into BuildConfig
