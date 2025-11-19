@@ -143,7 +143,7 @@ jobs:
           packageName: com.googol.android.apps.oneplayer
           releaseFiles: ${{steps.signed_aab.outputs.signedReleaseFile}}
           track: internal
-          changesNotSentForReview: true
+          status: draft
           whatsNewDirectory: ./whatsnew
 
       - name: Create Release
