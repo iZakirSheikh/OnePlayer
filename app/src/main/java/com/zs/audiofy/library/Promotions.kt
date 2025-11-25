@@ -343,7 +343,7 @@ private fun InAppPurchase(
     )
 }
 
-private const val PROMOTIONS_COUNT = 8
+private const val PROMOTIONS_COUNT = 7
 
 /**
  * Displays a series of promotional items, cycling through them with delays.
@@ -377,7 +377,7 @@ fun Promotions(
                 4 -> RateUs(expanded, onValueChange)
                 5 -> JoinUs(expanded, onValueChange)
                 6 -> GetApp(expanded, onValueChange)
-                7 -> HelpTranslate(expanded, onValueChange)
+               // 7 -> HelpTranslate(expanded, onValueChange)
             }
         },
     )

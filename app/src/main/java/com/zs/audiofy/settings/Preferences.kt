@@ -212,14 +212,15 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
             modifier = Modifier.background(AppTheme.colors.background(1.dp), RS.CentreTileShape)
         )
     }
+
     // Grid Item Multiplier
     // The multiplier increases/decreases the size of the grid item from 0.6 to 2f
     item(contentType = CONTENT_TYPE_PREF) {
         SliderPreference(
             value = viewState.gridItemSizeMultiplier,
             text = textResource(R.string.pref_grid_item_size_multiplier),
-            valueRange = 0.6f..2f,
-            steps = 13, // (2.0 - 0.7) / 0.1 = 13 steps
+            valueRange = 0.8f..1.6f,
+            steps = 15, // (2.0 - 0.7) / 0.1 = 13 steps
             icon = Icons.Outlined.Dashboard,
             preview = {
                 Label(

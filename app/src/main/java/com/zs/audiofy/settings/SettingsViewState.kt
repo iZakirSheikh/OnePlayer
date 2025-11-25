@@ -112,7 +112,7 @@ object Settings {
 
     // Default Accents
     val LightAccentColor = Color(0xFF514700)
-    val DarkAccentColor = /*Color(0xFFD8A25E)*/ Color(0xFF7d6c1e)
+    val DarkAccentColor = /*Color(0xFFD8A25E)*/ Color(0xFF4c662b)
 
     //
     val ColorSaver = object : IntSaver<Color> {
