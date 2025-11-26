@@ -220,4 +220,7 @@ class ConsoleViewModel(
             remote.setCheckedTrack(info, type)
         }
     }
+
+    override suspend fun getPlaybackState(): Int = remote.getPlaybackState()
+    override suspend fun getBufferedPct(): Float = remote.getBufferedPct()
 }

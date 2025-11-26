@@ -233,4 +233,7 @@ interface ConsoleViewState: QueueViewState {
     suspend fun getAvailableTracks(type: Int): List<TrackInfo>
     suspend fun getCheckedTrack(type: Int): TrackInfo?
     fun setCheckedTrack(type: Int, info: TrackInfo?)
+
+    suspend fun getPlaybackState(): Int
+    suspend fun getBufferedPct(): Float
 }

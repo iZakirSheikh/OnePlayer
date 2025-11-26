@@ -354,6 +354,8 @@ internal class RemoteImpl(private val context: Context) : Remote {
         .flowOn(Dispatchers.Main)
         .stateIn(remoteScope, autostopPolicy, null)
 
+
+
     override val queue: Flow<List<MediaFile>?> = events
         .filter {
             // Check if the received events are relevant for a queue update.
@@ -509,18 +511,21 @@ internal class RemoteImpl(private val context: Context) : Remote {
                         }
                         // Create a MediaFile object using the extracted metadata.
                         // If a metadata field is not found, default to an empty string.
-                        val title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE)
-                            ?: uri.lastPathSegment
-                            ?: uri.path?.substringAfterLast('/') // fallback if lastPathSegment is null
+                        val title =
+                            retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE)
+                                ?: uri.lastPathSegment
+                                ?: uri.path?.substringAfterLast('/') // fallback if lastPathSegment is null
 
-                        val mimeType = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_MIMETYPE)
-                            ?: MimeTypeMap.getMimeTypeFromUrl(uri.toString())
+                        val mimeType =
+                            retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_MIMETYPE)
+                                ?: MimeTypeMap.getMimeTypeFromUrl(uri.toString())
                         MediaFile(
-                            subtitle = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST) ?: "",
+                            subtitle = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
+                                ?: "",
                             uri = uri,
                             artwork = artwork,
                             mimeType = mimeType,
-                            title =  title ?: "",
+                            title = title ?: "",
                         )
                     }
                 }
@@ -640,5 +645,19 @@ internal class RemoteImpl(private val context: Context) : Remote {
                     }
                 }.build()
         return true
+    }
+
+    override suspend fun getBufferedPct(): Float {
+        val browser = fBrowser.await()
+        val position = browser.bufferedPosition
+        val duration = browser.duration
+        return if (position == C.TIME_UNSET || duration == C.TIME_UNSET)
+            Float.NaN
+        else position / duration.toFloat()
+    }
+
+    override suspend fun getPlaybackState(): Int {
+        val browser = fBrowser.await()
+        return  browser.playbackState
     }
 }

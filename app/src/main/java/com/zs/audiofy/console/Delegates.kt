@@ -150,48 +150,6 @@ inline fun Artwork(
     }
 }
 
-/**
- * Represents the Slider for Console's PlayerView.
- */
-@Composable
-fun TimeBar(
-    progress: Float,
-    onValueChange: (Float) -> Unit,
-    onValueChangeFinished: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    accent: Color = AppTheme.colors.accent
-) {
-    if (progress == -1f)
-        return LinearProgressIndicator(
-            color = accent,
-            backgroundColor = accent.copy(ContentAlpha.indication),
-            modifier = modifier
-        )
-    // FIXME: This is a temporary workaround.
-    //  Problem:
-    //  The Slider composable uses BoxWithConstraints internally. When used within a ConstraintLayout
-    //  with width Dimension.fillToConstraints, it behaves unexpectedly. This workaround addresses the issue.
-    //  Remove this workaround once the underlying issue is resolved.
-    var width by remember { mutableIntStateOf(0) }
-    Box(modifier.onSizeChanged() {
-        width = it.width
-    }) {
-        Slider(
-            progress,
-            onValueChange = onValueChange,
-            onValueChangeFinished = onValueChangeFinished,
-            modifier = Modifier.width(with(LocalDensity.current) { width.toDp() }),
-            enabled = enabled,
-            colors = SliderDefaults.colors(
-                thumbColor = accent,
-                activeTrackColor = accent,
-                disabledThumbColor = accent,
-                disabledActiveTrackColor = accent
-            )
-        )
-    }
-}
 
 @Composable
 private fun OutlinedPlayButton(

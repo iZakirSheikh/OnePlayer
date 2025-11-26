@@ -100,6 +100,7 @@ import com.zs.audiofy.common.compose.marque
 import com.zs.audiofy.common.compose.resize
 import com.zs.audiofy.common.compose.shine
 import com.zs.audiofy.common.compose.timer
+import com.zs.audiofy.console.components.TimeBar
 import com.zs.audiofy.effects.RouteAudioFx
 import com.zs.audiofy.settings.AppConfig
 import com.zs.compose.foundation.SignalWhite

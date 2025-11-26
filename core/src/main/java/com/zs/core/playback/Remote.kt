@@ -307,4 +307,25 @@ interface Remote {
      * @return `true` if the track was successfully set, `false` otherwise.
      */
     suspend fun setCheckedTrack(info: TrackInfo?, type: Int): Boolean
+
+    /**
+     * Retrieves the percentage of the current media item that has been buffered.
+     * This value represents the portion of the content that is available for immediate playback
+     * without requiring further network requests.
+     *
+     * @return A [Float] value between 0.0 and 1.0, where 0.0 indicates no buffering and 1.0
+     *         indicates that the entire media item is buffered. Returns [Float.NaN] if the
+     *         buffered percentage is not available or could not be determined.
+     */
+    suspend fun getBufferedPct(): Float
+
+    /**
+     * Retrieves the current playback state of the player.
+     *
+     * @return The current state, which can be one of [Remote.PLAYER_STATE_IDLE],
+     *         [Remote.PLAYER_STATE_BUFFERING], [Remote.PLAYER_STATE_READY], or
+     *         [Remote.PLAYER_STATE_ENDED].
+     * @see Player.getPlaybackState
+     */
+    suspend fun getPlaybackState(): Int
 }
