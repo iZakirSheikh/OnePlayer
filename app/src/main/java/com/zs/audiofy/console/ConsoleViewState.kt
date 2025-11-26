@@ -190,7 +190,7 @@ interface QueueViewState {
 
 interface ConsoleViewState: QueueViewState {
 
-    val provider: VideoProvider
+    val cues: Flow<String?>
 
     @get:FloatRange(from = 0.25, to = 3.0)
     @set:FloatRange(from = 0.25, to = 3.0)
@@ -227,7 +227,7 @@ interface ConsoleViewState: QueueViewState {
 
     fun sleepAt(mills: Long)
 
-
+    fun getVideoProvider(): VideoProvider
     suspend fun getAvailableTracks(type: Int): List<TrackInfo>
     suspend fun getCheckedTrack(type: Int): TrackInfo?
     fun setCheckedTrack(type: Int, info: TrackInfo?)

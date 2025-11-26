@@ -37,17 +37,12 @@ class ConsoleViewModel(
 ) : KoinViewModel(), ConsoleViewState {
 
     override val state: StateFlow<NowPlaying?> = remote.state
-    override var provider: VideoProvider by mutableStateOf(VideoProvider(null))
     override var visibility: Int by mutableIntStateOf(RouteConsole.VISIBILITY_VISIBLE)
     override val queue: Flow<List<MediaFile>?> = remote.queue
+    override val cues: Flow<String?> = remote.cues
 
-
-    var messageJob: Job?= null
-
-    init {
-        viewModelScope.launch {
-            provider = remote.getViewProvider()
-        }
+    override fun getVideoProvider(): VideoProvider {
+        return runBlocking { remote.getViewProvider() }
     }
 
     override fun skipToNext() {

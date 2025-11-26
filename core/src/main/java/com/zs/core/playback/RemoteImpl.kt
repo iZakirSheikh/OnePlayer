@@ -372,6 +372,22 @@ internal class RemoteImpl(private val context: Context) : Remote {
             emit(list?.map(::MediaFile))
         }
 
+    override val cues: Flow<String?> = events
+        .filter {events ->
+            // Check if the received events are relevant for a subtitle update.
+            // If `events` is null (initial emission from callbackFlow) or if it doesn't contain
+            // `Player.EVENT_CUES`, it means the subtitle cue hasn't changed,
+            // so we don't need to re-fetch and emit it.
+            Log.d(TAG, "subtitle: ")
+            events?.contains(Player.EVENT_CUES) == true
+        }.map {
+            // Await the MediaBrowser instance to ensure it's connected and ready.
+            val provider = fBrowser.await()
+            provider.currentCues.cues.joinToString("\n") { cue ->
+                cue.text?.toString() ?: ""
+            }
+        }
+
     override suspend fun setPlaybackSpeed(value: Float): Boolean {
         val browser = fBrowser.await() // Await the MediaBrowser instance.
         browser.playbackParameters =

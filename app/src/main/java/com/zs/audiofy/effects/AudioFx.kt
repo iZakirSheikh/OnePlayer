@@ -70,7 +70,7 @@ import com.zs.audiofy.common.compose.ContentPadding as CP
 private val TitleBarHeight = Modifier.height(48.dp)
 private val DialogSize = Modifier
     .widthIn(max = 400.dp)
-    .padding(horizontal = CP.normal)
+    .padding(start = CP.normal, end = CP.normal, bottom = 10.dp)
 
 private val GridSize = Modifier.sizeIn(maxHeight = 150.dp)
 

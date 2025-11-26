@@ -251,7 +251,7 @@ fun Properties(viewState: PropertiesViewState) {
     // It's currently employed to position the dismiss button as a Floating Action Button (FAB).
     // This approach is necessary because the FAB within the TwoPane component isn't behaving as expected.
     // Once the TwoPane's FAB becomes customizable, this logic will be refactored and moved back into the TwoPane.
-    Box() {
+    Box(modifier = Modifier.padding(bottom = 10.dp)) {
         // content
         TwoPane(
             spacing = ContentPadding.normal,

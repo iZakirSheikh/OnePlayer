@@ -31,6 +31,7 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Audiotrack
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Remove
+import androidx.compose.material.icons.outlined.TextFields
 import androidx.compose.material.icons.outlined.VideoLibrary
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -381,6 +382,53 @@ fun MediaConfigDialog(
                 }
             )
 
+            // Subtitle Tracks
+            val subtitleTracks: List<TrackInfo>? by produceState(null) {
+                value = viewState.getAvailableTracks(Remote.TRACK_TYPE_TEXT)
+            }
+            val checkedSubtitleTrack: TrackInfo? by produceState(null) {
+                value = viewState.getCheckedTrack(Remote.TRACK_TYPE_TEXT)
+            }
+            Header(
+                "Subtitle Track",
+                style = AppTheme.typography.title3,
+                color = AppTheme.colors.accent,
+                drawDivider = true,
+            )
+
+            LazyRow(
+                horizontalArrangement = CP.SmallArrangement,
+                verticalAlignment = Alignment.CenterVertically,
+                content = {
+                    val data = emit(false, subtitleTracks) ?: return@LazyRow
+                    items(
+                        items = data,
+                        itemContent = {
+                            val selected  = checkedSubtitleTrack?.name == it.name
+                            SelectableChip(
+                                selected,
+                                colors = colors,
+                                border = if (selected) ChipDefaults.outlinedBorder else ButtonDefaults.outlinedBorder,
+                                leadingIcon = {
+                                    Icon(
+                                        Icons.Outlined.TextFields,
+                                        contentDescription = null
+                                    )
+                                },
+                                content = { Label(it.name.ellipsize(25)) },
+                                onClick = {
+                                    viewState.setCheckedTrack(
+                                        Remote.TRACK_TYPE_TEXT,
+                                        it
+                                    )
+                                    onDismissRequest()
+                                },
+                            )
+                        }
+                    )
+                }
+            )
+
             // Video Tracks
             val videoTracks: List<TrackInfo>? by produceState(null) {
                 value = viewState.getAvailableTracks(Remote.TRACK_TYPE_VIDEO)
@@ -428,6 +476,8 @@ fun MediaConfigDialog(
                     )
                 }
             )
+
+            // Subtitle Tracks
         }
     )
 }

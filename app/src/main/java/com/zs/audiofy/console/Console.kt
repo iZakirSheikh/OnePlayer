@@ -62,6 +62,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -114,6 +115,7 @@ import com.zs.compose.theme.sharedElement
 import com.zs.compose.theme.text.Label
 import com.zs.core.playback.NowPlaying
 import com.zs.core.playback.Remote
+import com.zs.core.playback.VideoProvider
 import com.zs.audiofy.common.compose.ContentPadding as CP
 import com.zs.audiofy.common.compose.lottieAnimationPainter as Lottie
 import com.zs.audiofy.common.compose.rememberAnimatedVectorPainter as AnimVectorPainter
@@ -221,9 +223,8 @@ fun Console(viewState: ConsoleViewState) {
                     .key(C.ID_VIDEO_SURFACE)
                     .detectPlayerGestures(viewState, {}),
                 content = {
-                    val provider = viewState.provider
                     VideoSurface(
-                        provider = provider,
+                        provider = viewState.getVideoProvider(),
                         keepScreenOn = state.playWhenReady,
                         modifier = Modifier
                             .resize(scale, state.videoSize),
