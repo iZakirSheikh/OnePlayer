@@ -22,6 +22,7 @@ import android.view.Gravity
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -31,13 +32,13 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Audiotrack
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Remove
-import androidx.compose.material.icons.outlined.TextFields
-import androidx.compose.material.icons.outlined.VideoLibrary
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -61,6 +62,7 @@ import com.zs.compose.theme.Icon
 import com.zs.compose.theme.IconButton
 import com.zs.compose.theme.LocalContentColor
 import com.zs.compose.theme.LocalWindowSize
+import com.zs.compose.theme.RadioButton
 import com.zs.compose.theme.SelectableChip
 import com.zs.compose.theme.Slider
 import com.zs.compose.theme.text.Header
@@ -333,31 +335,94 @@ fun MediaConfigDialog(
             )
         },
         content = {
-            val colors = ChipDefaults.selectableChipColors()
-            // Audio Tracks
-            val audioTracks: List<TrackInfo>? by produceState(null) {
-                value = viewState.getAvailableTracks(Remote.TRACK_TYPE_AUDIO)
-            }
-            val checkedAudioTrack: TrackInfo? by produceState(null) {
-                value = viewState.getCheckedTrack(Remote.TRACK_TYPE_AUDIO)
-            }
+            var checked by remember { mutableIntStateOf(Remote.TRACK_TYPE_AUDIO) }
             Header(
-                "Audio Track",
+                "Choose Audio, Video & Subtitles",
                 style = AppTheme.typography.title3,
                 color = AppTheme.colors.accent,
                 drawDivider = true,
             )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                // Audio
+                val spacer = Modifier.offset(x = -CP.xSmall)
+                RadioButton(
+                    selected = checked == Remote.TRACK_TYPE_AUDIO,
+                    onValueChange = {
+                        checked = Remote.TRACK_TYPE_AUDIO
+                    }
+                )
+
+                val style = AppTheme.typography.label3
+                Label(stringResource(R.string.audio), modifier = spacer, style = style)
+
+                // Video
+                RadioButton(
+                    selected = checked == Remote.TRACK_TYPE_VIDEO,
+                    onValueChange = {
+                        checked = Remote.TRACK_TYPE_VIDEO
+                    }
+                )
+
+                Label(stringResource(R.string.video), modifier = spacer, style = style)
+
+                // Subtitle
+                RadioButton(
+                    selected = checked == Remote.TRACK_TYPE_TEXT,
+                    onValueChange = {
+                        checked = Remote.TRACK_TYPE_TEXT
+                    }
+                )
+
+                Label(stringResource(R.string.subtitle),  style = style)
+            }
+
+            val colors = ChipDefaults.selectableChipColors()
+            // Audio Tracks
+            val tracks: List<TrackInfo>? by produceState(null, checked) {
+                value = viewState.getAvailableTracks(checked)
+            }
+            val checkedTrack: TrackInfo? by produceState(null, checked) {
+                value = viewState.getCheckedTrack(checked)
+            }
 
             LazyRow(
                 horizontalArrangement = CP.SmallArrangement,
                 verticalAlignment = Alignment.CenterVertically,
                 content = {
-                    val data = emit(false, audioTracks) ?: return@LazyRow
+                    val data = emit(false, tracks) ?: return@LazyRow
+
+                    // subtitle allows selection none.
+                    if (checked == Remote.TRACK_TYPE_TEXT)
+                    item(
+                        content = {
+                            val selected  = checkedTrack ==  null
+                            SelectableChip(
+                                selected,
+                                colors = colors,
+                                border = if (selected) ChipDefaults.outlinedBorder else ButtonDefaults.outlinedBorder,
+                                leadingIcon = {
+                                    Icon(
+                                        Icons.Outlined.Audiotrack,
+                                        contentDescription = null
+                                    )
+                                },
+                                content = { Label(stringResource(R.string.none)) },
+                                onClick = {
+                                    viewState.setCheckedTrack(
+                                        Remote.TRACK_TYPE_TEXT,
+                                        null
+                                    )
+                                    onDismissRequest()
+                                },
+                            )
+                        }
+                    )
+
                     items(
                         items = data,
                         key = TrackInfo::name,
                         itemContent = {
-                            val selected  = checkedAudioTrack?.name == it.name
+                            val selected  = checkedTrack?.name == it.name
                             SelectableChip(
                                 selected,
                                 colors = colors,
@@ -370,10 +435,7 @@ fun MediaConfigDialog(
                                 },
                                 content = { Label(it.name.ellipsize(25)) },
                                 onClick = {
-                                    viewState.setCheckedTrack(
-                                        Remote.TRACK_TYPE_AUDIO,
-                                        it
-                                    )
+                                    viewState.setCheckedTrack(checked, it)
                                     onDismissRequest()
                                 },
                             )
@@ -381,103 +443,6 @@ fun MediaConfigDialog(
                     )
                 }
             )
-
-            // Subtitle Tracks
-            val subtitleTracks: List<TrackInfo>? by produceState(null) {
-                value = viewState.getAvailableTracks(Remote.TRACK_TYPE_TEXT)
-            }
-            val checkedSubtitleTrack: TrackInfo? by produceState(null) {
-                value = viewState.getCheckedTrack(Remote.TRACK_TYPE_TEXT)
-            }
-            Header(
-                "Subtitle Track",
-                style = AppTheme.typography.title3,
-                color = AppTheme.colors.accent,
-                drawDivider = true,
-            )
-
-            LazyRow(
-                horizontalArrangement = CP.SmallArrangement,
-                verticalAlignment = Alignment.CenterVertically,
-                content = {
-                    val data = emit(false, subtitleTracks) ?: return@LazyRow
-                    items(
-                        items = data,
-                        itemContent = {
-                            val selected  = checkedSubtitleTrack?.name == it.name
-                            SelectableChip(
-                                selected,
-                                colors = colors,
-                                border = if (selected) ChipDefaults.outlinedBorder else ButtonDefaults.outlinedBorder,
-                                leadingIcon = {
-                                    Icon(
-                                        Icons.Outlined.TextFields,
-                                        contentDescription = null
-                                    )
-                                },
-                                content = { Label(it.name.ellipsize(25)) },
-                                onClick = {
-                                    viewState.setCheckedTrack(
-                                        Remote.TRACK_TYPE_TEXT,
-                                        it
-                                    )
-                                    onDismissRequest()
-                                },
-                            )
-                        }
-                    )
-                }
-            )
-
-            // Video Tracks
-            val videoTracks: List<TrackInfo>? by produceState(null) {
-                value = viewState.getAvailableTracks(Remote.TRACK_TYPE_VIDEO)
-            }
-            val checkedVideoTrack: TrackInfo? by produceState(null) {
-                value = viewState.getCheckedTrack(Remote.TRACK_TYPE_VIDEO)
-            }
-            Header(
-                "Video Track",
-                style = AppTheme.typography.title3,
-                color = AppTheme.colors.accent,
-                drawDivider = true,
-            )
-
-            LazyRow(
-                horizontalArrangement = CP.SmallArrangement,
-                verticalAlignment = Alignment.CenterVertically,
-                content = {
-                    val data = emit(false, videoTracks) ?: return@LazyRow
-                    items(
-                        items = data,
-                        key = TrackInfo::name,
-                        itemContent = {
-                            val selected  = checkedVideoTrack?.name == it.name
-                            SelectableChip(
-                                selected,
-                                colors = colors,
-                                border = if (selected) ChipDefaults.outlinedBorder else ButtonDefaults.outlinedBorder,
-                                leadingIcon = {
-                                    Icon(
-                                        Icons.Outlined.VideoLibrary,
-                                        contentDescription = null
-                                    )
-                                },
-                                content = { Label(it.name.ellipsize(25)) },
-                                onClick = {
-                                    viewState.setCheckedTrack(
-                                        Remote.TRACK_TYPE_VIDEO,
-                                        it
-                                    )
-                                    onDismissRequest()
-                                },
-                            )
-                        }
-                    )
-                }
-            )
-
-            // Subtitle Tracks
         }
     )
 }

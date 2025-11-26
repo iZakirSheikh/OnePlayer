@@ -546,7 +546,7 @@ internal class RemoteImpl(private val context: Context) : Remote {
             }
         }
         // Return the list of track infos
-        return list
+        return list.distinctBy { it.name }
     }
 
     @SuppressLint("UnsafeOptInUsageError")
