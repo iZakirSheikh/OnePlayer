@@ -134,7 +134,8 @@ fun RedVioletCake(
             BaseListItem(
                 contentColor = contentColor,
                 modifier = Modifier.sharedBounds(RouteConsole.ID_BACKGROUND),
-
+                spacing = ContentPadding.small,
+                padding = Widget.Padding,
                 // Subtitle
                 heading = {
                     Label(
@@ -240,7 +241,8 @@ fun RedVioletCake(
                                 icon = Icons.Outlined.Tune,
                                 contentDescription = null,
                                 onClick = { onRequest(Widget.REQUEST_SHOW_CONFIG) },
-                                tint = contentColor
+                                tint = contentColor,
+                                modifier = Widget.SmallIconBtn
                             )
 
                             // played duration
@@ -288,7 +290,8 @@ fun RedVioletCake(
                                 icon = Icons.Outlined.OpenInNew,
                                 contentDescription = null,
                                 onClick = { onRequest(Widget.REQUEST_OPEN_CONSOLE) },
-                                tint = Color.SignalWhite
+                                tint = contentColor,
+                                modifier = Widget.SmallIconBtn
                             )
                         }
                     )

@@ -130,6 +130,8 @@ fun GradientGroves(
             .background(Color.White, WidgetShape)
             .background(colors.bg, WidgetShape),
         contentColor = contentColor,
+        spacing = ContentPadding.small,
+        padding = Widget.Padding,
         // Title
         heading = {
             Box(
@@ -177,10 +179,7 @@ fun GradientGroves(
                     .padding(top = ContentPadding.medium)
                     .fillMaxWidth(),
                 content = {
-                    val bgModifier = Modifier
-                        .scale(0.88f)
-                        .border(colors.shine, CircleShape)
-                        .background(AppTheme.colors.accent.copy(0.3f), CircleShape)
+                    val bgModifier = Modifier.background(AppTheme.colors.accent.copy(0.3f), CircleShape) then Widget.SmallIconBtn
                     // SeekBackward
                     IconButton(
                         onClick = { onRequest(Widget.REQUEST_SKIP_TO_PREVIOUS) },

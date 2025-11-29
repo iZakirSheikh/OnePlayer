@@ -43,6 +43,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
@@ -87,6 +88,8 @@ fun SkewedDynamic(
     val contentColor = colors.onBackground
     BaseListItem(
         contentColor = contentColor,
+        spacing = ContentPadding.small,
+        padding = Widget.Padding,
         modifier = modifier
             .sharedBounds(RouteConsole.ID_BACKGROUND)
             .shadow(16.dp, WidgetShape)
@@ -137,7 +140,7 @@ fun SkewedDynamic(
                     icon = Icons.Outlined.Tune,
                     contentDescription = null,
                     onClick = { onRequest(Widget.REQUEST_SHOW_CONFIG) },
-                    modifier = Modifier.offset(10.dp, -10.dp)
+                    modifier = Modifier.offset(10.dp, -0.dp)
                 )
 
                 IconButton(
@@ -155,18 +158,20 @@ fun SkewedDynamic(
                 modifier = Modifier.fillMaxWidth(),
                 content = {
                     // SeekBackward
+                    val sizeModifier = Modifier.size(33.dp).scale(0.9f)
                     IconButton(
                         onClick = { onRequest(Widget.REQUEST_SKIP_TO_PREVIOUS) },
                         icon = Icons.Outlined.KeyboardDoubleArrowLeft,
                         contentDescription = null,
-                        tint = contentColor
+                        tint = contentColor,
+                        modifier = sizeModifier
                     )
 
                     // Play/Pause
                     LottieAnimatedButton(
                         id = R.raw.lt_play_pause5,
                         atEnd = state.playing,
-                        scale = 2.5f,
+                        scale = 2.3f,
                         progressRange = 0.0f..0.45f,
                         animationSpec = tween(easing = LinearEasing),
                         onClick = { onRequest(Widget.REQUEST_PLAY_TOGGLE) },
@@ -179,7 +184,8 @@ fun SkewedDynamic(
                         onClick = { onRequest(Widget.REQUEST_SKIP_TO_NEXT) },
                         contentDescription = null,
                         icon = Icons.Outlined.KeyboardDoubleArrowRight,
-                        tint = contentColor
+                        tint = contentColor,
+                        modifier = sizeModifier
                     )
                 }
             )

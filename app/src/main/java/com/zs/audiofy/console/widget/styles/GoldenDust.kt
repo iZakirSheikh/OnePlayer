@@ -56,6 +56,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.chronometer
 import com.zs.audiofy.common.compose.lottie
 import com.zs.audiofy.common.compose.lottieAnimationPainter
@@ -98,9 +99,7 @@ private val background = Brush.linearGradient(
     start = Offset.Infinite,
     end = Offset.Zero
 )
-private val IconModifier = Modifier
-    .scale(0.84f)
-    .background(onAccent.copy(0.3f), CircleShape)
+private val IconModifier = Modifier.background(onAccent.copy(0.3f), CircleShape) then Widget.SmallIconBtn
 private val PlayButtonShape = RoundedCornerShape(28)
 
 @Composable
@@ -118,6 +117,8 @@ fun GoldenDust(
             .background(bgColor, WidgetShape)
             .background(background, WidgetShape),
         contentColor = onAccent,
+        spacing = ContentPadding.small,
+        padding = Widget.Padding,
         // Title
         heading = {
             Box(
@@ -163,6 +164,7 @@ fun GoldenDust(
         subheading = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = CP.xSmallArrangement,
                 modifier = Modifier
                     .padding(top = CP.medium)
                     .fillMaxWidth(),

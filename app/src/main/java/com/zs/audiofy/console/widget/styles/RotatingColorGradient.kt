@@ -116,6 +116,7 @@ fun RotatingColorGradient(
     BaseListItem(
         contentColor = contentColor,
         spacing = CP.small,
+        padding = Widget.Padding,
         modifier = modifier
             .sharedBounds(RouteConsole.ID_BACKGROUND)
             .shadow(8.dp, Shape)
@@ -124,7 +125,6 @@ fun RotatingColorGradient(
                 lottieAnimationPainter(R.raw.bg_rotating_color_gradient),
                 contentScale = ContentScale.Crop
             ),
-        padding = PaddingValues(horizontal = CP.medium, vertical = CP.small),
         // subtitle
         overline = {
             Label(
@@ -193,7 +193,8 @@ fun RotatingColorGradient(
                         onClick = { onRequest(Widget.REQUEST_SKIP_TO_PREVIOUS) },
                         icon = Icons.Outlined.KeyboardDoubleArrowLeft,
                         contentDescription = null,
-                        tint = contentColor
+                        tint = contentColor,
+                        modifier = Widget.SmallIconBtn
                     )
 
                     // Play/Pause
@@ -213,7 +214,8 @@ fun RotatingColorGradient(
                         onClick = { onRequest(Widget.REQUEST_SKIP_TO_NEXT) },
                         icon = Icons.Outlined.KeyboardDoubleArrowRight,
                         contentDescription = null,
-                        tint = contentColor
+                        tint = contentColor,
+                        modifier = Widget.SmallIconBtn
                     )
                 }
             )

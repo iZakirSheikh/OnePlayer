@@ -104,6 +104,7 @@ fun MistyDream(
     BaseListItem(
         contentColor = contentColor,
         spacing = ContentPadding.small,
+        padding = Widget.Padding,
         modifier = modifier
             .sharedBounds(RouteConsole.ID_BACKGROUND)
             .shadow(12.dp, Shape)
@@ -177,7 +178,8 @@ fun MistyDream(
                         onClick = { onRequest(Widget.REQUEST_SKIP_TO_PREVIOUS) },
                         icon = Icons.Outlined.KeyboardDoubleArrowLeft,
                         contentDescription = null,
-                        tint = contentColor
+                        tint = contentColor,
+                        modifier = Widget.SmallIconBtn
                     )
 
                     // Play/Pause
@@ -198,7 +200,8 @@ fun MistyDream(
                         onClick = { onRequest(Widget.REQUEST_SKIP_TO_NEXT) },
                         icon = Icons.Outlined.KeyboardDoubleArrowRight,
                         contentDescription = null,
-                        tint = contentColor
+                        tint = contentColor,
+                        modifier = Widget.SmallIconBtn
                     )
                 }
             )

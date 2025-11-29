@@ -12,6 +12,7 @@
 <resources>
     <!--Changelog-->
     <string-array name="changelog" translatable="false">
+        <item>@string/changelog_121_beta</item>
         <item>@string/changelog_110_beta</item>
         <item>@string/changelog_104_beta</item>
         <item>@string/changelog_103_beta</item>
@@ -20,9 +21,8 @@
     </string-array>
 
     <!--Points to the changelog of current version.-->
-    <string name="release_notes" translatable="false">@string/changelog_121_beta</string>
+    <string name="release_notes" translatable="false">@string/changelog_122_beta</string>
 
-   <!--1.2.0-beta-->
     <string name="changelog_121_beta" translatable="false">
         <b>What’s New <font color='purple'>(v1.2.1-beta)\n</font></b>
         <font color='grey'>
@@ -33,6 +33,15 @@
             \n✓ <b>Faster Playback Startup:</b> Media now prepares for playback as soon as you open the player, reducing the delay before you can press play.
             \n✓ <b>Cleaner "Recently Played" List:</b> The "Recently Played" section no longer shows duplicate tracks.
             \n✓ <b>UI &amp; Bug Fixes:</b> Made several layout adjustments in the player for better organization and fixed minor bugs.
+        </font>
+    </string>
+
+
+    <!--1.2.2-beta-->
+    <string name="changelog_122_beta" translatable="false">
+        <b>What’s New <font color='purple'>(v1.2.2-beta)\n</font></b>
+        <font color='grey'>
+            \n✓
         </font>
     </string>
 

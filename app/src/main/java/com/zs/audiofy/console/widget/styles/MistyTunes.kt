@@ -51,6 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LottieAnimatedButton
 import com.zs.audiofy.common.compose.background
 import com.zs.audiofy.common.compose.chronometer
@@ -105,6 +106,8 @@ fun MistyTunes(
             .border(AppTheme.colors.shine, AppTheme.shapes.large)
             .background(AppTheme.colors.background(surface)),
         contentColor = onColor,
+        padding = Widget.Padding,
+        spacing = ContentPadding.small,
         // Title as heading
         heading = {
             Box(

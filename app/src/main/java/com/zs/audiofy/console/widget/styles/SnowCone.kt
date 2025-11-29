@@ -51,6 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LottieAnimatedButton
 import com.zs.audiofy.common.compose.marque
 import com.zs.audiofy.console.RouteConsole
@@ -82,6 +83,8 @@ fun SnowCone(
     val colors = AppTheme.colors
     BaseListItem(
         contentColor = colors.onBackground,
+        spacing = ContentPadding.small,
+        padding = Widget.Padding,
         modifier = modifier
             .sharedBounds(RouteConsole.ID_BACKGROUND)
             .heightIn(max = 120.dp)
@@ -161,14 +164,15 @@ fun SnowCone(
                         onClick = { onRequest(Widget.REQUEST_SKIP_TO_PREVIOUS) },
                         icon = Icons.Outlined.KeyboardDoubleArrowLeft,
                         contentDescription = null,
-                        tint = color
+                        tint = color,
+                        modifier = Widget.SmallIconBtn
                     )
 
                     // Play/Pause
                     LottieAnimatedButton(
                         id = R.raw.lt_play_pause2,
                         atEnd = state.playing,
-                        scale = 1.5f,
+                        scale = 1.4f,
                         progressRange = 0.1f..0.65f,
                         animationSpec = tween(easing = LinearEasing),
                         onClick = { onRequest(Widget.REQUEST_PLAY_TOGGLE) },
@@ -182,7 +186,8 @@ fun SnowCone(
                         onClick = { onRequest(Widget.REQUEST_SKIP_TO_NEXT) },
                         icon = Icons.Outlined.KeyboardDoubleArrowRight,
                         contentDescription = null,
-                        tint = color
+                        tint = color,
+                        modifier = Widget.SmallIconBtn
                     )
                 }
             )

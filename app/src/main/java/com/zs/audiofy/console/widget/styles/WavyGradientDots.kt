@@ -84,9 +84,7 @@ private val ArtworkSize = 84.dp
 private val ArtworkShape = RoundedPolygonShape(5, 0.3f)
 private val TitleDrawStyle = Stroke(width = 3.2f, join = StrokeJoin.Round)
 
-private val IconModifier = Modifier
-    .scale(0.84f)
-    .background(Color.SignalWhite.copy(0.3f), CircleShape)
+private val IconModifier = Modifier.background(Color.SignalWhite.copy(0.3f), CircleShape) then Widget.SmallIconBtn
 
 @Composable
 fun WavyGradientDots(
@@ -97,6 +95,7 @@ fun WavyGradientDots(
     BaseListItem(
         contentColor = Color.SignalWhite,
         spacing = 0.dp,
+        padding = Widget.Padding,
         centerAlign = true,
         modifier = modifier
             .sharedBounds(RouteConsole.ID_BACKGROUND)

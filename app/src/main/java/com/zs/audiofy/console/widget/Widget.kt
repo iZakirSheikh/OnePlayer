@@ -23,6 +23,7 @@ package com.zs.audiofy.console.widget
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
@@ -92,6 +93,7 @@ object Widget {
             .widthIn(max = 400.dp)
     val FabSize = Modifier.requiredSize(112.dp, 56.dp)
     val FabVideoSize = Modifier.requiredSize(156.dp, 88.dp)
+    val Padding = PaddingValues(ContentPadding.small)
 
     val SmallIconBtn = Modifier.size(35.dp).scale(0.9f)
 

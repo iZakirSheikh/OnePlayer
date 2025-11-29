@@ -28,6 +28,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -80,7 +81,6 @@ private val DefaultArtworkShape = CompactDisk
 private val Shape = RoundedCornerShape(25, 8, 25, 8)
 
 private val PlayButtonShape = RoundedCornerShape(28)
-private val WidgetContentPadding = PaddingValues(8.dp, 6.dp)
 private val TitleDrawStyle = Stroke(width = 2.8f, join = StrokeJoin.Round)
 
 
@@ -95,7 +95,8 @@ fun DiskDynamo(
     BaseListItem(
         contentColor = contentColor,
         centerAlign = true,
-        padding = WidgetContentPadding,
+        spacing = ContentPadding.small,
+        padding = Widget.Padding,
         modifier = modifier
             .sharedBounds(RouteConsole.ID_BACKGROUND)
             .border(0.5.dp, colors.background(30.dp), Shape)
@@ -167,10 +168,9 @@ fun DiskDynamo(
                 modifier = Modifier
                     .padding(top = ContentPadding.medium)
                     .fillMaxWidth(),
+                horizontalArrangement = ContentPadding.xSmallArrangement,
                 content = {
-                    val IconModifier = Modifier
-                        .scale(0.75f)
-                        .background(colors.background(10.dp), CircleShape)
+                    val IconModifier = Modifier.background(colors.background(10.dp), CircleShape) then    Widget.SmallIconBtn
                     // SeekBackward
                     IconButton(
                         onClick = { onRequest(Widget.REQUEST_SKIP_TO_PREVIOUS) },
