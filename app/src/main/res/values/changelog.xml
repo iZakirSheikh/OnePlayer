@@ -41,7 +41,11 @@
     <string name="changelog_122_beta" translatable="false">
         <b>What’s New <font color='purple'>(v1.2.2-beta)\n</font></b>
         <font color='grey'>
-            \n✓
+            \n✓ <b>Streamlined Widget Configuration:</b> The widget setup screen has been simplified. We\'ve replaced the horizontal swipe gesture with easy-to-use left/right arrow buttons for a more straightforward navigation experience.
+            \n✓ <b>Performance &amp; UI Polish:</b>
+            \n    - Optimized the scaling modifier used across the app, leading to better performance and smoother animations.
+            \n    - Standardized the layout, padding, and icon sizes across all home screen widgets for a more consistent and polished look.
+            \n    - Updated the app name from "OnePlayer" to "One Player" (with a space) in a few places for brand consistency.
         </font>
     </string>
 
