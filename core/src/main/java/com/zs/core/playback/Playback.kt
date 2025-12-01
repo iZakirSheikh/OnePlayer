@@ -41,6 +41,7 @@ import androidx.media3.common.Timeline
 import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.ShuffleOrder.DefaultShuffleOrder
+import androidx.media3.session.CacheBitmapLoader
 import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaLibraryService.MediaLibrarySession.Callback
@@ -50,6 +51,7 @@ import androidx.media3.session.MediaSession.ControllerInfo
 import androidx.media3.session.SessionCommand
 import androidx.media3.session.SessionError
 import androidx.media3.session.SessionResult
+import androidx.media3.session.SimpleBitmapLoader
 import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
@@ -153,6 +155,7 @@ class Playback : MediaLibraryService(), Callback, Player.Listener {
     private val session: MediaLibrarySession by lazy {
         // Build and configure the MediaLibrarySession
         MediaLibrarySession.Builder(this, player, this).setId("playback")
+            .setBitmapLoader(CacheBitmapLoader(CoilBitmapLoader(this)))
             .setSessionActivity(activity).build()
     }
 
