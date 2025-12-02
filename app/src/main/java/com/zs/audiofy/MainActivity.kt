@@ -32,6 +32,7 @@ import androidx.compose.material.icons.outlined.NewReleases
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.NonRestartableComposable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -155,6 +156,7 @@ private inline fun <S, O> Preferences.observeAsState(key: Key<S, O>): State<O?> 
  *        update that has been completed. The Float.NaN represents a default value when no update
  *        is going on.
  */
+@Stable
 class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
     private val snackbarHostState: SnackbarHostState by inject()
     private val preferences: Preferences by inject()

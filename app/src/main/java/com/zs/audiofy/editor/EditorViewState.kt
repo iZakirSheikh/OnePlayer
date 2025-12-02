@@ -20,6 +20,7 @@ package com.zs.audiofy.editor
 
 import android.content.Context
 import android.net.Uri
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
@@ -37,6 +38,7 @@ object RouteEditor: Route {
 
 operator fun SavedStateHandle.get(route: RouteEditor) = get<String>(PARAM_SOURCE)
 
+@Stable
 interface EditorViewState {
     val extraInfo: CharSequence?
     val artwork: ImageBitmap?

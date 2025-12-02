@@ -18,6 +18,7 @@
 
 package com.zs.audiofy.playlists
 
+import androidx.compose.runtime.Stable
 import com.zs.audiofy.common.Action
 import com.zs.audiofy.common.Route
 import com.zs.audiofy.common.compose.directory.DirectoryViewState
@@ -25,6 +26,7 @@ import com.zs.core.db.playlists.Playlist
 
 object RoutePlaylists : Route
 
+@Stable
 interface PlaylistsViewState : DirectoryViewState<Playlist> {
 
     var showEditDialog: Boolean

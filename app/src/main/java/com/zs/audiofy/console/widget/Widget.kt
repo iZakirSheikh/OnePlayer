@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -84,6 +85,8 @@ import kotlinx.coroutines.runBlocking
 import androidx.compose.foundation.combinedClickable as clickable
 
 /** Represents the [Widget] of the console.*/
+
+@Stable
 object Widget {
     /** Represents the max-width of the inApp Player widget.*/
     private val LimitedBy =

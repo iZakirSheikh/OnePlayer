@@ -20,6 +20,7 @@ package com.zs.audiofy.audios
 
 import android.app.Activity
 import android.net.Uri
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.SavedStateHandle
 import com.zs.audiofy.common.Action
 import com.zs.audiofy.common.Route
@@ -56,6 +57,7 @@ operator fun SavedStateHandle.get(route: RouteAudios) =
         ?: RouteAudios.SOURCE_ALL) to get<String>(PARAM_ARG).takeIf { it?.contains(PARAM_ARG) == false }
 
 
+@Stable
 interface AudiosViewState: FilesViewState<Audio> {
 
     fun onPerformAction(value: Action, resolver: Activity, focused: Audio?= null)

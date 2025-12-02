@@ -19,6 +19,7 @@
 package com.zs.audiofy.common.compose.directory
 
 import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.zs.audiofy.common.Action
 import com.zs.audiofy.common.Filter
@@ -45,6 +46,7 @@ import kotlinx.coroutines.flow.StateFlow
  * @property query A [TextFieldState] representing the current search query for filtering.
  * @property filter A [Filter] object containing the current filtering parameters (e.g., sort order and ascending/descending).
  */
+@Stable
 interface DirectoryViewState<T> {
 
     val title: CharSequence
@@ -65,6 +67,7 @@ interface DirectoryViewState<T> {
     fun filter(ascending: Boolean = this.filter.first, order: Action = this.filter.second)
 }
 
+@Stable
 interface FilesViewState<T>: SelectionTracker {
     var info: MetaData
     val data: Mapped<T>?

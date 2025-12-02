@@ -18,6 +18,7 @@
 
 package com.zs.audiofy.effects
 
+import androidx.compose.runtime.Stable
 import com.zs.audiofy.common.Route
 
 object RouteAudioFx: Route {
@@ -56,6 +57,7 @@ object RouteAudioFx: Route {
 
 }
 
+@Stable
 interface AudioFxViewState {
     /**
      * Represents the state of the equalizer, which can be one of the following values:

@@ -19,6 +19,7 @@
 package com.zs.audiofy.properties
 
 import android.net.Uri
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.SavedStateHandle
 import com.zs.audiofy.common.Route
@@ -45,6 +46,7 @@ operator fun SavedStateHandle.get(route: RouteProperties) = get<String>(PARAM_SO
 /**
  * Represents the state of the properties screen.
  */
+@Stable
 interface PropertiesViewState {
     val artwork: ImageBitmap?
     val title: CharSequence

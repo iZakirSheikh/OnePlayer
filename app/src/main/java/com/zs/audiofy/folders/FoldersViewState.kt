@@ -18,6 +18,7 @@
 
 package com.zs.audiofy.folders
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.SavedStateHandle
 import com.zs.audiofy.common.Route
 import com.zs.audiofy.common.compose.directory.DirectoryViewState
@@ -35,6 +36,7 @@ object RouteFolders : Route {
 operator fun SavedStateHandle.get(handle: RouteFolders) =
     this<Boolean>(handle.PARAM_IS_OF_AUDIOS) == true
 
+@Stable
 interface FoldersViewState : DirectoryViewState<Folder> {
     val ofAudios: Boolean
 }

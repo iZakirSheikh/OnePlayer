@@ -20,6 +20,7 @@ package com.zs.audiofy.settings
 
 import android.os.Build
 import android.util.Log
+import androidx.compose.runtime.Stable
 import com.zs.audiofy.settings.AppConfig.KEYS_DELIMITER
 import com.zs.audiofy.settings.AppConfig.RECORD_DELIMITER
 import com.zs.audiofy.settings.AppConfig.isBackgroundBlurEnabled
@@ -41,6 +42,7 @@ import com.zs.audiofy.settings.AppConfig.update
  * @author Zakir Sheikh
  * @since 1.0.0
  */
+@Stable
 object AppConfig {
 
     private const val TAG = "AppConfig"

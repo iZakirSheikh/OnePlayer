@@ -20,6 +20,7 @@ package com.zs.audiofy.videos
 
 import android.app.Activity
 import android.net.Uri
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.SavedStateHandle
 import com.zs.audiofy.common.Action
 import com.zs.audiofy.common.Route
@@ -39,6 +40,7 @@ object RouteVideos: Route {
 operator fun SavedStateHandle.get(route: RouteVideos) =
     get<String>(PARAM_ARG).takeIf { it?.contains(PARAM_ARG) == false }
 
+@Stable
 interface VideosViewState: FilesViewState<Video> {
     fun onPerformAction(value: Action, resolver: Activity, focused: Video?= null)
 

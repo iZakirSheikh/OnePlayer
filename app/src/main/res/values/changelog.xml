@@ -12,6 +12,7 @@
 <resources>
     <!--Changelog-->
     <string-array name="changelog" translatable="false">
+        <item>@string/changelog_131_beta</item>
         <item>@string/changelog_124_beta</item>
         <item>@string/changelog_123_beta</item>
         <item>@string/changelog_122_beta</item>
@@ -24,11 +25,20 @@
     </string-array>
 
     <!--Points to the changelog of current version.-->
-    <string name="release_notes" translatable="false">@string/changelog_130_beta</string>
+    <string name="release_notes" translatable="false">@string/changelog_132_beta</string>
 
-    <!--1.3.0-beta-->
-    <string name="changelog_130_beta" translatable="false">
-        <b>What’s New <font color='purple'>(v1.3.0-beta)\n</font></b>
+    <!--1.3.2-beta-->
+    <string name="changelog_132_beta" translatable="false">
+        <b>What’s New <font color='purple'>(v1.3.2-beta)\n</font></b>
+        <font color='grey'>
+            \n✓ <b>Performance Boost:</b> Enhanced Jetpack Compose performance and stability by enabling strong skipping and marking key UI components as stable. This helps reduce unnecessary UI updates and provides a smoother experience.
+            \n✓ <b>UI Layout Refinements:</b> Adjusted layout breakpoints for better display on various screen sizes.
+        </font>
+    </string>
+
+    <!--1.3.1-beta-->
+    <string name="changelog_131_beta" translatable="false">
+        <b>What’s New <font color='purple'>(v1.3.1-beta)\n</font></b>
         <font color='grey'>
             \n✓ <b>Video Thumbnail Support:</b> The player now displays thumbnails for video files, making it easier to identify your media at a glance.
             \n✓ <b>Enhanced Media Notifications:</b> Album art and video thumbnails now load more efficiently in Media3 notifications, thanks to integration with the Coil image loading library.

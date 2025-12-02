@@ -104,6 +104,7 @@ val FontFamily.Companion.DancingScriptFontFamily get() = com.zs.audiofy.settings
  * Adjust to make grid items smaller or larger.
  *
  */
+@Stable
 object Settings {
     //
     const val PREFIX_MARKET_URL = "market://details?id="

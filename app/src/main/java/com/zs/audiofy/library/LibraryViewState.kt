@@ -18,6 +18,7 @@
 
 package com.zs.audiofy.library
 
+import androidx.compose.runtime.Stable
 import com.zs.audiofy.common.Route
 import com.zs.core.db.playlists.Playlist.Track
 import com.zs.core.store.models.Audio
@@ -28,6 +29,7 @@ object RouteLibrary: Route
 /**
  * Represents the state of the library screen.
  */
+@Stable
 interface LibraryViewState {
     /**
      * The recently played tracks.

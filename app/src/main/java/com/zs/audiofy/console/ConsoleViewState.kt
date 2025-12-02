@@ -21,6 +21,7 @@ package com.zs.audiofy.console
 import android.app.Activity
 import android.net.Uri
 import androidx.annotation.FloatRange
+import androidx.compose.runtime.Stable
 import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.ConstraintSetScope
@@ -73,6 +74,7 @@ object RouteConsole : Route {
     const val VISIBILITY_VISIBLE = 4
 }
 
+@Stable
 abstract class Constraints(val titleTextSize: Int) {
 
     abstract val constraints: ConstraintSet
@@ -155,6 +157,7 @@ abstract class Constraints(val titleTextSize: Int) {
  *  - An empty list indicates that the queue is empty.
  *  - A non-empty list represents the loaded queue.
  */
+@Stable
 interface QueueViewState {
 
     val state: StateFlow<NowPlaying?>
@@ -190,6 +193,7 @@ interface QueueViewState {
     fun shuffle(enable: Boolean)
 }
 
+@Stable
 interface ConsoleViewState: QueueViewState {
 
     val cues: Flow<String?>

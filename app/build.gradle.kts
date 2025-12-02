@@ -58,8 +58,8 @@ android {
         applicationId = "com.googol.android.apps.oneplayer"
         minSdk = 28
         targetSdk = 36
-        versionCode = 12
-        versionName = "1.3.1-beta"
+        versionCode = 13
+        versionName = "1.3.2-beta"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
         // Load secrets into BuildConfig
@@ -89,6 +89,15 @@ android {
         }
     }
     dynamicFeatures += setOf(":feature:telemetry", ":feature:codex")
+    composeCompiler {
+        // enableStrongSkippingMode = false
+        // TODO - I guess disable these in release builds.
+        // reportsDestination = layout.buildDirectory.dir("compose_compiler")
+        // metricsDestination = layout.buildDirectory.dir("compose_compiler")
+        stabilityConfigurationFiles = listOf(
+            rootProject.layout.projectDirectory.file("stability_config.conf")
+        )
+    }
 
 }
 // Declare app dependencies

@@ -20,6 +20,7 @@ package com.zs.audiofy.playlists.members
 
 import android.app.Activity
 import android.net.Uri
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.SavedStateHandle
 import com.zs.audiofy.common.Action
 import com.zs.audiofy.common.Route
@@ -43,6 +44,7 @@ object RouteMembers : Route {
 operator fun SavedStateHandle.get(route: RouteMembers) =
     get<String>(PARAM_PLAYLIST_NAME).takeIf { it?.contains(PARAM_PLAYLIST_NAME) == false }
 
+@Stable
 interface MembersViewState: FilesViewState<Track> {
 
     val showFavButton: Boolean

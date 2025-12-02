@@ -689,10 +689,10 @@ fun calculateConstraintSet(
         isVideo  -> PortraitVideo(insets, only)
 
         // Compact
-        width <= 400.dp && height < 350.dp -> CompactAudio(insets)
+        width <= 500.dp && height < 400.dp -> CompactAudio(insets)
 
         // Small
-        width <= 500.dp && height <= 500.dp -> SmallAudio(insets)
+        width <= 500.dp && height <= 600.dp -> SmallAudio(insets)
 
         // Phones in landscape
         height < 500.dp && width > height -> LandscapeAudio(insets)
