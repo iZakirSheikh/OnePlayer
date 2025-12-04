@@ -186,7 +186,9 @@ class Playback : MediaLibraryService(), Callback, Player.Listener {
                     val data = playlists.getTracks(Remote.PLAYLIST_QUEUE)
                     data.map(Playlist.Track::toMediaSource)
                 }
-                player.setMediaItems(items)
+                // Seek to the saved playback position
+                val index = preferences[PREF_KEY_INDEX, C.INDEX_UNSET]
+                player.setMediaItems(items, index, preferences[PREF_KEY_BOOKMARK, C.TIME_UNSET])
                 // Restore the saved shuffle order
                 val orders by runCatching {
                     val value = preferences[PREF_KEY_ORDERS, ""].split(LIST_ITEM_DELIMITER)
@@ -195,10 +197,8 @@ class Playback : MediaLibraryService(), Callback, Player.Listener {
                 (player as ExoPlayer).setShuffleOrder(
                     DefaultShuffleOrder(orders ?: IntArray(0), Random.nextLong())
                 )
-                // Seek to the saved playback position
-                val index = preferences[PREF_KEY_INDEX, C.INDEX_UNSET]
+
                 if (index != C.INDEX_UNSET) {
-                    player.seekTo(index, preferences[PREF_KEY_BOOKMARK, C.TIME_UNSET])
                     // Now if the currentMediaItem is 3rd party uri.
                     // just remove it.
                     if (player.currentMediaItem?.mediaUri?.isThirdPartyUri == true) player.removeMediaItem(

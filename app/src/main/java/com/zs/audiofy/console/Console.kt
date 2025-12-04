@@ -162,9 +162,9 @@ object RouteConsole : Route {
     const val VISIBLE_NONE_LOCKED = 1  // Hidden + locked
     const val VISIBLE_LOCKED_SEEK = 3  // Locked, seek bar only (⚠️ duplicate of VISIBLE_SEEK)
     const val VISIBLE_LOCKED_LOCK = 4  // Locked, only lock icon shown
-    const val VISIBLE_SEEK = 4         // Auto-hides, seek bar stays
-    const val VISIBLE = 5              // Visible, auto-hides after timeout
-    const val VISIBLE_ALWAYS = 6       // Always visible (default for audio)
+    const val VISIBLE_SEEK = 5         // Auto-hides, seek bar stays
+    const val VISIBLE = 6              // Visible, auto-hides after timeout
+    const val VISIBLE_ALWAYS = 7       // Always visible (default for audio)
 
 
     // Represents different dialogs to be shown
@@ -232,7 +232,7 @@ object RouteConsole : Route {
             }
             // Consume request if locked.
             if (viewState.visibility == VISIBLE_NONE_LOCKED) {
-                viewState.emit(VISIBLE_LOCKED_LOCK)
+                viewState.emit(VISIBLE_LOCKED_LOCK, true)
                 return@onBack
             }
 
@@ -312,7 +312,8 @@ object RouteConsole : Route {
                     icon = if (scale == ContentScale.Fit) Icons.Outlined.Fullscreen else Icons.Outlined.FitScreen,
                     contentDescription = null,
                     onClick = {
-                        scale = if (scale == ContentScale.Fit) ContentScale.Crop else ContentScale.Fit
+                        scale =
+                            if (scale == ContentScale.Fit) ContentScale.Crop else ContentScale.Fit
                     },
                     modifier = Modifier.layoutId(ID_BTN_RESIZE_MODE),
                     enabled = enabled
@@ -402,7 +403,7 @@ object RouteConsole : Route {
 
             // Slider
             val bufferedProgress by produceState(-1f) {
-                while(true) {
+                while (true) {
                     value = viewState.getBufferedPct()
                     delay(1000)
                 }
@@ -421,7 +422,7 @@ object RouteConsole : Route {
                     viewState.seekTo(progress)
                 },
                 modifier = Modifier.key(ID_SEEK_BAR),
-                enabled = state.duration > 0 && visibility >= VISIBLE_SEEK ,
+                enabled = state.duration > 0 && visibility >= VISIBLE_SEEK,
                 buffering = state.state == Remote.PLAYER_STATE_BUFFERING,
                 color = accent
             )
@@ -673,37 +674,44 @@ object RouteConsole : Route {
                         strategy is VerticalTwoPaneStrategy -> insets.only(WindowInsetsSides.Top).toDpRect
                         else -> insets.toDpRect
                     }
-                    val clazz = WindowSize(maxWidth, maxHeight)
                     // Compute constraints
                     val isVideo = state.isVideo
-                    val constraints = remember(clazz, insets, isVideo, visibility, state.state) {
-                        // Determine if controls are locked (cannot be shown/hidden by user)
-                        val isLocked = visibility == VISIBLE_NONE_LOCKED
-
-                        // Update controller visibility based on media state and lock status
-                        when {
-                            !isVideo -> viewState.emit(VISIBLE_ALWAYS,false)
-                            isVideo && !state.playing && !isLocked -> viewState.emit(VISIBLE_ALWAYS)
-                            visibility == VISIBLE_LOCKED_LOCK -> viewState.emit(VISIBLE_NONE_LOCKED)
-                            !isLocked -> viewState.emit(VISIBLE_NONE, true)
-                        }
-
+                    // compute key
+                    var key = maxWidth.hashCode()
+                    key = 31 * key + maxHeight.hashCode()
+                    key = 31 * key + isVideo.hashCode()
+                    key = 31 * key + state.state.hashCode()
+                    key = 31 * key + insets.hashCode()
+                    key = 31 * key + visibility.hashCode()
+                    val constraints = remember(key) {
                         // Update system bar style (auto vs hidden) depending on controller visibility
                         facade.style += when (visibility) {
                             VISIBLE, VISIBLE_ALWAYS -> WindowStyle.FLAG_SYSTEM_BARS_VISIBILITY_AUTO
                             else -> WindowStyle.FLAG_SYSTEM_BARS_HIDDEN
                         }
+
+                        // emit new value for visibilty.
+                        when {
+                            !isVideo && visibility != VISIBLE_ALWAYS -> viewState.emit(VISIBLE_ALWAYS)
+                            isVideo && !state.playing && visibility != VISIBLE_ALWAYS -> viewState.emit(VISIBLE_ALWAYS, true)
+                            visibility == VISIBLE_LOCKED_LOCK -> viewState.emit(VISIBLE_NONE_LOCKED, true)
+                            visibility == VISIBLE_LOCKED_SEEK && state.state != Remote.PLAYER_STATE_BUFFERING -> viewState.emit(VISIBLE_LOCKED_LOCK, true)
+                            visibility == VISIBLE -> viewState.emit(VISIBLE_NONE, true)
+                        }
+
                         // Determine which controls to hide
                         val excluded = when (visibility) {
                             VISIBLE_ALWAYS, VISIBLE -> if (!isVideo) null else null // No exclusions when visible
                             VISIBLE_NONE, VISIBLE_NONE_LOCKED -> emptyArray() // Hide everything
-                            VISIBLE_LOCKED_LOCK -> arrayOf(ID_BTN_LOCK) // Show only lock button
+                            VISIBLE_LOCKED_LOCK -> arrayOf(ID_BTN_LOCK, ID_SCRIM) // Show only lock button
                             VISIBLE_SEEK, VISIBLE_LOCKED_SEEK -> arrayOf(
                                 ID_SEEK_BAR,
-                                ID_EXTRA_INFO
+                                ID_EXTRA_INFO,
+                                ID_SCRIM
                             ) // Show seek + info
                             else -> error("Invalid visibility $visibility provided.") // Defensive check
                         }
+                        val clazz = WindowSize(maxWidth, maxHeight)
                         // Compute the new ConstraintSet for layout adjustments
                         val c = calculateConstraintSet(clazz, insets, isVideo, excluded)
                         titleTextSize = c.titleTextSize
@@ -753,7 +761,6 @@ object RouteConsole : Route {
                 }
                 viewState.playbackSpeed = newValue
             }
-
             SHOW_TIMER -> SleepTimer(true) { mills ->
                 if (mills == -1L) {
                     showViewOf = SHOW_NONE
