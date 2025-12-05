@@ -78,6 +78,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // signingConfig = signingConfigs.getByName("debug") // 👈 use debug keys here
         }
 
         // Configuration for the debug build type.

@@ -43,10 +43,7 @@
 
 # Deon't obscate names of those objects that implements SafeArgs and Route
 -keepnames class * implements com.zs.audiofy.common.Route
-# FIXME: Firebase is currently throwing this error.
-# TODO: Investigate and resolve this error. It began appearing after relocating Firebase to the Telemetry feature module.
-# -dontwarn com.google.firebase.encoders.json.NumberedEnum
--keep class com.google.firebase.encoders.** { *; }
--keep class com.google.firebase.encoders.json.** { *; }
 # Keep feature dynamic module Analytics
 -keep class com.zs.feature.telemetry.AnalyticsImpl { *; }
+# Suppress warnings about Firebase encoder internals
+-dontwarn com.google.firebase.encoders.json.NumberedEnum
