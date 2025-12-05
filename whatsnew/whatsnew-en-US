@@ -1,4 +1,4 @@
-✓ Video Thumbnail Support: The player now displays thumbnails for video files, making it easier to identify your media at a glance.
-✓ Enhanced Media Notifications: Album art and video thumbnails now load more efficiently in Media3 notifications, thanks to integration with the Coil image loading library.
-✓ UI Refinements: The player console has been updated with a subtler gradient and simplified layout constraints for a cleaner look.
-✓ New Icon: Added a new stop icon for future use.
+✓ Advanced Gesture Controls: Rewritten gesture system for a more intuitive experience, including multi-tap to seek, long-press for 2x speed, and precise drag controls for brightness, volume, and seeking.
+✓ Enhanced Player UI: Redesigned console with new background and play button styles, plus improved visibility logic.
+✓ Smarter Playback Restoration: The player now correctly restores its last playback position and shuffle order on startup.
+✓ Performance & Code Quality

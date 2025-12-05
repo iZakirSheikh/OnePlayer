@@ -32,7 +32,19 @@
     <string name="changelog_140_beta" translatable="false">
         <b>What’s New <font color='purple'>(v1.4.0-beta)\n</font></b>
         <font color='grey'>
-            \n✓
+            \n✓ <b>Advanced Gesture Controls:</b> The player now features a completely rewritten gesture system for a more intuitive experience.
+            \n    - <b>Multi-Tap to Seek:</b> Quickly tap multiple times on the sides of the screen to seek forward or backward.
+            \n    - <b>Long-Press for Speed:</b> Press and hold anywhere on the screen to temporarily double the playback speed.
+            \n    - <b>Precise Drag Controls:</b> Drag vertically on the left/right side of the screen to adjust brightness/volume, or drag horizontally to scrub through the timeline.
+            \n✓ <b>Enhanced Player UI:</b>
+            \n    - Redesigned console with new background and play button styles for better customization.
+            \n    - Improved visibility logic ensures controls hide and show more smoothly, especially in locked mode.
+            \n✓ <b>Smarter Playback Restoration:</b>
+            \n    - The player now correctly restores its last playback position and shuffle order on startup.
+            \n    - Fixed an issue where content duration was lost after an app restart, preventing an infinite progress bar.
+            \n✓ <b>Performance &amp; Code Quality:</b>
+            \n    - Major refactoring of the player console and gesture handling for improved maintainability and clarity.
+            \n    - Enabled the optimized R8 resource shrinker to reduce app size.
         </font>
     </string>
 
