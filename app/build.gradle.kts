@@ -58,8 +58,8 @@ android {
         applicationId = "com.googol.android.apps.oneplayer"
         minSdk = 28
         targetSdk = 36
-        versionCode = 14
-        versionName = "1.4.0-beta"
+        versionCode = 15
+        versionName = "1.4.1-beta"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
         // Load secrets into BuildConfig
@@ -100,7 +100,6 @@ android {
             rootProject.layout.projectDirectory.file("stability_config.conf")
         )
     }
-
 }
 // Declare app dependencies
 dependencies {
