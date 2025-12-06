@@ -173,9 +173,7 @@ fun Queue(viewState: QueueViewState, shape: Shape, insets: WindowInsets) {
     val density = LocalDensity.current
     //
     Scaffold(
-        // TODO- Remove thenIf when bug in TwoPane is fixed.
         modifier = Modifier
-            .thenIf(insets.getTop(density) == 0) { padding(top = CP.medium) }
             //.clip(shape)
             .shadow(6.dp, shape)
             .border(AppTheme.colors.shine,shape),

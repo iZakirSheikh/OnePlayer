@@ -647,7 +647,7 @@ object RouteConsole : Route {
         val strategy = when {
             !showQueue || clazz.height < Category.Medium && clazz.width <= Category.Medium -> SinglePaneStrategy
             clazz.width < clazz.height -> VerticalTwoPaneStrategy(0.35f)
-            else -> HorizontalTwoPaneStrategy(0.6f)
+            else -> HorizontalTwoPaneStrategy(0.55f)
         }
 
         // Layout
