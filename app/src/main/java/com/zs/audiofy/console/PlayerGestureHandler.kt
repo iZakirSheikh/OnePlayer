@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.node.DelegatingNode
 import androidx.compose.ui.node.DrawModifierNode
 import androidx.compose.ui.node.ModifierNodeElement
@@ -188,6 +189,24 @@ private class PlayerGestureHandlerElement(
 private class PlayerGestureHandlerNode(
     val viewState: ConsoleViewState,
 ) : DelegatingNode(), PointerInputModifierNode, DrawModifierNode, CLCMN {
+    // TODO: Future enhancements to consider:
+    //    1. Implement a distinct gesture for adjusting video scale (e.g., pinch-to-zoom).
+    //    2. Improve drag scaling calculation, perhaps by using the dimensions of the drag area.
+    //    3. Refine `onTap` behavior: toggle visibility only when playing; otherwise, ensure the controller is visible.
+    //    4. Add support for focus and key events for devices like TVs.
+    //    5. Handle left/right gestures according to the current layout direction (LTR/RTL).
+    val detector = PointerNode {
+        this@PlayerGestureHandlerNode.size = size
+        coroutineScope.launch {
+            detectTapGesture()
+        }
+
+        //
+        coroutineScope.launch {
+            detectDragGesture()
+        }
+    }
+
     // some lateint properties
     lateinit var textMeasurer: TextMeasurer
     lateinit var style: TextStyle
@@ -284,50 +303,6 @@ private class PlayerGestureHandlerNode(
         super.onDetach()
     }
 
-    // Represents the horizontal drag acoss screen from left to right
-    fun onHorizontalDrag(pct: Float) {
-        Log.d(TAG, "onHorizontalDrag: $pct")
-        val pct = -pct // reverse
-        val amount = (60_000 * pct).roundToLong()
-        seekBy(amount)
-    }
-
-    var brightness = 0f
-    fun onLeftVerticalDrag(pct: Float) {
-        Log.d(TAG, "onLeftVerticalDrag: $pct")
-        // Brightness Control
-        // -------------------
-        val real = pct * 0.01f // scale down
-        val new = (brightness + real)
-        // Adjust brightness.  If the user drags downwards and the brightness is
-        // already at its minimum (0f), allow it to go to -1f (automatic).
-        brightness =
-            if (new < 0f && real < 0f) -1f else new.coerceIn(0f, 1f)
-        facade.brightness =
-            brightness           // Set the system brightness.
-        // Update the UI message to display the current brightness level.
-        if (brightness == -1f)
-            emit("Ⓐ Automatic")
-        else
-            emit("🔆 ${(brightness * 100).roundToInt()}%")
-    }
-
-    var volume = 1f
-    fun onRightVerticalDrag(pct: Float) {
-        Log.d(TAG, "onRightVerticalDrag: $pct")
-        //  Volume Control
-        //  ----------------
-        // Calculate the new volume.
-        if (volume == -1f) volume = manager.volume
-        val real = pct * 0.01f // scale down
-        volume = (volume + real).coerceIn(
-            0f,
-            1f
-        ) // Keep volume within 0-1 range.
-        manager.volume = volume                   // Set the system volume.
-        // Update the UI message to display the current volume percentage.
-        emit("""🔊 ${(volume * 100).roundToInt()}%""")
-    }
 
     fun onTap(count: Int = Int.MAX_VALUE) {
         Log.d(TAG, "onTap: $count")
@@ -335,6 +310,9 @@ private class PlayerGestureHandlerNode(
             toggleVisibility()
             return
         }
+        // Hide the player controls if they are visible
+        if (viewState.visibility != C.VISIBLE_NONE)
+            viewState.emit(C.VISIBLE_NONE)
         val mills = count * 10 * 1_000L
         seekBy(mills)
     }
@@ -343,11 +321,11 @@ private class PlayerGestureHandlerNode(
     var speed: Float = 1f
     fun onLongPress(released: Boolean) {
         Log.d(TAG, "onLongPress: $released")
+        // Hide the player controls if they are visible
+        if (viewState.visibility != C.VISIBLE_NONE)
+            viewState.emit(C.VISIBLE_NONE)
         // When the long press starts
         if (!released) {
-            // Hide the player controls if they are visible
-            if (viewState.visibility != C.VISIBLE_NONE)
-                viewState.emit(C.VISIBLE_NONE)
             // Store the current playback speed
             speed = viewState.playbackSpeed
             // Double the playback speed
@@ -361,132 +339,161 @@ private class PlayerGestureHandlerNode(
         }
     }
 
-    // TODO: Future enhancements to consider:
-    //    1. Implement a distinct gesture for adjusting video scale (e.g., pinch-to-zoom).
-    //    2. Improve drag scaling calculation, perhaps by using the dimensions of the drag area.
-    //    3. Refine `onTap` behavior: toggle visibility only when playing; otherwise, ensure the controller is visible.
-    //    4. Add support for focus and key events for devices like TVs.
-    //    5. Handle left/right gestures according to the current layout direction (LTR/RTL).
+    suspend fun PointerInputScope.detectTapGesture() {
+        var delayJob: Job? = null              // Job used to delay execution for multi-tap detection.
+        var lastTapMills = 0L                  // Timestamp of the last tap (used to detect double/triple taps).
+        var tapCount = 0                       // Counter for consecutive taps.
+        awaitEachGesture {
+            // If the screen is locked, any tap should only toggle the lock icon visibility.
+            if (isLocked) {
+                toggleVisibility()
+                return@awaitEachGesture
+            }
 
-    val detector = PointerNode {
-        this@PlayerGestureHandlerNode.size = size
+            // Wait for the first pointer down event (finger touches screen) and consume it
+            // so it isn’t propagated further down the gesture chain.
+            val down = awaitFirstDown().also { it.consume() }
 
-        // Coroutine to handle tap and long press gestures.
-        coroutineScope.launch {
-            var delayJob: Job? = null
-            var lastTapMills = 0L    // Tracks the timestamp of the last tap to detect multi-taps.
-            var tapCount = 0
-            awaitEachGesture {
-                // If the screen is locked, any tap should just toggle the lock icon visibility.
+            // Launch a coroutine to detect a long press.
+            // If the user holds down longer than the system-defined timeout,
+            // trigger the onLongPress action.
+            val longPressJob = coroutineScope.launch {
+                delay(viewConfiguration.longPressTimeoutMillis) // Wait for long press threshold
+                Log.d(TAG, "onLongPressHold: ${down.position}") // Debug log for long press position
+                onLongPress(false)                              // Invoke long press callback
+            }
+
+            // Wait for the pointer to be lifted (finger up) or gesture cancellation.
+            // Consume the "up" event so it doesn’t propagate further.
+            val up = waitForUpOrCancellation()?.also { it.consume() }
+            longPressJob.cancel()  // Cancel the long press job since the finger has been lifted or gesture ended.
+
+            // If gesture was cancelled (e.g., another finger interrupted), exit early.
+            if (up == null) // cancelled
+                return@awaitEachGesture
+
+            when {
+                // Long press completed: If the pointer was held down longer than the timeout.
+                up.uptimeMillis - down.uptimeMillis >= viewConfiguration.longPressTimeoutMillis -> {
+                    onLongPress(true); Log.d(TAG, "onLongClick: ")
+                }
+
+                // Multi-tap: If this tap occurred within the double-tap timeout of the previous tap.
+                up.uptimeMillis - lastTapMills <= viewConfiguration.doubleTapTimeoutMillis -> {
+                    // This is a subsequent tap in a multi-tap sequence.
+                    // Cancel any pending single tap action.
+                    delayJob?.cancel()
+                    ++tapCount
+                    // Determine direction of seek based on tap location (left/right side of screen).
+                    val times = if (down.position.x > size.width / 2) tapCount else -tapCount
+                    onTap(times)
+                }
+
+                // Single tap: This is the first tap or a tap that occurred after the double-tap timeout.
+                else -> {
+                    // Reset tap count for a new sequence.
+                    tapCount = 1
+                    // Cancel any previously scheduled single tap job.
+                    delayJob?.cancel()
+                    // Schedule a single tap action to run after the double-tap timeout.
+                    // This gives the user a chance to perform another tap for a multi-tap gesture.
+                    delayJob = coroutineScope.launch {
+                        delay(viewConfiguration.doubleTapTimeoutMillis)
+                        Log.d(TAG, "onTap: ")
+                        onTap()
+                    }
+                }
+            }
+            // Record the time of this tap for future multi-tap detection.
+            lastTapMills = up.uptimeMillis
+        }
+    }
+
+    suspend fun PointerInputScope.detectDragGesture() {
+        var seek = 0L              // Tracks seek offset in milliseconds during drag
+        var brightness = 0f        // Tracks brightness level during drag
+        var volume = 0f            // Tracks volume level during drag
+        var mode = 0               // Gesture mode: 0 = undecided, 1 = seek, 2 = volume, 3 = brightness
+        detectDragGestures(
+            onDragStart = {
+                // If the screen is locked, a drag should only toggle lock icon visibility.
                 if (isLocked) {
                     toggleVisibility()
-                    return@awaitEachGesture
+                    return@detectDragGestures
                 }
 
-                // Wait for the first pointer down event and consume it.
-                val down = awaitFirstDown().also { it.consume() }
+                // Hide player controls when a drag starts.
+                if (viewState.visibility != C.VISIBLE_NONE)
+                    viewState.emit(C.VISIBLE_NONE)
 
-                // Launch a job to detect a long press. If the user holds down for the timeout
-                // duration, trigger the onLongPress start action.
-                val longPressJob = coroutineScope.launch {
-                    delay(viewConfiguration.longPressTimeoutMillis)
-                    Log.d(TAG, "onLongPressHold: ${down.position}")
-                    onLongPress(false)
-                }
+                // Reset gesture mode to undecided.
+                mode = 0
+                // Store initial volume for relative adjustments during drag.
+                volume = manager.volume
 
-                // Wait for the pointer to be lifted or for the gesture to be cancelled.
-                val up = waitForUpOrCancellation()?.also { it.consume() } // consume release
-                longPressJob.cancel()
+                // Store initial brightness. If unset (-1f), default to at least 35%
+                // so dragging feels logical (avoids starting from 0% brightness).
+                val value = facade.brightness
+                brightness = if (value == -1f) 0.35f else value
 
-                // If the gesture was cancelled (e.g., another pointer came down), do nothing.
-                if (up == null) // cancelled
-                    return@awaitEachGesture
-                when {
-                    // Long press completed: If the pointer was held down longer than the timeout.
-                    up.uptimeMillis - down.uptimeMillis >= viewConfiguration.longPressTimeoutMillis -> { onLongPress(true); Log.d(TAG, "onLongClick: ") }
+                // Reset seek offset to 0 at drag start.
+                seek = 0L
+            },
+            onDrag = { change, (dx, dy) ->
+                // Ignore drag gestures completely if the screen is locked.
+                if (isLocked)
+                    return@detectDragGestures
+                // Consume the pointer change so it isn’t passed further down the chain.
+                change.consume()
+                val position = change.position
+                val (width, height) = size
 
-                    // Multi-tap: If this tap occurred within the double-tap timeout of the previous tap.
-                    up.uptimeMillis - lastTapMills <= viewConfiguration.doubleTapTimeoutMillis -> {
-                        // This is a subsequent tap in a multi-tap sequence.
-                        // Cancel any pending single tap action.
-                        delayJob?.cancel()
-                        ++tapCount
-                        // Determine direction of seek based on tap location (left/right side of screen).
-                        val times = if (down.position.x > size.width / 2) tapCount else -tapCount
-                        onTap(times)
-                    }
-
-                    // Single tap: This is the first tap or a tap that occurred after the double-tap timeout.
-                    else -> {
-                        // Reset tap count for a new sequence.
-                        tapCount = 1
-                        // Cancel any previously scheduled single tap job.
-                        delayJob?.cancel()
-                        // Schedule a single tap action to run after the double-tap timeout.
-                        // This gives the user a chance to perform another tap for a multi-tap gesture.
-                        delayJob = coroutineScope.launch {
-                            delay(viewConfiguration.doubleTapTimeoutMillis)
-                            Log.d(TAG, "onTap: ")
-                            onTap()
-                        }
+                // On the first drag event, determine gesture mode:
+                // - Horizontal drag → SEEK
+                // - Vertical drag on left half → VOLUME
+                // - Vertical drag on right half → BRIGHTNESS
+                if (mode == 0) {
+                    val vertical = abs(dy) > abs(dx)       // Check if drag is more vertical than horizontal
+                    val left = position.x < width / 2      // Check if drag started on left half of the screen
+                    mode = when {
+                        !vertical -> 1                     // Horizontal drag → SEEK mode
+                        left -> 2                          // Vertical drag on left side → VOLUME mode
+                        else -> 3                          // Vertical drag on right side → BRIGHTNESS mode
                     }
                 }
-                // Record the time of this tap for future multi-tap detection.
-                lastTapMills = up.uptimeMillis
+                // Handle gesture based on detected mode
+                when (mode) {
+                    1 -> { // SEEK mode
+                        val pct = dx / width               // Convert horizontal drag distance into percentage of screen width
+                        seek += (pct * 60_000).roundToLong() // Scale percentage to milliseconds (60s per full width drag)
+                        Log.d(TAG, "onHorizontalDrag: $pct")
+                        seekBy(seek)                       // Apply seek offset to playback
+                    }
+
+                    2 -> { // VOLUME mode
+                        val pct = dy / height * -1f        // Convert vertical drag distance into percentage of screen height
+                        // Negative sign ensures upward drag increases volume
+                        volume = (volume + pct).coerceIn(0f, 1f) // Clamp volume between 0% and 100%
+                        manager.volume = volume            // Apply new volume level to system
+                        // Update UI message to show current volume percentage
+                        emit("""🔊 ${(volume * 100).roundToInt()}%""")
+                    }
+
+                    3 -> { // BRIGHTNESS mode
+                        val pct = dy / height * -1f        // Convert vertical drag distance into percentage of screen height
+                        // Negative sign ensures upward drag increases brightness
+                        val newBrightness = brightness + pct
+                        // If brightness goes below 0, set to -1 (automatic mode), else clamp between 0% and 100%
+                        brightness = if (newBrightness < 0f) -1f else newBrightness.coerceIn(0f, 1f)
+                        facade.brightness = brightness     // Apply new brightness level to system
+                        // Update UI message to show current brightness level
+                        if (brightness == -1f)
+                            emit("Ⓐ Automatic")            // Special case: automatic brightness mode
+                        else
+                            emit("🔆 ${(brightness * 100).roundToInt()}%")
+                    }
+                }
             }
-        }
-
-        // Coroutine to handle drag gestures for seeking, volume, and brightness control.
-        coroutineScope.launch {
-            var accumulated = 0f
-            var mode = 0 // 0: undecided, 1: horizontal, 2: vertical-left, 3: vertical-right
-
-            detectDragGestures(
-                onDragStart = {
-                    // If the screen is locked, a drag should just toggle the lock icon visibility.
-                    if (isLocked) {
-                        toggleVisibility()
-                        return@detectDragGestures
-                    }
-                    // Hide the controls when a drag starts.
-                    if (viewState.visibility != C.VISIBLE_NONE)
-                        viewState.emit(C.VISIBLE_NONE)
-
-                    // Reset drag state.
-                    mode = 0
-                    // Store initial volume and brightness to calculate changes relative to the start of the drag.
-                    volume = manager.volume
-                    brightness = facade.brightness
-                    accumulated = 0f
-                },
-                onDrag = {change, (dx, dy) ->
-                    if (isLocked)
-                        return@detectDragGestures
-                    val position = change.position
-                    val (width, height) = size
-                    // On the first drag event, determine if the gesture is primarily horizontal or vertical,
-                    // and if vertical, whether it's on the left or right side of the screen.
-                    if (mode == 0){
-                        val vertical = abs(dy) > abs(dx)
-                        val left = position.x < width / 2
-                        mode = when {
-                            !vertical -> 1
-                            left -> 2
-                            else -> 3
-                        }
-                    }
-
-                    // Accumulate the drag distance (dx for horizontal, dy for vertical).
-                    accumulated += if (mode == 1) dx else dy
-                    // Dispatch to the appropriate handler based on the determined mode.
-                    when(mode){
-                        1 -> onHorizontalDrag((accumulated / width).coerceIn(-1f, 1f) * -1f) // Horizontal drag for seeking
-                        2 -> onLeftVerticalDrag((accumulated / height).coerceIn(-1f, 1f) * -1f)
-                        3 -> onRightVerticalDrag((accumulated / height).coerceIn(-1f, 1f) * -1f)
-                    }
-                    change.consume()
-                }
-            )
-        }
+        )
     }
 }
