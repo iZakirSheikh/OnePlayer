@@ -12,6 +12,7 @@
 <resources>
     <!--Changelog-->
     <string-array name="changelog" translatable="false">
+        <item>@string/changelog_150_beta</item>
         <item>@string/changelog_141_beta</item>
         <item>@string/changelog_140_beta</item>
         <item>@string/changelog_132_beta</item>
@@ -28,11 +29,21 @@
     </string-array>
 
     <!--Points to the changelog of current version.-->
-    <string name="release_notes" translatable="false">@string/changelog_142_beta</string>
+    <string name="release_notes" translatable="false">@string/changelog_151_beta</string>
 
-    <!--1.4.2-beta-->
-    <string name="changelog_142_beta" translatable="false">
-        <b>What’s New <font color='purple'>(v1.4.2-beta)\n</font></b>
+    <!--1.5.1-beta-->
+    <string name="changelog_151_beta" translatable="false">
+        <b>What’s New <font color='purple'>(v1.5.1-beta)\n</font></b>
+       <font color='grey'>
+           \n✓ Incremented the delay for splash animation to 1000ms.
+           \n✓ Fix not clearing the sharedBounds for background in Console when user disabled it.
+           \n✓
+       </font>
+    </string>
+
+    <!--1.5.0-beta-->
+    <string name="changelog_150_beta" translatable="false">
+        <b>What’s New <font color='purple'>(v1.5.0-beta)\n</font></b>
        <font color='grey'>
         \n✓ Improved immersive experience by removing background from system navigation.
         \n✓ Added a toggle to wait for the splash animation to finish before continuing into the app.

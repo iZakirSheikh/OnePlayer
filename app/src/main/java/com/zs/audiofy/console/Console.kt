@@ -643,7 +643,7 @@ object RouteConsole : Route {
 
         // Layout
         TwoPane(
-            modifier = Modifier.sharedBounds(ID_BACKGROUND),
+            modifier = Modifier.thenIf(AppConfig.isWidgetToConsoleTransitionEnabled){ sharedBounds(ID_BACKGROUND)},
             strategy = strategy,
             containerColor = COLOR_BACKGROUND,
             spacing = CP.normal,

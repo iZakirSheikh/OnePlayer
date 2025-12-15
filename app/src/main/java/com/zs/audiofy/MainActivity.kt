@@ -550,7 +550,7 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
                 val onPreDrawListener = object : OnPreDrawListener{
                     override fun onPreDraw(): Boolean {
                         // wait for splash screen animation to finish.
-                        val finished = SystemClock.uptimeMillis() - uptimeMillis >= 400 // maxDuration.
+                        val finished = SystemClock.uptimeMillis() - uptimeMillis >= 1000 // maxDuration.
                         Log.d(TAG, "onPreDraw: $finished")
                         if (finished)
                             content.viewTreeObserver.removeOnPreDrawListener(this )

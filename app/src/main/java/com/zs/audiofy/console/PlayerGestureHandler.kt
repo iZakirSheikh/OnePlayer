@@ -503,7 +503,7 @@ private class PlayerGestureHandlerNode(
         var brightness = 0f        // Tracks brightness level during drag
         var volume = 0f            // Tracks volume level during drag
         var mode = 0               // Gesture mode: 0 = undecided, 1 = seek, 2 = volume, 3 = brightness
-        var dragStartPosition = Offset.Unspecified
+        var dragStartPosition = Offset.Unspecified //
         detectDragGestures(
             onDragStart = {
                 dragStartPosition = it
@@ -560,7 +560,9 @@ private class PlayerGestureHandlerNode(
                     }
                 }
                 // Handle gesture based on detected mode
+                // val reverse = this.
                 when (mode) {
+                    // seek
                     1 -> { // SEEK mode
                         val pct =
                             dx / width               // Convert horizontal drag distance into percentage of screen width
@@ -568,18 +570,8 @@ private class PlayerGestureHandlerNode(
                         Log.d(TAG, "onHorizontalDrag: $pct")
                         seekBy(seek)                       // Apply seek offset to playback
                     }
-
-                    2 -> { // VOLUME mode
-                        val pct =
-                            dy / height * -1f        // Convert vertical drag distance into percentage of screen height
-                        // Negative sign ensures upward drag increases volume
-                        volume = (volume + pct).coerceIn(0f, 1f) // Clamp volume between 0% and 100%
-                        manager.volume = volume            // Apply new volume level to system
-                        // Update UI message to show current volume percentage
-                        emit("""🔊 ${(volume * 100).roundToInt()}%""")
-                    }
-
-                    3 -> { // BRIGHTNESS mode
+                    // right - volume
+                    2 -> { // BRIGHTNESS mode
                         val pct =
                             dy / height * -1f        // Convert vertical drag distance into percentage of screen height
                         // Negative sign ensures upward drag increases brightness
@@ -592,6 +584,16 @@ private class PlayerGestureHandlerNode(
                             emit("Ⓐ Automatic")            // Special case: automatic brightness mode
                         else
                             emit("🔆 ${(brightness * 100).roundToInt()}%")
+                    }
+                    // left - brightness.
+                    3 -> { // VOLUME mode
+                        val pct =
+                            dy / height * -1f        // Convert vertical drag distance into percentage of screen height
+                        // Negative sign ensures upward drag increases volume
+                        volume = (volume + pct).coerceIn(0f, 1f) // Clamp volume between 0% and 100%
+                        manager.volume = volume            // Apply new volume level to system
+                        // Update UI message to show current volume percentage
+                        emit("""🔊 ${(volume * 100).roundToInt()}%""")
                     }
                 }
             }
