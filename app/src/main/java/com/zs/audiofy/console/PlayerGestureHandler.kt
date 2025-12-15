@@ -36,6 +36,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.KeyInputModifierNode
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.PointerInputScope
@@ -192,7 +197,7 @@ private class PlayerGestureHandlerElement(
 
 private class PlayerGestureHandlerNode(
     val viewState: ConsoleViewState,
-) : DelegatingNode(), PointerInputModifierNode, DrawModifierNode, CLCMN {
+) : DelegatingNode(), PointerInputModifierNode, DrawModifierNode, CLCMN, KeyInputModifierNode {
     // TODO: Future enhancements to consider:
     //    1. Implement a distinct gesture for adjusting video scale (e.g., pinch-to-zoom).
     //    2. Improve drag scaling calculation, perhaps by using the dimensions of the drag area.
@@ -218,7 +223,7 @@ private class PlayerGestureHandlerNode(
      * The safe zone excludes a 30.dp margin from each edge.
      */
     fun PointerInputScope.isGestureInSafeZone(offset: Offset): Boolean{
-        val safeInset = 30.dp.toPx()
+        val safeInset = 50.dp.toPx()
         return  !(offset.x < safeInset ||
                 offset.x > size.width - safeInset ||
                 offset.y < safeInset ||
@@ -250,6 +255,30 @@ private class PlayerGestureHandlerNode(
         bounds: IntSize
     ) = detector.onPointerEvent(pointerEvent, pass, bounds)
 
+    override fun onKeyEvent(event: KeyEvent): Boolean {
+        // Currently this Modifier is always focusable and enabled.
+        // We only handle "activation" keys on KeyDown to simulate a click/press action.
+        // Keys supported: Enter, Center (D‑pad), NumPadEnter, and Spacebar.
+        // This mirrors the behavior found in Modifier.clickable.
+        // In the future, other event types or accessibility actions may be added.
+        val isEnterKey = (
+                event.key == Key.Enter ||
+                        event.key == Key.DirectionCenter ||
+                        event.key == Key.NumPadEnter ||
+                        event.key == Key.Spacebar
+                )
+
+        if (event.type == KeyDown && isEnterKey) {
+            // Toggle visibility when the activation key is pressed.
+            toggleVisibility()
+            return true // Event consumed
+        }
+
+        // Return false if the event was not handled.
+        return false
+    }
+
+    override fun onPreKeyEvent(event: KeyEvent): Boolean = false
 
     // A simple fun that autohides the message after 3 seconds.
     var messageAutohideJob: Job? = null
@@ -494,10 +523,10 @@ private class PlayerGestureHandlerNode(
                 // Store initial volume for relative adjustments during drag.
                 volume = manager.volume
 
-                // Store initial brightness. If unset (-1f), default to at least 35%
+                // Store initial brightness. If unset (-1f), default to at least 10%
                 // so dragging feels logical (avoids starting from 0% brightness).
                 val value = facade.brightness
-                brightness = if (value == -1f) 0.35f else value
+                brightness = if (value == -1f) 0.1f else value
 
                 // Reset seek offset to 0 at drag start.
                 seek = 0L

@@ -41,6 +41,9 @@
                  - Added background around gesture visual feedback.
                  - Added safe area check that avoids gestures if it is beyounf safe area of 30dp.
                  - Fixed issue with double tap seek accepting value 2 in first multi tap instead of 1
+                 _ Fixed issue with brightness starting from at least 10% when automatic.
+                 - Added Logic to intercept harwared enter keys. this is useful in types like TVs etc.
+            \n Timebar - Fixed issue with not wrokign enable/disbale logic.
         </font>
     </string>
 

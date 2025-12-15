@@ -343,7 +343,7 @@ private fun Modifier.slidePressDragGesture(
     interactionSource: MutableInteractionSource,
     onValueChangeFinished: (() -> Unit),
 ): Modifier {
-    if (!enabled) this then Modifier
+    if (!enabled) return this then Modifier
     return pointerInput(Unit) {
 
         awaitPointerEventScope {
