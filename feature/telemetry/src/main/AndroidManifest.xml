@@ -13,7 +13,9 @@
     </dist:module>
 
     <!--Required because we have moved this in telemetry-->
-    <application tools:ignore="MissingApplicationIcon">
+    <application 
+        tools:ignore="MissingApplicationIcon"
+        android:hasCode="false">
         <!-- This disables the automatic initialization of Firebase when the app starts. -->
         <!-- Disable FirebaseInitProvider -->
         <provider
