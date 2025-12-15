@@ -43,6 +43,8 @@
                  - Fixed issue with double tap seek accepting value 2 in first multi tap instead of 1
                  _ Fixed issue with brightness starting from at least 10% when automatic.
                  - Added Logic to intercept harwared enter keys. this is useful in types like TVs etc.
+                 - Fixed an annoying issue causing constatnly show toast when user holds click for long press.
+                 - Fixed an issue causing inApp Widget to show when user taps show equalizer in Console.
             \n Timebar - Fixed issue with not wrokign enable/disbale logic.
         </font>
     </string>

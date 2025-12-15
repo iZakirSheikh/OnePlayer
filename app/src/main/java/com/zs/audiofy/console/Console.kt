@@ -750,6 +750,8 @@ object RouteConsole : Route {
                     showViewOf = SHOW_NONE
                     return@PlaybackSpeed
                 }
+                val fValue = (facade as Activity).getString(R.string.msg_playback_speed_updated_f, newValue)
+                facade.showToast(fValue)
                 viewState.playbackSpeed = newValue
             }
             SHOW_TIMER -> SleepTimer(true) { mills ->

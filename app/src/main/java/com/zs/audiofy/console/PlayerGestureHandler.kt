@@ -223,7 +223,7 @@ private class PlayerGestureHandlerNode(
      * The safe zone excludes a 30.dp margin from each edge.
      */
     fun PointerInputScope.isGestureInSafeZone(offset: Offset): Boolean{
-        val safeInset = 50.dp.toPx()
+        val safeInset = 30.dp.toPx()
         return  !(offset.x < safeInset ||
                 offset.x > size.width - safeInset ||
                 offset.y < safeInset ||
@@ -503,10 +503,12 @@ private class PlayerGestureHandlerNode(
         var brightness = 0f        // Tracks brightness level during drag
         var volume = 0f            // Tracks volume level during drag
         var mode = 0               // Gesture mode: 0 = undecided, 1 = seek, 2 = volume, 3 = brightness
+        var dragStartPosition = Offset.Unspecified
         detectDragGestures(
             onDragStart = {
+                dragStartPosition = it
                 // don't proceed if not in safe zone
-                if (!isGestureInSafeZone(it))
+                if (!isGestureInSafeZone(dragStartPosition))
                     return@detectDragGestures
                 // If the screen is locked, a drag should only toggle lock icon visibility.
                 if (isLocked) {
@@ -532,17 +534,16 @@ private class PlayerGestureHandlerNode(
                 seek = 0L
             },
             onDrag = { change, (dx, dy) ->
+                // don't proceed if not in safe zone
+                if (!isGestureInSafeZone(dragStartPosition))
+                    return@detectDragGestures
                 // Ignore drag gestures completely if the screen is locked.
                 if (isLocked)
                     return@detectDragGestures
                 // Consume the pointer change so it isn’t passed further down the chain.
                 change.consume()
                 val position = change.position
-                // don't proceed if not in safe zone
-                if (!isGestureInSafeZone(position))
-                    return@detectDragGestures
                 val (width, height) = size
-
                 // On the first drag event, determine gesture mode:
                 // - Horizontal drag → SEEK
                 // - Vertical drag on left half → VOLUME

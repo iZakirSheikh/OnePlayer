@@ -198,15 +198,8 @@ class ConsoleViewModel(
         set(value) {
             viewModelScope.launch {
                 val updated = remote.setPlaybackSpeed(value)
-                if (updated)
-                    showPlatformToast(
-                        getText(
-                            R.string.msg_playback_speed_updated_f,
-                            value
-                        ).toString()
-                    )
-                else
-                    showPlatformToast(R.string.msg_error_playback_speed)
+                if (!updated)
+                     showPlatformToast(R.string.msg_error_playback_speed)
             }
         }
 

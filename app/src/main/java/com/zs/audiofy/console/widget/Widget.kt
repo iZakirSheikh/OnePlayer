@@ -33,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,6 +42,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.DialogNavigator
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.zs.audiofy.MainActivity
 import com.zs.audiofy.common.IAP_COLOR_CROFT_GOLDEN_DUST
@@ -125,7 +127,27 @@ object Widget {
         val s by remote.state.collectAsState()
         val state = s ?: return Spacer(modifier)
         val entry by navController.currentBackStackEntryAsState()
-        val isConsole = entry?.destination?.domain == RouteConsole.domain
+        val isConsole by remember {
+            // Use derivedStateOf so recomposition only happens when the underlying
+            // navigation destination changes, not on every recomposition.
+            derivedStateOf {
+                // Start with the current back stack entry's destination.
+                var dest = entry?.destination
+
+                // If the current destination is a Dialog (temporary overlay),
+                // fall back to the previous back stack entry's destination instead.
+                dest = if (dest is DialogNavigator.Destination) {
+                    navController.previousBackStackEntry?.destination
+                } else {
+                    dest
+                }
+
+                // Finally, check whether the resolved destination belongs to the
+                // "Console" domain. This boolean drives UI state (e.g., showing
+                // console‑specific components).
+                dest?.domain == RouteConsole.domain
+            }
+        }
         // State to track whether the widget is expanded or not.
         var expanded by remember { mutableStateOf(false) }
         // Handler to collapse the widget when back is pressed.
