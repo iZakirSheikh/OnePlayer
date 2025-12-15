@@ -40,5 +40,5 @@ dependencies {
     api(libs.bundles.coil)
     ksp(libs.room.compiler)
     implementation(libs.androidx.palette.ktx)
-    //implementation(libs.bundles.analytics)
+    implementation(libs.bundles.analytics)
 }

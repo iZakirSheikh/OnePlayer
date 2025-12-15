@@ -90,7 +90,7 @@ android {
             versionNameSuffix = "-debug"
         }
     }
-    dynamicFeatures += setOf(":feature:telemetry", ":feature:codex")
+    dynamicFeatures += setOf(/*":feature:telemetry",*/ ":feature:codex")
     composeCompiler {
         // enableStrongSkippingMode = false
         // TODO - I guess disable these in release builds.

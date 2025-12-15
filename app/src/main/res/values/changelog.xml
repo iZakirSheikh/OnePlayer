@@ -34,11 +34,11 @@
     <!--1.5.1-beta-->
     <string name="changelog_151_beta" translatable="false">
         <b>What’s New <font color='purple'>(v1.5.1-beta)\n</font></b>
-       <font color='grey'>
-           \n✓ Incremented the delay for splash animation to 1000ms.
-           \n✓ Fix not clearing the sharedBounds for background in Console when user disabled it.
-           \n✓
-       </font>
+        <font color='grey'>
+            \n✓ Splash animation delay increased to 1000ms for smoother transitions.
+            \n✓ Fixed issue where sharedBounds background was not cleared in Console when disabled.
+            \n✓ Introduced a concrete Analytics implementation in the core module (moved from telemetry).
+        </font>
     </string>
 
     <!--1.5.0-beta-->

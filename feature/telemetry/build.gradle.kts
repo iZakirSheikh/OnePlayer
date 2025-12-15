@@ -28,5 +28,4 @@ android {
 
 dependencies {
     implementation(project(":app"))
-    implementation(libs.bundles.analytics)
 }
