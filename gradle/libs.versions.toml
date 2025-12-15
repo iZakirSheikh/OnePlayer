@@ -1,5 +1,5 @@
 [versions]
-agp = "8.13.1"
+agp = "8.13.2"
 kotlin = "2.2.21"
 compose = "1.10.0"
 media3 = "1.8.0"
@@ -63,7 +63,7 @@ firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-
 # Play app-review
 play-app-update-ktx = { module = "com.google.android.play:app-update-ktx", version = "2.1.0" }
 play-app-review-ktx = { module = "com.google.android.play:review-ktx", version = "2.0.1" }
-google-billing-ktx = { module = "com.android.billingclient:billing-ktx", version = "8.1.0" }
+google-billing-ktx = { module = "com.android.billingclient:billing-ktx", version = "8.2.0" }
 play_feature_delivery-ktx = { module = "com.google.android.play:feature-delivery-ktx", version = "2.1.0" }
 
 # Icons
