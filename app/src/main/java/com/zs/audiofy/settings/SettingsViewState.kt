@@ -228,6 +228,7 @@ interface SettingsViewState {
     var fabLongPressLaunchConsole: Boolean
     var isSurfaceViewVideoRenderingPreferred: Boolean
     var isFileGroupingEnabled: Boolean
+    var isSplashAnimWaitEnabled: Boolean
 
     /**
      * Commits [AppConfig] to memory.

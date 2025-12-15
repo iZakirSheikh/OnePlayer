@@ -106,6 +106,9 @@ object AppConfig {
      */
     @JvmField var inAppWidgetLongPressOpenConfig = false
 
+    /** If true, waits for the splash screen animation to finish before proceeding.  */
+    @JvmField var isSplashAnimWaitEnabled = false
+
 
     // Delimiters
     private const val KEYS_DELIMITER = '\u001E'
@@ -124,6 +127,7 @@ object AppConfig {
     private const val KEY_FILE_GROUPING_ENABLED = "param10"
     private const val KEY_SHOW_INAPP_WIDGET_DEDICATED_OPEN_CONSOLE_BTN = "param11"
     private const val KEY_INAPP_WIDGET_LONG_PRESS_OPEN_CONFIG = "param12"
+    private const val KEY_IS_SPLASH_ANIM_WAIT_ENABLED = "param13"
 
 
     /**
@@ -185,6 +189,7 @@ object AppConfig {
         records[KEY_FILE_GROUPING_ENABLED] = isFileGroupingEnabled
         records[KEY_SHOW_INAPP_WIDGET_DEDICATED_OPEN_CONSOLE_BTN] = showInAppWidgetOpenConsoleButton
         records[KEY_INAPP_WIDGET_LONG_PRESS_OPEN_CONFIG] = inAppWidgetLongPressOpenConfig
+        records[KEY_IS_SPLASH_ANIM_WAIT_ENABLED] = isSplashAnimWaitEnabled
         Log.i(TAG, "stringify: $records")
         return records.toString()
     }
@@ -229,6 +234,7 @@ object AppConfig {
                 KEY_FILE_GROUPING_ENABLED -> isFileGroupingEnabled = value.toBoolean()
                 KEY_INAPP_WIDGET_LONG_PRESS_OPEN_CONFIG -> inAppWidgetLongPressOpenConfig = value.toBoolean()
                 KEY_SHOW_INAPP_WIDGET_DEDICATED_OPEN_CONSOLE_BTN -> showInAppWidgetOpenConsoleButton = value.toBoolean()
+                KEY_IS_SPLASH_ANIM_WAIT_ENABLED -> isSplashAnimWaitEnabled = value.toBoolean()
             }
         }
     }

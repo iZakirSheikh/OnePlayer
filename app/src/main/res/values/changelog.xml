@@ -34,7 +34,8 @@
     <string name="changelog_142_beta" translatable="false">
         <b>What’s New <font color='purple'>(v1.4.2-beta)\n</font></b>
         <font color='grey'>
-            \n✓
+            \n✓ Removed background rom system navigation for more better immersive experience.
+            \n✓ Added a toggle that allows to wait for splash animation to finish before continuinng in the app.
         </font>
     </string>
 

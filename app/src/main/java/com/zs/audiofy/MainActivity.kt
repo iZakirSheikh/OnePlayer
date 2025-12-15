@@ -22,7 +22,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
+import android.view.View
+import android.view.ViewTreeObserver.OnPreDrawListener
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.icons.Icons
@@ -73,7 +76,6 @@ import com.zs.audiofy.console.RouteConsole
 import com.zs.audiofy.library.RouteLibrary
 import com.zs.audiofy.settings.AppConfig
 import com.zs.audiofy.settings.Settings
-import com.zs.compose.foundation.MetroGreen
 import com.zs.compose.foundation.getText2
 import com.zs.compose.foundation.runCatching
 import com.zs.compose.theme.snackbar.SnackbarDuration
@@ -83,10 +85,8 @@ import com.zs.core.billing.Paymaster
 import com.zs.core.billing.Product
 import com.zs.core.billing.Purchase
 import com.zs.core.billing.purchased
-import com.zs.core.common.getPackageInfoCompat
 import com.zs.core.common.logEvent
 import com.zs.core.common.showPlatformToast
-import com.zs.core.playback.MediaFile
 import com.zs.core.playback.Remote
 import com.zs.core.telemetry.Analytics
 import com.zs.preferences.Key
@@ -539,16 +539,32 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
         // This is determined by checking if savedInstanceState is null.
         // If null, it's a cold start (first time launch or activity recreated from scratch)
         val isColdStart = savedInstanceState == null
-        // show promo message
-        // update the state of variables dependent on payment master.
-        // Observe active purchases and prompt the user to install any purchased dynamic features.
-        inAppPurchasesFlow.launchIn(lifecycleScope)
         // Configure the splash screen for the app
         initSplashScreen()
         // Initialize
         if (isColdStart) {
+            // Wait for Splash Anim
+            if (AppConfig.isSplashAnimWaitEnabled){
+                val uptimeMillis = SystemClock.uptimeMillis()
+                val content = findViewById<View>(android.R.id.content)
+                val onPreDrawListener = object : OnPreDrawListener{
+                    override fun onPreDraw(): Boolean {
+                        // wait for splash screen animation to finish.
+                        val finished = SystemClock.uptimeMillis() - uptimeMillis >= 400 // maxDuration.
+                        Log.d(TAG, "onPreDraw: $finished")
+                        if (finished)
+                            content.viewTreeObserver.removeOnPreDrawListener(this )
+                        return finished
+                    }
+                }
+                content.viewTreeObserver.addOnPreDrawListener(onPreDrawListener)
+            }
             // Trigger update flow
             initiateUpdateFlow()
+            // show promo message
+            // update the state of variables dependent on payment master.
+            // Observe active purchases and prompt the user to install any purchased dynamic features.
+            inAppPurchasesFlow.launchIn(lifecycleScope)
             // Handle pending intents after a brief delay to ensure UI readiness
             // TODO: Replace this with new approach
             lifecycleScope.launch {

@@ -47,6 +47,7 @@ class SettingsViewModel : KoinViewModel(), SettingsViewState {
     override var fabLongPressLaunchConsole: Boolean by mutableStateOf(AppConfig.fabLongPressLaunchConsole)
     override var isSurfaceViewVideoRenderingPreferred: Boolean by mutableStateOf(AppConfig.isSurfaceViewVideoRenderingPreferred)
     override var isFileGroupingEnabled: Boolean by mutableStateOf(AppConfig.isFileGroupingEnabled)
+    override var isSplashAnimWaitEnabled: Boolean by mutableStateOf(AppConfig.isSplashAnimWaitEnabled)
 
     override val save: Boolean by derivedStateOf {
         trashCanEnabled != AppConfig.isTrashCanEnabled ||
@@ -58,7 +59,8 @@ class SettingsViewModel : KoinViewModel(), SettingsViewState {
                 gridItemSizeMultiplier != AppConfig.gridItemSizeMultiplier ||
                 fabLongPressLaunchConsole != AppConfig.fabLongPressLaunchConsole ||
                 isSurfaceViewVideoRenderingPreferred != AppConfig.isSurfaceViewVideoRenderingPreferred ||
-                isFileGroupingEnabled != AppConfig.isFileGroupingEnabled
+                isFileGroupingEnabled != AppConfig.isFileGroupingEnabled ||
+                isSplashAnimWaitEnabled != AppConfig.isSplashAnimWaitEnabled
     }
 
     override fun commit(facade: SystemFacade) {
@@ -77,6 +79,7 @@ class SettingsViewModel : KoinViewModel(), SettingsViewState {
             AppConfig.fabLongPressLaunchConsole = fabLongPressLaunchConsole
             AppConfig.isSurfaceViewVideoRenderingPreferred = isSurfaceViewVideoRenderingPreferred
             AppConfig.isFileGroupingEnabled = isFileGroupingEnabled
+            AppConfig.isSplashAnimWaitEnabled = isSplashAnimWaitEnabled
 
             // [PERSISTENCE] Serialize and save the updated AppConfig to preferences
             // The `stringify()` method likely converts the AppConfig object into a JSON or similar string format
@@ -113,6 +116,7 @@ class SettingsViewModel : KoinViewModel(), SettingsViewState {
                 fabLongPressLaunchConsole = AppConfig.fabLongPressLaunchConsole
                 isSurfaceViewVideoRenderingPreferred = AppConfig.isSurfaceViewVideoRenderingPreferred
                 isFileGroupingEnabled = AppConfig.isFileGroupingEnabled
+                isSplashAnimWaitEnabled = AppConfig.isSplashAnimWaitEnabled
             }
         }
     }

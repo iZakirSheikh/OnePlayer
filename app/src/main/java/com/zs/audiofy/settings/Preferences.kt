@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Segment
+import androidx.compose.material.icons.filled.Animation
 import androidx.compose.material.icons.filled.BlurOn
 import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.material.icons.filled.LightMode
@@ -145,6 +146,18 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
             onRequestChange = { viewState.set(Settings.NIGHT_MODE, it) },
             values = NightMode.values(),
             modifier = Modifier.background(AppTheme.colors.background(1.dp), RS.TopTileShape)
+        )
+    }
+    // Splash Anim
+    item(contentType = CONTENT_TYPE_PREF) {
+        SwitchPreference(
+            checked = viewState.isSplashAnimWaitEnabled,
+            text = textResource(R.string.pref_enable_splash_anim_wait),
+            onCheckedChange = { should: Boolean ->
+                viewState.isSplashAnimWaitEnabled = should
+            },
+            icon = Icons.Default.Animation,
+            modifier = Modifier.background(AppTheme.colors.background(1.dp), RS.CentreTileShape)
         )
     }
     // Acrylic effect
