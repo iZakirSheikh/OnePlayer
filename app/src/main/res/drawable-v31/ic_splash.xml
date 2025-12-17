@@ -24,12 +24,35 @@
             <path
                 android:name="play_color"
                 android:pathData="M 126 133.451 C 126 126.186 133.693 121.646 139.848 125.278 L 157.384 135.628 C 163.539 139.26 163.539 148.34 157.384 151.972 L 139.848 162.322 C 133.693 165.954 126 161.414 126 154.149 L 126 133.451 Z"
-                android:fillColor="#FFFE0101"/>
+                >
+                <aapt:attr name="android:fillColor">
+                    <gradient
+                        android:startX="132"
+                        android:startY="143.8"
+                        android:endX="168"
+                        android:endY="143.8"
+                        android:type="linear">
+                        <item android:offset="0" android:color="#FFFF0000"/>
+                        <item android:offset="0.66" android:color="#FF9A39FF"/>
+                    </gradient>
+                </aapt:attr>
+            </path>
             <path
                 android:name="play_white"
                 android:pathData="M 126 133.451 C 126 126.186 133.693 121.646 139.848 125.278 L 157.384 135.628 C 163.539 139.26 163.539 148.34 157.384 151.972 L 139.848 162.322 C 133.693 165.954 126 161.414 126 154.149 L 126 133.451 Z"
-                android:fillColor="#ffffff"
-                android:strokeWidth="1"/>
+                android:strokeWidth="1">
+                <aapt:attr name="android:fillColor">
+                    <gradient
+                        android:startX="121"
+                        android:startY="144.15"
+                        android:endX="154"
+                        android:endY="144.15"
+                        android:type="linear">
+                        <item android:offset="0.23" android:color="#E5FFFFFF"/>
+                        <item android:offset="1" android:color="#33FFFFFF"/>
+                    </gradient>
+                </aapt:attr>
+            </path>
         </vector>
     </aapt:attr>
     <target android:name="play_color">

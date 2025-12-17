@@ -1,4 +1,6 @@
 import com.android.build.api.dsl.ApplicationDefaultConfig
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
     alias(libs.plugins.android.application)
@@ -8,6 +10,27 @@ plugins {
     alias(libs.plugins.crashanlytics)
 }
 
+kotlin {
+    compilerOptions {
+        // Target JVM bytecode version (was "11" string, now typed enum)
+        jvmTarget = JvmTarget.JVM_17
+
+        // Set Kotlin language and API versions to 2.3
+        languageVersion = KotlinVersion.KOTLIN_2_3
+        apiVersion = KotlinVersion.KOTLIN_2_3
+
+        // Add experimental/advanced compiler flags
+        freeCompilerArgs.addAll(
+            "-Xopt-in=kotlin.RequiresOptIn", // Opt-in to @RequiresOptIn APIs
+            "-Xwhen-guards",                 // Enable experimental when-guards
+            "-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi", // Compose foundation experimental
+            "-Xopt-in=com.zs.compose.theme.ExperimentalThemeApi",             // Custom theme experimental
+            "-Xnon-local-break-continue",    // Allow non-local break/continue
+            "-Xcontext-sensitive-resolution",// Context-sensitive overload resolution
+            "-Xcontext-parameters"           // Enable context parameters (experimental)
+        )
+    }
+}
 
 // The secrets that needs to be added to BuildConfig at runtime.
 private val secrets = arrayOf("ADS_APP_ID", "PLAY_CONSOLE_APP_RSA_KEY")
@@ -24,20 +47,6 @@ android {
     namespace = "com.zs.audiofy"
     compileSdk = 36
 
-    // Enable experimental feature here of Kotlin Plugin
-    kotlinOptions {
-        jvmTarget = "11"
-        //
-        freeCompilerArgs = listOf(
-            "-Xopt-in=kotlin.RequiresOptIn",
-            "-Xwhen-guards",
-            "-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi",
-            "-Xopt-in=com.zs.compose.theme.ExperimentalThemeApi",
-            "-Xnon-local-break-continue",
-            "-Xcontext-sensitive-resolution",
-            "-Xcontext-parameters"
-        )
-    }
     // Config. the compose compiler
     composeCompiler {
         // enableStrongSkippingMode = false
@@ -50,16 +59,16 @@ android {
     }
     //
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     defaultConfig {
         applicationId = "com.googol.android.apps.oneplayer"
         minSdk = 28
         targetSdk = 36
-        versionCode = 17
-        versionName = "1.5.1-beta"
+        versionCode = 18
+        versionName = "1.5.2-beta"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
         // Load secrets into BuildConfig
