@@ -92,12 +92,12 @@ object RouteSettings : Route {
     @Composable
     operator fun invoke(viewState: SettingsViewState) {
         // Retrieve the current window size
-        val (width, _) = LocalWindowSize.current
+        val (width, height) = LocalWindowSize.current
         // Determine the two-pane strategy based on window width range
         // when in mobile portrait; we don't show second pane;
         val strategy = when {
-            width < Category.Medium -> SinglePaneStrategy
-            else -> HorizontalTwoPaneStrategy(0.5f) // Use horizontal layout with 50% split for large screens
+            width < height -> SinglePaneStrategy
+            else -> HorizontalTwoPaneStrategy(0.55f) // Use horizontal layout with 55% split for large screens
         }
         // obtain the padding of BottomNavBar/NavRail
         val inAppNavBarInsets = WindowInsets.content
@@ -113,6 +113,7 @@ object RouteSettings : Route {
         // Place the content
         TwoPane(
             strategy = strategy,
+            spacing = 10.dp,
             topBar = {
                 FloatingLargeTopAppBar(
                     title = {
@@ -159,7 +160,7 @@ object RouteSettings : Route {
                     modifier = Modifier
                         .verticalScroll(rememberScrollState())
                         .padding(top = CP.small)
-                        .widthIn(max = sPaneMaxWidth)
+                       // .widthIn(max = sPaneMaxWidth)
                         .windowInsetsPadding(
                             WindowInsets.systemBars.union(inAppNavBarInsets).only(
                                 WIS.Vertical + WIS.End

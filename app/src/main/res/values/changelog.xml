@@ -12,6 +12,7 @@
 <resources>
     <!--Changelog-->
     <string-array name="changelog" translatable="false">
+        <item>@string/changelog_153_beta</item>
         <item>@string/changelog_152_beta</item>
         <item>@string/changelog_151_beta</item>
         <item>@string/changelog_150_beta</item>
@@ -31,7 +32,27 @@
     </string-array>
 
     <!--Points to the changelog of current version.-->
-    <string name="release_notes" translatable="false">@string/changelog_153_beta</string>
+    <string name="release_notes" translatable="false">@string/changelog_154_beta</string>
+
+    <!--1.5.4-beta-->
+    <!--1.5.4-beta-->
+    <string name="changelog_154_beta" translatable="false">
+    <b>What’s New <font color='purple'>(v1.5.4-beta)\n</font></b>
+    <font color='grey'>
+        \n✓ Updated dependencies for improved stability:
+        \n   • media3 → 1.9.0
+        \n   • androidx-activity-compose → 1.12.2
+        \n   • google-billing-ktx → 8.3.0
+        \n✓ Enabled Compose compiler stability configuration.
+        \n✓ Refined two-pane layout logic:
+        \n   • Aspect ratio-based triggers for better tablet portrait handling.
+        \n   • Horizontal split ratio set to 0.55f.
+        \n   • Added 10dp spacing between panes.
+        \n✓ Library view now adapts to aspect ratio for consistent single-pane in portrait.
+        \n✓ Acrylic effect fine-tuned with adjusted luminance and alpha for subtle theme improvements.
+    </font>
+</string>
+
 
     <!--1.5.3-beta-->
     <string name="changelog_153_beta" translatable="false">

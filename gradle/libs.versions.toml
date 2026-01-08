@@ -2,7 +2,7 @@
 agp = "8.13.2"
 kotlin = "2.3.0"
 compose = "1.10.0"
-media3 = "1.8.0"
+media3 = "1.9.0"
 toolkit = "3.7.11-dev"
 material_icons = "1.7.8"
 coil = "3.3.0"
@@ -28,7 +28,7 @@ androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", vers
 navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.9.6" }
 androidx-koin = { module = "io.insert-koin:koin-androidx-compose", version = "4.1.1" }
 chrisbanes-haze = { module = "dev.chrisbanes.haze:haze", version = "1.6.10" }
-androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version = "1.12.1" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version = "1.12.2" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.2.0" }
 androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version = "1.2.0" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.7.1" }
@@ -63,7 +63,7 @@ firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-
 # Play app-review
 play-app-update-ktx = { module = "com.google.android.play:app-update-ktx", version = "2.1.0" }
 play-app-review-ktx = { module = "com.google.android.play:review-ktx", version = "2.0.1" }
-google-billing-ktx = { module = "com.android.billingclient:billing-ktx", version = "8.2.0" }
+google-billing-ktx = { module = "com.android.billingclient:billing-ktx", version = "8.3.0" }
 play_feature_delivery-ktx = { module = "com.google.android.play:feature-delivery-ktx", version = "2.1.0" }
 
 # Icons

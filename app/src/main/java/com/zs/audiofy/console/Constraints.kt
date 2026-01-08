@@ -612,7 +612,7 @@ private fun PortraitVideo(insets: DpRect,   only: Array<String>?,) = object : Co
 
         // TimeBar
         val timeBar = when {
-            only != null && only.contains(RouteConsole.ID_SEEK_BAR) -> {
+            only != null && only.contains(RouteConsole.ID_SEEK_BAR) && false -> {
                 constrain(SEEK_BAR) {
                     linkTo(parent.start, parent.end, left + CP.large, right + CP.large)
                     bottom.linkTo(title.top, CP.xLarge)
@@ -722,7 +722,7 @@ private fun LargeVideo(insets: DpRect,   only: Array<String>?,) = object : Const
 
         // TimeBar
         val timeBar = when {
-            only != null && only.contains(RouteConsole.ID_SEEK_BAR) -> {
+            only != null && only.contains(RouteConsole.ID_SEEK_BAR) && false -> {
                 constrain(SEEK_BAR) {
                     linkTo(parent.start, parent.end, left + 45.dp, right + 45.dp)
                     bottom.linkTo(parent.bottom, down + CP.xLarge)

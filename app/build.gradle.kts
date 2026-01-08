@@ -53,9 +53,9 @@ android {
         // TODO - I guess disable these in release builds.reportsDestination =
         //     layout.buildDirectory.dir("compose_compiler")
         // metricsDestination = layout.buildDirectory.dir("compose_compiler")
-        // stabilityConfigurationFiles = listOf(
-        //     rootProject.layout.projectDirectory.file("stability_config.conf")
-        // )
+         stabilityConfigurationFiles = listOf(
+             rootProject.layout.projectDirectory.file("stability_config.conf")
+         )
     }
     //
     compileOptions {
@@ -67,8 +67,8 @@ android {
         applicationId = "com.googol.android.apps.oneplayer"
         minSdk = 28
         targetSdk = 36
-        versionCode = 19
-        versionName = "1.5.3-beta"
+        versionCode = 20
+        versionName = "1.5.4-beta"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
         // Load secrets into BuildConfig

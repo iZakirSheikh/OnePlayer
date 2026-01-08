@@ -262,12 +262,12 @@ private val HeaderMargin = Modifier.padding(top = CP.small)
 @Composable
 fun Library(viewState: LibraryViewState) {
     // Retrieve the current window size
-    val (width, _) = LocalWindowSize.current
+    val (width, height) = LocalWindowSize.current
     // Determine the two-pane strategy based on window width range
     // when in mobile portrait; we don't show second pane;
     val strategy = when {
         // TODO  -Replace with OnePane Strategy when updating TwoPane Layout.
-        width < Category.Medium -> SinglePaneStrategy
+        width < height || width < Category.Medium -> SinglePaneStrategy
         else -> HorizontalTwoPaneStrategy(0.55f) // Use horizontal layout with 50% split for large screens
     }
 
@@ -298,7 +298,8 @@ fun Library(viewState: LibraryViewState) {
                 modifier = Modifier
                     .windowInsetsPadding(insets)
                     .padding(end = ContentPadding.small)
-                    .sizeIn(maxWidth = 300.dp),
+                    //.sizeIn(maxWidth = 300.dp)
+                ,
                 // Use the outline color as the border stroke or null based on the lightness
                 // of the material colors
                 border = AppTheme.colors.border,

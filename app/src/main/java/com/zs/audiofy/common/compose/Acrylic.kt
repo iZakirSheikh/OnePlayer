@@ -108,7 +108,7 @@ fun Colors.background(
     blurRadius: Dp = if (containerColor.luminance() >= 0.5f) 38.dp else 80.dp,
     noiseFactor: Float = if (containerColor.luminance() >= 0.5f) 0.5f else 0.25f,
     tint: Color = containerColor.copy(alpha = if (containerColor.luminance() >= 0.5) 0.60f else 0.60f),
-    luminance: Float = if (containerColor.luminance() >= 0.5f) 0.07f else 0.02f,
+    luminance: Float = if (containerColor.luminance() >= 0.5f) 0.07f else 0.03f,
     blendMode: BlendMode = BlendMode.SrcOver,
     progressive: Float = -1f,
 ) = if (!AppConfig.isBackgroundBlurEnabled) Background(Modifier.acrylic(background, accent))
@@ -248,7 +248,7 @@ fun Acrylic(
 
                         // Finally, apply the luminosity effect.
                         drawRect(
-                            color = Color.White.copy(alpha = if (isLight) 0.83f else 0.94f),
+                            color = Color.White.copy(alpha = if (isLight) 0.80f else 0.94f),
                             // DstOut blend mode creates a cutout effect, enhancing luminosity.
                             blendMode = BlendMode.DstOut
                         ) // Alpha is adjusted based on light/dark theme.

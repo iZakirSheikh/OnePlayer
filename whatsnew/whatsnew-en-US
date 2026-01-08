@@ -1,4 +1,3 @@
-✓ Refreshed icons across app, splash, and TV for a cleaner look.
-✓ Added intermediate progress indicator to improve feedback during delayed startup.
-✓ Resolved issue causing incomplete splash animation.
-✓ Added monochromatic icon for themed app icon support.
+✓ Improved layouts for tablets and split‑screen views.
+✓ Smoother visuals with subtle acrylic effect refinements.
+✓ General stability updates with refreshed dependencies.
