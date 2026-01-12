@@ -12,6 +12,7 @@
 <resources>
     <!--Changelog-->
     <string-array name="changelog" translatable="false">
+        <item>@string/changelog_154_beta</item>
         <item>@string/changelog_153_beta</item>
         <item>@string/changelog_152_beta</item>
         <item>@string/changelog_151_beta</item>
@@ -32,9 +33,15 @@
     </string-array>
 
     <!--Points to the changelog of current version.-->
-    <string name="release_notes" translatable="false">@string/changelog_154_beta</string>
+    <string name="release_notes" translatable="false">@string/changelog_155_beta</string>
 
-    <!--1.5.4-beta-->
+    <!--1.5.5-beta-->
+    <string name="changelog_155_beta" translatable="false">
+    <b>What’s New <font color='purple'>(v1.5.5-beta)\n</font></b>
+    <font color='grey'>
+        \n✓
+    </font></string>
+
     <!--1.5.4-beta-->
     <string name="changelog_154_beta" translatable="false">
     <b>What’s New <font color='purple'>(v1.5.4-beta)\n</font></b>
@@ -50,8 +57,7 @@
         \n   • Added 10dp spacing between panes.
         \n✓ Library view now adapts to aspect ratio for consistent single-pane in portrait.
         \n✓ Acrylic effect fine-tuned with adjusted luminance and alpha for subtle theme improvements.
-    </font>
-</string>
+    </font></string>
 
 
     <!--1.5.3-beta-->

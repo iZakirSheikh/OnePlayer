@@ -621,7 +621,7 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
         }
         // Set up the window to fit the system windows
         // This setting is usually configured in the app theme, but is ensured here
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowCompat.enableEdgeToEdge(window)
         // Set the content of the activity
         setContent {
             val navController = rememberNavController()
