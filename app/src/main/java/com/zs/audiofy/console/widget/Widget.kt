@@ -77,7 +77,7 @@ import com.zs.audiofy.console.widget.styles.SkewedDynamic
 import com.zs.audiofy.console.widget.styles.SnowCone
 import com.zs.audiofy.console.widget.styles.Tiramisu
 import com.zs.audiofy.console.widget.styles.WavyGradientDots
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.settings.Settings
 import com.zs.compose.theme.LocalNavAnimatedVisibilityScope
 import com.zs.core.billing.Paymaster

@@ -61,7 +61,7 @@ import com.zs.audiofy.common.compose.marque
 import com.zs.audiofy.common.compose.shine
 import com.zs.audiofy.console.RouteConsole
 import com.zs.audiofy.console.widget.Widget
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.compose.foundation.background
 import com.zs.compose.foundation.textResource
 import com.zs.compose.theme.AppTheme

@@ -29,7 +29,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
 import com.zs.audiofy.R
 import com.zs.audiofy.library.LibraryViewState
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.compose.foundation.Rose
 import com.zs.core.common.debounceAfterFirst
 import com.zs.core.db.playlists.Playlist.Track

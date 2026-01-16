@@ -40,7 +40,7 @@ import com.zs.audiofy.common.Mapped
 import com.zs.audiofy.common.compose.FilterDefaults
 import com.zs.audiofy.common.raw
 import com.zs.audiofy.playlists.PlaylistsViewState
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.compose.foundation.RedViolet
 import com.zs.compose.foundation.castTo
 import com.zs.compose.theme.snackbar.SnackbarDuration

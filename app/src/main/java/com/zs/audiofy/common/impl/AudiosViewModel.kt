@@ -46,7 +46,7 @@ import com.zs.audiofy.common.GO_TO_ALBUM
 import com.zs.audiofy.common.compose.FilterDefaults
 import com.zs.audiofy.common.compose.directory.MetaData
 import com.zs.audiofy.common.ellipsize
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.core.common.PathUtils
 import com.zs.core.common.toTrack
 import com.zs.core.db.playlists.Playlist

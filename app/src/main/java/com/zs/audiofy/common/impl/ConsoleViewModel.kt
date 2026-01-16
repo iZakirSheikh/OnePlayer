@@ -15,7 +15,7 @@ import androidx.lifecycle.viewModelScope
 import com.zs.audiofy.R
 import com.zs.audiofy.console.ConsoleViewState
 import com.zs.audiofy.console.RouteConsole
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.compose.foundation.OrientRed
 import com.zs.compose.theme.snackbar.SnackbarResult
 import com.zs.core.playback.MediaFile

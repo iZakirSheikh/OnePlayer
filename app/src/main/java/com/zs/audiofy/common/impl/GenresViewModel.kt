@@ -29,7 +29,7 @@ import com.zs.audiofy.common.Action
 import com.zs.audiofy.common.Filter
 import com.zs.audiofy.common.Mapped
 import com.zs.audiofy.common.compose.FilterDefaults
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.core.store.MediaProvider
 import com.zs.core.store.models.Audio.Genre
 import com.zs.preferences.stringPreferenceKey

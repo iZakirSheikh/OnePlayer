@@ -34,7 +34,7 @@ import com.zs.audiofy.common.INFO
 import com.zs.audiofy.common.ShareFilesIntent
 import com.zs.audiofy.common.compose.FilterDefaults
 import com.zs.audiofy.common.raw
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.settings.Settings
 import com.zs.compose.foundation.Rose
 import com.zs.compose.foundation.runCatching

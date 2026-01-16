@@ -34,7 +34,7 @@ import com.zs.audiofy.common.Filter
 import com.zs.audiofy.common.compose.FilterDefaults
 import com.zs.audiofy.common.compose.directory.MetaData
 import com.zs.audiofy.common.ellipsize
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.videos.RouteVideos
 import com.zs.audiofy.videos.VideosViewState
 import com.zs.audiofy.videos.get

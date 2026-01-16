@@ -25,7 +25,7 @@ import coil3.annotation.DelicateCoilApi
 import coil3.asImage
 import coil3.request.crossfade
 import com.zs.audiofy.R
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.settings.Settings
 import com.zs.compose.theme.snackbar.SnackbarHostState
 import com.zs.core.coil.MediaMetaDataArtFetcher

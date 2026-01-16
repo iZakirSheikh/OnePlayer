@@ -29,7 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.zs.audiofy.R
 import com.zs.audiofy.common.SystemFacade
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.settings.Settings
 import com.zs.audiofy.settings.SettingsViewState
 import com.zs.compose.theme.snackbar.SnackbarResult

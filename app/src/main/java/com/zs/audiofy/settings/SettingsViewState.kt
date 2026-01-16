@@ -232,7 +232,7 @@ interface SettingsViewState {
     var isWidgetToConsoleTransitionEnabled: Boolean
 
     /**
-     * Commits [AppConfig] to memory.
+     * Commits [com.zs.audiofy.common.AppConfig] to memory.
      */
     fun commit(facade: SystemFacade)
 

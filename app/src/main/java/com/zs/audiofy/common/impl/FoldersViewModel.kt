@@ -38,7 +38,7 @@ import com.zs.audiofy.common.raw
 import com.zs.audiofy.folders.FoldersViewState
 import com.zs.audiofy.folders.RouteFolders
 import com.zs.audiofy.folders.get
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.compose.foundation.castTo
 import com.zs.compose.theme.snackbar.SnackbarResult
 import com.zs.core.store.MediaProvider

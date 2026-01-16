@@ -25,7 +25,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallRequest
-import com.zs.audiofy.BuildConfig
 import com.zs.core.billing.Paymaster
 import com.zs.core.billing.Product
 
@@ -187,4 +186,3 @@ val Product.isFreemium: Boolean
             else -> false
         }
     }
-

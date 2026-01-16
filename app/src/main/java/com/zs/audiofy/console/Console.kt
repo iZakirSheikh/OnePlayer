@@ -93,7 +93,7 @@ import com.zs.audiofy.common.compose.shine
 import com.zs.audiofy.common.compose.timer
 import com.zs.audiofy.console.components.TimeBar
 import com.zs.audiofy.effects.RouteAudioFx
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.compose.foundation.SignalWhite
 import com.zs.compose.theme.AppTheme
 import com.zs.compose.theme.ContentAlpha

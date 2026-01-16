@@ -74,7 +74,7 @@ import com.zs.audiofy.common.isDynamicFeature
 import com.zs.audiofy.common.products
 import com.zs.audiofy.console.RouteConsole
 import com.zs.audiofy.library.RouteLibrary
-import com.zs.audiofy.settings.AppConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.settings.Settings
 import com.zs.compose.foundation.getText2
 import com.zs.compose.foundation.runCatching
