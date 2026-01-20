@@ -41,6 +41,7 @@ import com.zs.audiofy.common.compose.FilterDefaults
 import com.zs.audiofy.common.raw
 import com.zs.audiofy.playlists.PlaylistsViewState
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.RedViolet
 import com.zs.compose.foundation.castTo
 import com.zs.compose.theme.snackbar.SnackbarDuration
@@ -72,9 +73,9 @@ private val ORDER_NONE = FilterDefaults.ORDER_NONE
 private val ORDER_NAME = FilterDefaults.ORDER_BY_TITLE
 private val ORDER_BY_MODIFIED = FilterDefaults.ORDER_BY_DATE_MODIFIED
 
-private val ACTION_DELETE = Action(R.string.delete, Icons.Outlined.FolderDelete)
-private val ACTION_EDIT = Action(R.string.edit, Icons.Outlined.EditNote)
-private val ACTION_CREATE = Action(R.string.create, Icons.Outlined.PlaylistAdd)
+private val ACTION_DELETE = Action(Res.string.delete, Icons.Outlined.FolderDelete)
+private val ACTION_EDIT = Action(Res.string.edit, Icons.Outlined.EditNote)
+private val ACTION_CREATE = Action(Res.string.create, Icons.Outlined.PlaylistAdd)
 
 // FIXME: Might cause crash.
 private val Playlist.firstTitleChar
@@ -85,7 +86,7 @@ class PlaylistsViewModel(val playlists: Playlists) : KoinViewModel(), PlaylistsV
 
     override var focused: Playlist? by mutableStateOf(null)
     override val orders: List<Action> = listOf(ORDER_NONE, ORDER_NAME, ORDER_BY_MODIFIED)
-    override val title: CharSequence = getText(R.string.playlists)
+    override val title: CharSequence = getText(Res.string.playlists)
     override val query: TextFieldState = TextFieldState()
     override val favicon: ImageVector? = Icons.Outlined.FeaturedPlayList
     override var showEditDialog: Boolean by mutableStateOf(false)
@@ -149,7 +150,7 @@ class PlaylistsViewModel(val playlists: Playlists) : KoinViewModel(), PlaylistsV
         }
         // catch any exceptions.
         .catch {
-            val report = report(it.message ?: getText(R.string.msg_unknown_error))
+            val report = report(it.message ?: getText(Res.string.msg_unknown_error))
             if (report == SnackbarResult.ActionPerformed) analytics.record(it)
         }
         // make sure the flow is released after sometime.

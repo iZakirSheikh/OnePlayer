@@ -34,6 +34,7 @@ import com.zs.audiofy.common.Filter
 import com.zs.audiofy.common.Mapped
 import com.zs.audiofy.common.PLAYLIST_ADD
 import com.zs.audiofy.common.PLAY_NEXT
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.SelectionTracker.Level
 import com.zs.audiofy.common.compose.directory.FilesViewState
 import com.zs.core.db.playlists.Playlist
@@ -51,8 +52,8 @@ abstract class FilesViewModel<T>(val remote: Remote, val playlistz: Playlists): 
     //common actions
     val ACTION_ADD_TO_PLAYLIST = Action.PLAYLIST_ADD
     val ACTION_PLAY_NEXT = Action.PLAY_NEXT
-    val ACTION_ADD_TO_QUEUE = Action(R.string.add_to_queue, Icons.AutoMirrored.Outlined.QueueMusic)
-    val ACTION_SELECT_ALL = Action(R.string.select_all, Icons.Outlined.SelectAll)
+    val ACTION_ADD_TO_QUEUE = Action(Res.string.add_to_queue, Icons.AutoMirrored.Outlined.QueueMusic)
+    val ACTION_SELECT_ALL = Action(Res.string.select_all, Icons.Outlined.SelectAll)
 
     // Represents the
     override fun clear() = selected.clear()
@@ -164,7 +165,7 @@ abstract class FilesViewModel<T>(val remote: Remote, val playlistz: Playlists): 
         remote.setRepeatMode(Remote.REPEAT_MODE_OFF)
         if (index != -1)
             remote.seekTo(index)
-        showPlatformToast(message = R.string.playing)
+        showPlatformToast(message = Res.string.playing)
     }
 
     fun addToQueue(items: List<MediaFile>){

@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.SavedStateHandle
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.properties.PropertiesViewState
 import com.zs.audiofy.properties.RouteProperties
 import com.zs.audiofy.properties.get
@@ -78,7 +79,7 @@ class PropertiesViewModel(handle: SavedStateHandle) : KoinViewModel(), Propertie
         super.onCleared()
     }
 
-    val notAvailable = getText(R.string.abbr_not_available)
+    val notAvailable = getText(Res.string.abbr_not_available)
 
     override val title: CharSequence = retriever.title ?: notAvailable
     override val mimeType: CharSequence = retriever.mimeType ?: notAvailable

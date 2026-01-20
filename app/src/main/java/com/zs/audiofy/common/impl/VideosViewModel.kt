@@ -35,6 +35,7 @@ import com.zs.audiofy.common.compose.FilterDefaults
 import com.zs.audiofy.common.compose.directory.MetaData
 import com.zs.audiofy.common.ellipsize
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.videos.RouteVideos
 import com.zs.audiofy.videos.VideosViewState
 import com.zs.audiofy.videos.get
@@ -96,7 +97,7 @@ class VideosViewModel(
 
     override var info: MetaData by mutableStateOf(
         when (parent) {
-            null -> MetaData(getText(R.string.scr_videos_title))
+            null -> MetaData(getText(Res.string.scr_videos_title))
             else -> MetaData(PathUtils.name(parent).ellipsize(12), PathUtils.parent(parent))
         },
     )

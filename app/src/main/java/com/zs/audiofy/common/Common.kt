@@ -161,17 +161,17 @@ fun Context.fileSizeFormatted(bytes: Long) =
 
 // Some UI Actions
 private val ACTION_INFO =
-    Action(R.string.properties, id = "action_info", icon = Icons.Outlined.Info)
+    Action(Res.string.properties, id = "action_info", icon = Icons.Outlined.Info)
 private val ACTION_GO_TO_ALBUM =
-    Action(R.string.go_to_album, id = "action_go_to_album", icon = Icons.Outlined.Album)
+    Action(Res.string.go_to_album, id = "action_go_to_album", icon = Icons.Outlined.Album)
 private val ACTION_GO_TO_ARTIST =
-    Action(R.string.go_to_artist, id = "action_go_to_artist", icon = Icons.Outlined.Mic)
-private val ACTION_EDIT = Action(R.string.edit, id = "action_edit", icon = Icons.Outlined.Edit)
-private val ACTION_PLAY_NEXT = Action(R.string.play_next, Icons.Outlined.SkipNext)
+    Action(Res.string.go_to_artist, id = "action_go_to_artist", icon = Icons.Outlined.Mic)
+private val ACTION_EDIT = Action(Res.string.edit, id = "action_edit", icon = Icons.Outlined.Edit)
+private val ACTION_PLAY_NEXT = Action(Res.string.play_next, Icons.Outlined.SkipNext)
 val Action.Companion.INFO get() = ACTION_INFO
 val Action.Companion.GO_TO_ALBUM get() = ACTION_GO_TO_ALBUM
 val Action.Companion.GO_TO_ARTIST get() = ACTION_GO_TO_ARTIST
 val Action.Companion.EDIT get() = ACTION_EDIT
 val Action.Companion.PLAY_NEXT get() = ACTION_PLAY_NEXT
-val ACTION_ADD_TO_PLAYLIST = Action(R.string.add_to_playlist, Icons.Outlined.PlaylistAdd)
+val ACTION_ADD_TO_PLAYLIST = Action(Res.string.add_to_playlist, Icons.Outlined.PlaylistAdd)
 val Action.Companion.PLAYLIST_ADD get() = ACTION_ADD_TO_PLAYLIST

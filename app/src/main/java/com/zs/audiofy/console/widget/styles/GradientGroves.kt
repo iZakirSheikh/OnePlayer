@@ -52,6 +52,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.lottie
 import com.zs.audiofy.common.compose.lottieAnimationPainter
@@ -140,7 +141,7 @@ fun GradientGroves(
                     .clipToBounds(),
                 content = {
                     Label(
-                        state.title ?: stringResource(R.string.unknown),
+                        state.title ?: stringResource(Res.string.unknown),
                         modifier = Modifier.marque(Int.MAX_VALUE),
                         style = AppTheme.typography.headline3,
                         fontWeight = FontWeight.Bold
@@ -151,7 +152,7 @@ fun GradientGroves(
         // Subtitle
         overline = {
             Label(
-                state.subtitle ?: stringResource(R.string.unknown),
+                state.subtitle ?: stringResource(Res.string.unknown),
                 style = AppTheme.typography.label3,
             )
         },
@@ -198,7 +199,7 @@ fun GradientGroves(
                         content = {
                             Icon(
                                 painter = lottieAnimationPainter(
-                                    id = R.raw.lt_play_pause,
+                                    id = Res.raw.lt_play_pause,
                                     atEnd = state.playing,
                                     progressRange = 0.0f..0.29f,
                                     animationSpec = tween(easing = LinearEasing)

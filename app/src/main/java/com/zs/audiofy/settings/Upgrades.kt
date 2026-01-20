@@ -45,6 +45,7 @@ import com.zs.audiofy.MainActivity
 import com.zs.audiofy.R
 import com.zs.audiofy.common.IAP_CODEX
 import com.zs.audiofy.common.IAP_TAG_EDITOR_PRO
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.LocalSystemFacade
 import com.zs.audiofy.common.compose.purchase
 import com.zs.audiofy.common.dynamicFeatureRequest
@@ -101,7 +102,7 @@ private fun Upgrade(
             Column {
                 // Product formatted price
                 Text(
-                    text = value.formattedPrice ?: stringResource(R.string.abbr_not_available),
+                    text = value.formattedPrice ?: stringResource(Res.string.abbr_not_available),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(top = CP.medium),
@@ -180,16 +181,16 @@ fun Upgrades(modifier: Modifier = Modifier) {
                 state = when {
                     // If it's a dynamic feature and installed, show "Installed"
                     upgrade.isDynamicFeature && facade.isFeatureInstalled(upgrade.dynamicModuleName) -> stringResource(
-                        R.string.installed
+                        Res.string.installed
                     )
                     // If it's a dynamic feature and not installed, show "Tap to Install"
                     upgrade.isDynamicFeature && !facade.isFeatureInstalled(upgrade.dynamicModuleName) -> stringResource(
-                        R.string.tap_to_install
+                        Res.string.tap_to_install
                     )
                     // If it's purchased, show "Purchased"
-                    purchase.purchased -> stringResource(R.string.purchased)
+                    purchase.purchased -> stringResource(Res.string.purchased)
                     // Otherwise, show "Unlock" (indicating it needs to be purchased)
-                    else -> stringResource(R.string.unlock)
+                    else -> stringResource(Res.string.unlock)
                 },
                 onClick = {
                     // If the product is NOT already purchased, initiate the purchase flow
@@ -204,7 +205,7 @@ fun Upgrades(modifier: Modifier = Modifier) {
                         return@Upgrade
                     }
                     // Otherwise (product is purchased or not a dynamic feature that needs installation), do nothing
-                    facade.showToast(R.string.msg_settings_upgrade_unlocked)
+                    facade.showToast(Res.string.msg_settings_upgrade_unlocked)
                 }
             )
         }

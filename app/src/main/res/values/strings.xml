@@ -2,7 +2,7 @@
  Naming convention for string resources:
   - The string can be styled following the rules of styling without CDATA, as the toolkit does not support CDATA.
   - The string resources should be named as follows:
-    1. If the string is simple, like Delete, its name should be R.string.delete.
+    1. If the string is simple, like Delete, its name should be Res.string.delete.
     2. If the string contains complex text, the name should be in this format: scr_screen_name_purpose_variables
        (optional; if no variables, omit this). For example, timeline_scr_items_d
     3. General message (snackbar) messages should be named as msg_add_to_playlist_error_s (optional).

@@ -42,6 +42,7 @@ import coil3.compose.AsyncImage
 import com.zs.audiofy.R
 import com.zs.audiofy.common.Action
 import com.zs.audiofy.common.PLAYLIST_ADD
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LocalNavController
 import com.zs.audiofy.common.compose.LottieAnimatedButton
@@ -148,7 +149,7 @@ fun Members(viewState: MembersViewState) {
                     // show checkbox
                     if (viewState.isInSelectionMode)
                         return@Track LottieAnimatedIcon(
-                            R.raw.lt_checkbox,
+                            Res.raw.lt_checkbox,
                             animationSpec = AppTheme.motionScheme.slowSpatialSpec(),
                             atEnd = audio.id in selected, // if fav
                             contentDescription = null,
@@ -165,7 +166,7 @@ fun Members(viewState: MembersViewState) {
                         // Heart
                         if (viewState.showFavButton)
                             LottieAnimatedButton(
-                            R.raw.lt_twitter_heart_filled_unfilled,
+                            Res.raw.lt_twitter_heart_filled_unfilled,
                             onClick = { viewState.toggleLiked(audio) },
                             animationSpec = tween(800),
                             atEnd = audio.uri.toString() in favourites, // if fav

@@ -64,6 +64,7 @@ import coil3.compose.AsyncImage
 import com.zs.audiofy.BuildConfig
 import com.zs.audiofy.R
 import com.zs.audiofy.common.IAP_BUY_ME_COFFEE
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.Route
 import com.zs.audiofy.common.compose.FloatingLargeTopAppBar
 import com.zs.audiofy.common.compose.LocalNavController
@@ -200,7 +201,7 @@ private fun Sponsor(modifier: Modifier = Modifier) {
         // App name.
         overline = {
             Text(
-                text = textResource(R.string.app_name),
+                text = textResource(Res.string.app_name),
                 style = AppTheme.typography.display3,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.DancingScriptFontFamily,
@@ -210,7 +211,7 @@ private fun Sponsor(modifier: Modifier = Modifier) {
         // Build version info.
         heading = {
             Text(
-                text = textResource(R.string.version_info_s, BuildConfig.VERSION_NAME),
+                text = textResource(Res.string.version_info_s, BuildConfig.VERSION_NAME),
                 style = AppTheme.typography.label3,
                 fontWeight = FontWeight.Normal
             )
@@ -223,7 +224,7 @@ private fun Sponsor(modifier: Modifier = Modifier) {
                 modifier = Modifier.size(64.dp),
                 content = {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                        painter = painterResource(id = Res.drawable.ic_launcher_foreground),
                         contentDescription = null,
                         tint = Color.Unspecified
                     )
@@ -241,7 +242,7 @@ private fun Sponsor(modifier: Modifier = Modifier) {
 
                     // RateUs
                     FilledTonalButton(
-                        textResource(R.string.rate_us),
+                        textResource(Res.string.rate_us),
                         icon = Icons.Outlined.RateReview,
                         onClick = facade::launchAppStore,
                         colors = ButtonDefaults.filledTonalButtonColors(
@@ -293,7 +294,7 @@ fun AboutUs() {
             FloatingLargeTopAppBar(
                 title = {
                     Text(
-                        text = textResource(id = R.string.scr_about_us_title),
+                        text = textResource(id = Res.string.scr_about_us_title),
                         fontWeight = FontWeight.Light,
                         maxLines = 2,
                         lineHeight = 23.sp,
@@ -336,7 +337,7 @@ fun AboutUs() {
         },
         primary = {
             val state = rememberLazyListState()
-            val changelog = textArrayResource(R.array.changelog)
+            val changelog = textArrayResource(Res.array.changelog)
             LazyColumn(
                 state = state,
                 // In immersive mode, add horizontal padding to prevent settings from touching the screen edges.
@@ -388,7 +389,7 @@ fun AboutUs() {
 
                     // latest.
                     item("release2") {
-                        Release(textResource(R.string.release_notes))
+                        Release(textResource(Res.string.release_notes))
                     }
 
                     // Changelog

@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.emit
 import com.zs.audiofy.common.compose.shine
 import com.zs.compose.foundation.textResource
@@ -77,7 +78,7 @@ fun Playlists(
         },
         title = {
             Text(
-                textResource(R.string.scr_playlists_dialog_empty_placeholder),
+                textResource(Res.string.scr_playlists_dialog_empty_placeholder),
                 maxLines = 2,
                 fontWeight = FontWeight.Light
             )
@@ -96,7 +97,7 @@ fun Playlists(
                         overline = {
                             Label(
                                 pluralStringResource(
-                                    R.plurals.files_d,
+                                    Res.plurals.files_d,
                                     value.count,
                                     value.count
                                 )

@@ -31,6 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.zs.audiofy.R
 import com.zs.audiofy.common.Mapped
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.fullLineSpan
 import com.zs.compose.theme.Icon
 import com.zs.compose.theme.Placeholder
@@ -41,8 +42,8 @@ inline fun <T> LazyListScope.emit(vertical: Boolean, data: List<T>?): List<T>? {
         // null means loading
         data == null && vertical -> item(contentType = "loading_vertical", key = "placeholder_loading_list") {
             Placeholder(
-                title = stringResource(R.string.loading),
-                iconResId = R.raw.lt_loading_bubbles,
+                title = stringResource(Res.string.loading),
+                iconResId = Res.raw.lt_loading_bubbles,
                 modifier = Modifier.fillMaxSize().animateItem()
             )
         }
@@ -53,20 +54,20 @@ inline fun <T> LazyListScope.emit(vertical: Boolean, data: List<T>?): List<T>? {
                 verticalAlignment = Alignment.CenterVertically,
                 content = {
                     Icon(
-                        painter = lottieAnimationPainter(R.raw.loading_hand),
+                        painter = lottieAnimationPainter(Res.raw.loading_hand),
                         contentDescription = null,
                         tint = Color.Unspecified,
                         modifier = Modifier
                     )
 
-                    Label(stringResource(R.string.loading))
+                    Label(stringResource(Res.string.loading))
                 }
             )
         }
         data.isEmpty() && vertical -> item(contentType = "empty_vertical", key = "placeholder_empty_list"){
             Placeholder(
-                title = stringResource(R.string.empty),
-                iconResId = R.raw.no_data,
+                title = stringResource(Res.string.empty),
+                iconResId = Res.raw.no_data,
                 modifier = Modifier.fillMaxSize().animateItem()
             )
         }
@@ -77,12 +78,12 @@ inline fun <T> LazyListScope.emit(vertical: Boolean, data: List<T>?): List<T>? {
                 verticalAlignment = Alignment.CenterVertically,
                 content = {
                     Icon(
-                        painter = lottieAnimationPainter(R.raw.no_data),
+                        painter = lottieAnimationPainter(Res.raw.no_data),
                         contentDescription = null,
                         tint = Color.Unspecified
                     )
 
-                    Label(stringResource(R.string.empty))
+                    Label(stringResource(Res.string.empty))
                 }
             )
         }
@@ -104,8 +105,8 @@ fun <T> LazyListScope.emit(
             contentType = "data_loading_placeholder",
             content = {
                 Placeholder(
-                    title = stringResource(R.string.loading),
-                    iconResId = R.raw.lt_loading_bubbles,
+                    title = stringResource(Res.string.loading),
+                    iconResId = Res.raw.lt_loading_bubbles,
                     modifier = Modifier.fillMaxSize().animateItem()
                 )
             }
@@ -116,8 +117,8 @@ fun <T> LazyListScope.emit(
             key = "key_empty_placeholder...",
             content = {
                 Placeholder(
-                    title = stringResource(R.string.empty),
-                    iconResId = R.raw.no_data,
+                    title = stringResource(Res.string.empty),
+                    iconResId = Res.raw.no_data,
                     modifier = Modifier
                         .fillMaxSize()
                         .animateItem()
@@ -145,8 +146,8 @@ fun <T> LazyGridScope.emit(
             contentType = "data_loading_placeholder",
             content = {
                 Placeholder(
-                    title = stringResource(R.string.loading),
-                    iconResId = R.raw.lt_loading_bubbles,
+                    title = stringResource(Res.string.loading),
+                    iconResId = Res.raw.lt_loading_bubbles,
                     modifier = Modifier.fillMaxSize().animateItem()
                 )
             }
@@ -158,8 +159,8 @@ fun <T> LazyGridScope.emit(
             key = "key_empty_placeholder...",
             content = {
                 Placeholder(
-                    title = stringResource(R.string.empty),
-                    iconResId = R.raw.no_data,
+                    title = stringResource(Res.string.empty),
+                    iconResId = Res.raw.no_data,
                     modifier = Modifier
                         .fillMaxSize()
                         .animateItem()

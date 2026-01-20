@@ -57,6 +57,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.LottieAnimatedButton
 import com.zs.audiofy.common.compose.collectAsState
 import com.zs.audiofy.common.compose.emit
@@ -121,7 +122,7 @@ private fun MediaFile(
         heading = {
             val typography = AppTheme.typography
             Label(
-                text = value.title ?: stringResource(R.string.abbr_not_available),
+                text = value.title ?: stringResource(Res.string.abbr_not_available),
                 maxLines = 2,
                 fontWeight = androidx.compose.ui.text.font.lerp(FontWeight.Normal, FontWeight.Bold, progress),
                 style = typography.title3,
@@ -129,7 +130,7 @@ private fun MediaFile(
         },
         subheading = {
             Label(
-                value.subtitle ?: stringResource(R.string.abbr_not_available),
+                value.subtitle ?: stringResource(Res.string.abbr_not_available),
                 style = AppTheme.typography.label3
             )
         },
@@ -153,7 +154,7 @@ private fun MediaFile(
                     if (!playing)
                         return@Box
                     Icon(
-                        painter = lottieAnimationPainter(R.raw.playback_indicator),
+                        painter = lottieAnimationPainter(Res.raw.playback_indicator),
                         contentDescription = null,
                         modifier = Modifier.lottie(),
                         tint = Color.White
@@ -189,7 +190,7 @@ fun Queue(viewState: QueueViewState, shape: Shape, insets: WindowInsets) {
                 background = Background(Color.Transparent),
                 title = {
                     Label(
-                        textResource(R.string.scr_queue_title),
+                        textResource(Res.string.scr_queue_title),
                         maxLines = 2,
                         fontWeight = FontWeight.Light,
                     )
@@ -199,7 +200,7 @@ fun Queue(viewState: QueueViewState, shape: Shape, insets: WindowInsets) {
                     val accent = AppTheme.colors.accent
                     val onColor = LocalContentColor.current
                     LottieAnimatedButton(
-                        id = R.raw.lt_shuffle_on_off,
+                        id = Res.raw.lt_shuffle_on_off,
                         onClick = { viewState.shuffle(!state.shuffle) },
                         atEnd = state.shuffle,
                         progressRange = 0f..0.8f,
@@ -249,7 +250,7 @@ fun Queue(viewState: QueueViewState, shape: Shape, insets: WindowInsets) {
                         if (playing)
                             item("header", "now_playing_header") {
                                 Header(
-                                    textResource(R.string.now_playing),
+                                    textResource(Res.string.now_playing),
                                     modifier = Modifier
                                         .animateItem()
                                         .padding(
@@ -291,7 +292,7 @@ fun Queue(viewState: QueueViewState, shape: Shape, insets: WindowInsets) {
                         if (isUpNext)
                             stickyHeader(listState, "up_next", "upnext") {
                                 TonalHeader(
-                                    stringResource(R.string.up_next),
+                                    stringResource(Res.string.up_next),
                                     modifier = Modifier
                                         .animateItem()
                                         .padding(start = CP.normal)

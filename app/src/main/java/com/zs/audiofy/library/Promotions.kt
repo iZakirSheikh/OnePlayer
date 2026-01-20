@@ -59,6 +59,7 @@ import com.zs.audiofy.common.IAP_CODEX
 import com.zs.audiofy.common.IAP_NO_ADS
 import com.zs.audiofy.common.IAP_TAG_EDITOR_PRO
 import com.zs.audiofy.common.IAP_WIDGETS_PLATFORM
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.LocalSystemFacade
 import com.zs.audiofy.common.compose.preference
 import com.zs.audiofy.common.compose.purchase
@@ -178,13 +179,13 @@ private fun RateUs(
     Promotion(
         expanded,
         onValueChange,
-        message = stringResource(id = R.string.msg_library_rate_us),
+        message = stringResource(id = Res.string.msg_library_rate_us),
         icon = Icons.Outlined.HotelClass,
         modifier = modifier,
         accent = Color.MetroGreen,
         action = {
             Button(
-                text = stringResource(id = R.string.rate_us).toString().uppercase(),
+                text = stringResource(id = Res.string.rate_us).toString().uppercase(),
                 onClick = facade::launchAppStore,
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color.MetroGreen.copy(0.12f)
@@ -209,13 +210,13 @@ private fun JoinUs(
     Promotion(
         expanded,
         onValueChange,
-        message = stringResource(id = R.string.msg_library_join_us),
+        message = stringResource(id = Res.string.msg_library_join_us),
         icon = Icons.Outlined.Chat,
         modifier = modifier,
         accent = Color.SkyBlue,
         action = {
             Button(
-                text = stringResource(id = R.string.telegram),
+                text = stringResource(id = Res.string.telegram),
                 onClick = { facade.launch(Settings.TelegramIntent) },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color.SkyBlue.copy(0.12f)
@@ -243,13 +244,13 @@ private fun GetApp(
     Promotion(
         expanded,
         onValueChange,
-        message = stringResource(id = R.string.msg_promotion_gallery_app),
+        message = stringResource(id = Res.string.msg_promotion_gallery_app),
         icon = Icons.Outlined.HotelClass,
         modifier = modifier,
         accent = Color.Amber,
         action = {
             Button(
-                text = stringResource(id = R.string.dive_in),
+                text = stringResource(id = Res.string.dive_in),
                 onClick = { facade.launchAppStore(pkg) },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color.Amber.copy(0.12f)
@@ -274,13 +275,13 @@ private fun HelpTranslate(
     Promotion(
         expanded,
         onValueChange,
-        message = stringResource(id = R.string.msg_library_help_translate),
+        message = stringResource(id = Res.string.msg_library_help_translate),
         icon = Icons.Outlined.Translate,
         modifier = modifier,
         accent = Color.AzureBlue,
         action = {
             Button(
-                text = stringResource(id = R.string.translate),
+                text = stringResource(id = Res.string.translate),
                 onClick = { facade.launch(Settings.TranslateIntent) },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color.SkyBlue.copy(0.12f)
@@ -296,8 +297,8 @@ private fun HelpTranslate(
 
 private val Product.action
     get() = when (id) {
-        Paymaster.IAP_BUY_ME_COFFEE -> R.string.sponsor
-        else -> R.string.unlock
+        Paymaster.IAP_BUY_ME_COFFEE -> Res.string.sponsor
+        else -> Res.string.unlock
     }
 
 @Composable

@@ -56,6 +56,7 @@ import coil3.request.ImageRequest
 import coil3.request.transformations
 import com.zs.audiofy.R
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.Background
 import com.zs.compose.foundation.ImageBrush
 import com.zs.compose.foundation.background
@@ -227,7 +228,7 @@ fun Acrylic(
                     ImageShader(
                         BitmapFactory.decodeResource(
                             ctx.resources,
-                            R.drawable.noise,
+                            Res.drawable.noise,
                             BitmapFactory.Options().apply { inScaled = false }
                         ).asImageBitmap(),
                         TileMode.Repeated,

@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.shine
 import com.zs.audiofy.console.RouteConsole
@@ -48,7 +49,7 @@ fun Iphone(
     ) {
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             Text(
-                textResource(R.string.widget_update_in_progress),
+                textResource(Res.string.widget_update_in_progress),
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = ContentPadding.medium),
                 style = AppTheme.typography.body2
             )

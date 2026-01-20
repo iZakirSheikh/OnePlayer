@@ -94,6 +94,7 @@ import com.zs.audiofy.common.compose.rememberAcrylicSurface
 import com.zs.audiofy.common.compose.shine
 import com.zs.audiofy.common.compose.source
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.Background
 import com.zs.compose.foundation.background
 import com.zs.compose.foundation.fullLineSpan
@@ -158,8 +159,8 @@ private fun SearchView(
                 contentDescription = null
             )
         },
-        placeholder = { Label(text = stringResource(R.string.search_placeholder)) },
-        label = { Label(text = stringResource(R.string.search)) },
+        placeholder = { Label(text = stringResource(Res.string.search_placeholder)) },
+        label = { Label(text = stringResource(Res.string.search)) },
         colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.Transparent),
         modifier = modifier
             .widthIn(min = 320.dp)
@@ -525,7 +526,7 @@ fun <T> Files(
                                         content = {
                                             Icon(Icons.Rounded.ShuffleOn, contentDescription = null)
                                             Spacer(Modifier.padding(horizontal = ButtonDefaults.IconSpacing))
-                                            Label(text = androidx.compose.ui.res.stringResource(id = R.string.shuffle))
+                                            Label(text = androidx.compose.ui.res.stringResource(id = Res.string.shuffle))
                                         },
                                         onClick = viewState::shuffle,
                                         shapes = ButtonDefaults.shapes,
@@ -537,7 +538,7 @@ fun <T> Files(
                                         content = {
                                             Icon(Icons.Outlined.PlaylistPlay, contentDescription = null)
                                             Spacer(Modifier.padding(horizontal = ButtonDefaults.IconSpacing))
-                                            Label(text = androidx.compose.ui.res.stringResource(R.string.play))
+                                            Label(text = androidx.compose.ui.res.stringResource(Res.string.play))
                                         },
                                         onClick = viewState::play,
                                         shapes = ButtonDefaults.shapes,

@@ -19,6 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.lottie
 import com.zs.audiofy.common.compose.lottieAnimationPainter
@@ -62,7 +63,7 @@ fun FabPlayer(
             // Playing bars.
             Icon(
                 painter = lottieAnimationPainter(
-                    R.raw.playback_indicator,
+                    Res.raw.playback_indicator,
                     isPlaying = state.playing
                 ),
                 contentDescription = null,
@@ -83,7 +84,7 @@ fun FabPlayer(
                 content = {
                     Icon(
                         painter = lottieAnimationPainter(
-                            id = R.raw.lt_play_pause,
+                            id = Res.raw.lt_play_pause,
                             atEnd = state.playing,
                             progressRange = 0.0f..0.29f,
                             animationSpec = tween(easing = LinearEasing)

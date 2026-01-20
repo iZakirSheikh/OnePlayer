@@ -51,6 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LottieAnimatedButton
 import com.zs.audiofy.common.compose.marque
@@ -94,7 +95,7 @@ fun SnowCone(
         // subtitle
         heading = {
             Label(
-                state.subtitle ?: textResource(R.string.unknown),
+                state.subtitle ?: textResource(Res.string.unknown),
                 style = AppTheme.typography.label3,
                 color = LocalContentColor.current.copy(ContentAlpha.medium),
                 modifier = Modifier.sharedElement(RouteConsole.ID_SUBTITLE),
@@ -108,7 +109,7 @@ fun SnowCone(
                     .clipToBounds(),
                 content = {
                     Label(
-                        state.title ?: stringResource(R.string.unknown),
+                        state.title ?: stringResource(Res.string.unknown),
                         style = AppTheme.typography.title2,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.marque(Int.MAX_VALUE)
@@ -170,7 +171,7 @@ fun SnowCone(
 
                     // Play/Pause
                     LottieAnimatedButton(
-                        id = R.raw.lt_play_pause2,
+                        id = Res.raw.lt_play_pause2,
                         atEnd = state.playing,
                         scale = 1.4f,
                         progressRange = 0.1f..0.65f,

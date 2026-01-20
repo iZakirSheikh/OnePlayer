@@ -56,6 +56,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LottieAnimatedButton
 import com.zs.audiofy.common.compose.background
@@ -111,13 +112,13 @@ fun MistyDream(
             .border(1.dp, Color.Gray.copy(0.24f), Shape)
             .background(Color.SignalWhite)
             .background(
-                lottieAnimationPainter(R.raw.lt_bg_blur),
+                lottieAnimationPainter(Res.raw.lt_bg_blur),
                 contentScale = ContentScale.Crop
             ),
         // subtitle
         overline = {
             Label(
-                state.subtitle ?: textResource(R.string.unknown),
+                state.subtitle ?: textResource(Res.string.unknown),
                 style = AppTheme.typography.label3,
                 color = contentColor.copy(ContentAlpha.medium),
                 modifier = Modifier.sharedElement(RouteConsole.ID_SUBTITLE),
@@ -131,7 +132,7 @@ fun MistyDream(
                     .clipToBounds(),
                 content = {
                     Label(
-                        state.title ?: textResource(R.string.unknown),
+                        state.title ?: textResource(Res.string.unknown),
                         modifier = Modifier.marque(Int.MAX_VALUE),
                         fontWeight = FontWeight.Bold,
                         style = AppTheme.typography.headline2.copy(
@@ -184,7 +185,7 @@ fun MistyDream(
 
                     // Play/Pause
                     LottieAnimatedButton(
-                        id = R.raw.lt_play_pause8,
+                        id = Res.raw.lt_play_pause8,
                         atEnd = state.playing,
                         scale = 5f,
                         progressRange = 0.0f..0.75f,
@@ -215,7 +216,7 @@ fun MistyDream(
                 content = {
                     // PlayingBars
                     Icon(
-                        painter = lottieAnimationPainter(R.raw.playback_indicator, isPlaying = state.playing),
+                        painter = lottieAnimationPainter(Res.raw.playback_indicator, isPlaying = state.playing),
                         contentDescription = null,
                         modifier = Modifier
                             .sharedElement(RouteConsole.ID_PLAYING_INDICATOR)
@@ -248,7 +249,7 @@ fun MistyDream(
                     val position = chronometer.elapsed
                     Label(
                         when (position) {
-                            Long.MIN_VALUE -> stringResource(R.string.abbr_not_available)
+                            Long.MIN_VALUE -> stringResource(Res.string.abbr_not_available)
                             else -> DateUtils.formatElapsedTime((position / 1000))
                         },
                         style = AppTheme.typography.headline2.copy(

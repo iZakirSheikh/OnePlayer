@@ -55,6 +55,7 @@ import com.zs.audiofy.R
 import com.zs.audiofy.common.Action
 import com.zs.audiofy.common.INFO
 import com.zs.audiofy.common.PLAYLIST_ADD
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LocalNavController
 import com.zs.audiofy.common.compose.LocalSystemFacade
@@ -134,7 +135,7 @@ private fun Video(
                     append("  ")
                     withStyle(style) {
                         append(" ")
-                        append(stringResource(R.string.pixels_d, value.height))
+                        append(stringResource(Res.string.pixels_d, value.height))
                         append(" ")
                     }
                 },
@@ -224,7 +225,7 @@ fun Videos(viewState: VideosViewState) {
                     // show checkbox
                     if (viewState.isInSelectionMode)
                         return@Video LottieAnimatedIcon(
-                            R.raw.lt_checkbox,
+                            Res.raw.lt_checkbox,
                             animationSpec = AppTheme.motionScheme.slowSpatialSpec(),
                             atEnd = video.id in selected, // if fav
                             contentDescription = null,
@@ -240,7 +241,7 @@ fun Videos(viewState: VideosViewState) {
                     Row {
                         // Heart
                         LottieAnimatedButton(
-                            R.raw.lt_twitter_heart_filled_unfilled,
+                            Res.raw.lt_twitter_heart_filled_unfilled,
                             onClick = { viewState.toggleLiked(video) },
                             animationSpec = tween(800),
                             atEnd = video.contentUri.toString() in favourites, // if fav

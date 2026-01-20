@@ -94,6 +94,7 @@ import com.zs.audiofy.common.compose.timer
 import com.zs.audiofy.console.components.TimeBar
 import com.zs.audiofy.effects.RouteAudioFx
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.SignalWhite
 import com.zs.compose.theme.AppTheme
 import com.zs.compose.theme.ContentAlpha
@@ -336,7 +337,7 @@ object RouteConsole : Route {
 
             // Playing bars.
             LottieAnimatedIcon(
-                R.raw.playback_indicator,
+                Res.raw.playback_indicator,
                 isPlaying = state.playing,
                 contentDescription = null,
                 modifier = Modifier
@@ -352,7 +353,7 @@ object RouteConsole : Route {
                     .clipToBounds(),
                 content = {
                     Label(
-                        text = state.title ?: stringResource(id = R.string.unknown),
+                        text = state.title ?: stringResource(id = Res.string.unknown),
                         fontSize = titleTextSize.sp,// Maybe Animate
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.marque(Int.MAX_VALUE)
@@ -420,7 +421,7 @@ object RouteConsole : Route {
 
             // Shuffle
             LottieAnimatedButton(
-                id = R.raw.lt_shuffle_on_off,
+                id = Res.raw.lt_shuffle_on_off,
                 onClick = { viewState.shuffle(!state.shuffle) },
                 atEnd = state.shuffle,
                 progressRange = 0f..0.8f,
@@ -456,7 +457,7 @@ object RouteConsole : Route {
                     val mode = state.repeatMode
                     Icon(
                         painter = AnimVectorPainter(
-                            R.drawable.avd_repeat_more_one_all,
+                            Res.drawable.avd_repeat_more_one_all,
                             mode == Remote.REPEAT_MODE_ALL
                         ),
                         contentDescription = null,
@@ -496,7 +497,7 @@ object RouteConsole : Route {
 
             // Favourite
             LottieAnimatedButton(
-                R.raw.lt_twitter_heart_filled_unfilled,
+                Res.raw.lt_twitter_heart_filled_unfilled,
                 onClick = viewState::toggleLike,
                 animationSpec = tween(800),
                 atEnd = state.favourite, // if fav
@@ -584,7 +585,7 @@ object RouteConsole : Route {
                         content = {
                             // Remove
                             DropDownMenuItem(
-                                stringResource(id = R.string.remove),
+                                stringResource(id = Res.string.remove),
                                 icon = Icons.Outlined.Remove,
                                 onClick = {
                                     val key = state.data
@@ -596,7 +597,7 @@ object RouteConsole : Route {
 
                             // Delete
                             DropDownMenuItem(
-                                stringResource(id = R.string.delete),
+                                stringResource(id = Res.string.delete),
                                 icon = Icons.Outlined.Delete,
                                 onClick = {
                                     val key = state.data
@@ -750,7 +751,7 @@ object RouteConsole : Route {
                     showViewOf = SHOW_NONE
                     return@PlaybackSpeed
                 }
-                val fValue = (facade as Activity).getString(R.string.msg_playback_speed_updated_f, newValue)
+                val fValue = (facade as Activity).getString(Res.string.msg_playback_speed_updated_f, newValue)
                 facade.showToast(fValue)
                 viewState.playbackSpeed = newValue
             }

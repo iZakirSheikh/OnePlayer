@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.emit
 import com.zs.audiofy.common.ellipsize
 import com.zs.compose.foundation.fadingEdge
@@ -101,7 +102,7 @@ fun PlaybackSpeed(
         gravity = if (width > height) Gravity.CENTER else Gravity.BOTTOM,
         title = {
             Label(
-                textResource(R.string.scr_playback_speed_title),
+                textResource(Res.string.scr_playback_speed_title),
                 fontWeight = FontWeight.Light
             )
         },
@@ -117,7 +118,7 @@ fun PlaybackSpeed(
             // Slider to change the playback speed.
             // Preview
             Label(
-                text = textResource(R.string.scale_factor_f, speed),
+                text = textResource(Res.string.scale_factor_f, speed),
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 style = AppTheme.typography.display3
             )
@@ -170,7 +171,7 @@ fun PlaybackSpeed(
                 )
             }
             // Presets
-            Header(stringResource(R.string.presets), style = AppTheme.typography.label3)
+            Header(stringResource(Res.string.presets), style = AppTheme.typography.label3)
             val presetsScrollState = rememberScrollState()
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -187,7 +188,7 @@ fun PlaybackSpeed(
                             content = {
                                 Label(
                                     text = textResource(
-                                        R.string.scale_factor_f,
+                                        Res.string.scale_factor_f,
                                         value
                                     ), modifier = padding
                                 )
@@ -231,7 +232,7 @@ fun SleepTimer(
             )
         },
         title = {
-            Label(textResource(R.string.scr_sleep_timer_title), fontWeight = FontWeight.Light)
+            Label(textResource(Res.string.scr_sleep_timer_title), fontWeight = FontWeight.Light)
         },
         actions = {
             // Start Timer
@@ -243,14 +244,14 @@ fun SleepTimer(
                     contentColor = color
                 ),
                 onClick = { onRequestChange(mins.toLong() * 60_000) }) {
-                Label(stringResource(R.string.start).uppercase())
+                Label(stringResource(Res.string.start).uppercase())
             }
         },
         content = {
 
             // Preview
             Label(
-                text = textResource(R.string.scr_sleep_timer_minute_d, mins.roundToInt()),
+                text = textResource(Res.string.scr_sleep_timer_minute_d, mins.roundToInt()),
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 style = AppTheme.typography.title1
             )
@@ -329,7 +330,7 @@ fun MediaConfigDialog(
         },
         title = {
             Text(
-                text = textResource(id = R.string.scr_media_config_title),
+                text = textResource(id = Res.string.scr_media_config_title),
                 fontWeight = FontWeight.Light,
                 lineHeight = 23.sp,
             )
@@ -353,7 +354,7 @@ fun MediaConfigDialog(
                 )
 
                 val style = AppTheme.typography.label3
-                Label(stringResource(R.string.audio), modifier = spacer, style = style)
+                Label(stringResource(Res.string.audio), modifier = spacer, style = style)
 
                 // Video
                 RadioButton(
@@ -363,7 +364,7 @@ fun MediaConfigDialog(
                     }
                 )
 
-                Label(stringResource(R.string.video), modifier = spacer, style = style)
+                Label(stringResource(Res.string.video), modifier = spacer, style = style)
 
                 // Subtitle
                 RadioButton(
@@ -373,7 +374,7 @@ fun MediaConfigDialog(
                     }
                 )
 
-                Label(stringResource(R.string.subtitle),  style = style)
+                Label(stringResource(Res.string.subtitle),  style = style)
             }
 
             val colors = ChipDefaults.selectableChipColors()
@@ -406,7 +407,7 @@ fun MediaConfigDialog(
                                         contentDescription = null
                                     )
                                 },
-                                content = { Label(stringResource(R.string.none)) },
+                                content = { Label(stringResource(Res.string.none)) },
                                 onClick = {
                                     viewState.setCheckedTrack(
                                         Remote.TRACK_TYPE_TEXT,

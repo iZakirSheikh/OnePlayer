@@ -30,6 +30,7 @@ import com.zs.audiofy.common.Mapped
 import com.zs.audiofy.common.compose.FilterDefaults
 import com.zs.audiofy.common.compose.FilterDefaults.FilterSaver
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.core.store.MediaProvider
 import com.zs.core.store.models.Audio.Album
 import com.zs.preferences.stringPreferenceKey
@@ -67,7 +68,7 @@ class AlbumsViewModel(provider: MediaProvider) : LocalDirectoryViewModel<Album>(
     private val Album.firstTitleChar
         inline get() = title.uppercase(Locale.ROOT)[0].toString()
 
-    override val title: CharSequence = getText(R.string.scr_albums_title)
+    override val title: CharSequence = getText(Res.string.scr_albums_title)
     override val orders: List<Action> = listOf(ORDER_BY_NONE, ORDER_BY_TITLE, ORDER_BY_ARTIST)
 
     private val Action.toMediaStoreOrder

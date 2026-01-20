@@ -26,6 +26,7 @@ import coil3.asImage
 import coil3.request.crossfade
 import com.zs.audiofy.R
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.settings.Settings
 import com.zs.compose.theme.snackbar.SnackbarHostState
 import com.zs.core.coil.MediaMetaDataArtFetcher
@@ -81,7 +82,7 @@ class CoilInitializer : Initializer<Unit> {
 
     @OptIn(DelicateCoilApi::class)
     override fun create(context: Context) {
-        val error = Drawable(context, R.drawable.ic_error_image_placeholder)!!.asImage()
+        val error = Drawable(context, Res.drawable.ic_error_image_placeholder)!!.asImage()
         // Construct imageLoader
         val loader = ImageLoader(context)
             .error(error)

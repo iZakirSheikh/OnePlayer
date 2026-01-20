@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.zs.audiofy.BuildConfig
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.LocalSystemFacade
 import com.zs.compose.foundation.textResource
 import com.zs.compose.theme.AppTheme
@@ -55,10 +56,10 @@ fun AboutUs() {
         // The app version and check for updates.
         val facade = LocalSystemFacade.current
         BaseListItem(
-            heading = { Label(textResource(R.string.version), fontWeight = FontWeight.Bold) },
+            heading = { Label(textResource(Res.string.version), fontWeight = FontWeight.Bold) },
             subheading = {
                 Label(
-                    textResource(R.string.version_info_s, BuildConfig.VERSION_NAME)
+                    textResource(Res.string.version_info_s, BuildConfig.VERSION_NAME)
                 )
             },
             footer = {
@@ -67,10 +68,10 @@ fun AboutUs() {
                     horizontalArrangement = Arrangement.spacedBy(CP.small),
                     content = {
                         TextButton(
-                            textResource(R.string.update_audiofy),
+                            textResource(Res.string.update_audiofy),
                             onClick = { facade.initiateUpdateFlow(true) })
                         TextButton(
-                            textResource(R.string.join_the_beta),
+                            textResource(Res.string.join_the_beta),
                             onClick = { facade.launch(Settings.JoinBetaIntent) },
                             enabled = false
                         )
@@ -87,7 +88,7 @@ fun AboutUs() {
 
         // Privacy Policy
         Preference(
-            text = textResource(R.string.pref_privacy_policy),
+            text = textResource(Res.string.pref_privacy_policy),
             icon = Icons.Outlined.PrivacyTip,
             modifier = Modifier
                 .clip(AppTheme.shapes.medium)
@@ -105,7 +106,7 @@ fun AboutUs() {
                 contentColor = AppTheme.colors.accent
             )
             Chip(
-                content = { Label(textResource(R.string.rate_us)) },
+                content = { Label(textResource(Res.string.rate_us)) },
                 leadingIcon = { Icon(Icons.Outlined.Star, null) },
                 onClick = facade::launchAppStore,
                 colors = colors,
@@ -113,7 +114,7 @@ fun AboutUs() {
             )
 
             Chip(
-                content = { Label(textResource(R.string.share_app_label)) },
+                content = { Label(textResource(Res.string.share_app_label)) },
                 leadingIcon = { Icon(Icons.Outlined.Share, null) },
                 onClick = { facade.launch(Settings.ShareAppIntent) },
                 colors = colors,

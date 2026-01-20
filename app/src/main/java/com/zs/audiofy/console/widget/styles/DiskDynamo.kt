@@ -58,6 +58,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LottieAnimatedButton
 import com.zs.audiofy.common.compose.marque
@@ -139,7 +140,7 @@ fun DiskDynamo(
                     .clipToBounds(),
                 content = {
                     Label(
-                        state.title ?: stringResource(R.string.unknown),
+                        state.title ?: stringResource(Res.string.unknown),
                         modifier = Modifier.marque(Int.MAX_VALUE),
                         style = AppTheme.typography.headline3.copy(
                             drawStyle = TitleDrawStyle,
@@ -153,7 +154,7 @@ fun DiskDynamo(
         // Subtitle
         heading = {
             Label(
-                state.subtitle ?: stringResource(R.string.unknown),
+                state.subtitle ?: stringResource(Res.string.unknown),
                 style = AppTheme.typography.label3,
                 color = LocalContentColor.current.copy(ContentAlpha.medium),
                 modifier = Modifier.sharedElement(RouteConsole.ID_SUBTITLE),
@@ -180,7 +181,7 @@ fun DiskDynamo(
 
                     // Play/Pause
                     LottieAnimatedButton(
-                        id = R.raw.lt_play_pause3,
+                        id = Res.raw.lt_play_pause3,
                         atEnd = state.playing,
                         scale = 2f,
                         progressRange = 0.0f..0.48f,

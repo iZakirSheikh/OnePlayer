@@ -47,6 +47,7 @@ import com.zs.audiofy.common.compose.FilterDefaults
 import com.zs.audiofy.common.compose.directory.MetaData
 import com.zs.audiofy.common.ellipsize
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.core.common.PathUtils
 import com.zs.core.common.toTrack
 import com.zs.core.db.playlists.Playlist
@@ -71,8 +72,8 @@ private fun MediaProvider.getArtistName(id: Long) = runBlocking { getArtist(id) 
 private fun MediaProvider.getAlbumName(id: Long) = runBlocking { getAlbum(id) }.title.ellipsize(12)
 private fun MediaProvider.getGenreName(id: Long) = runBlocking { getGenre(id) }.name.ellipsize(12)
 
-private val ORDER_BY_ALBUM = Action(R.string.album, id = "filter_by_album")
-private val ORDER_BY_ARTIST get() = Action(R.string.artist, id = "filter_by_artist")
+private val ORDER_BY_ALBUM = Action(Res.string.album, id = "filter_by_album")
+private val ORDER_BY_ARTIST get() = Action(Res.string.artist, id = "filter_by_artist")
 
 //
 private val ACTION_EDIT = Action.EDIT
@@ -160,22 +161,22 @@ class AudiosViewModel(
 
     override var info: MetaData by mutableStateOf(
         when (source) {
-            SOURCE_ALL -> MetaData(getText(R.string.scr_audios_title), icon = Icons.Outlined.LibraryBooks)
+            SOURCE_ALL -> MetaData(getText(Res.string.scr_audios_title), icon = Icons.Outlined.LibraryBooks)
 
             SOURCE_FOLDER -> MetaData(PathUtils.name(extra!!).ellipsize(12), extra)
             SOURCE_ARTIST -> MetaData(
                 provider.getArtistName(extra!!.toLong()),
-                getText(R.string.artist)
+                getText(Res.string.artist)
             )
 
             SOURCE_ALBUM -> MetaData(
                 provider.getAlbumName(extra!!.toLong()),
-                getText(R.string.album)
+                getText(Res.string.album)
             )
 
             SOURCE_GENRE -> MetaData(
                 provider.getGenreName(extra!!.toLong()),
-                getText(R.string.genre)
+                getText(Res.string.genre)
             )
 
             else -> error("$TAG unknown source: $source")
@@ -238,10 +239,10 @@ class AudiosViewModel(
                 if (!AppConfig.isFileGroupingEnabled)
                     return@groupBy ""
                 when {
-                    audio.duration < TimeUnit.MINUTES.toMillis(2) -> getText(R.string.duration_under_2_min)
-                    audio.duration < TimeUnit.MINUTES.toMillis(5) -> getText(R.string.duration_under_5_min)
-                    audio.duration < TimeUnit.MINUTES.toMillis(10) -> getText(R.string.duration_under_10_min)
-                    else -> getText(R.string.duration_over_10_min)
+                    audio.duration < TimeUnit.MINUTES.toMillis(2) -> getText(Res.string.duration_under_2_min)
+                    audio.duration < TimeUnit.MINUTES.toMillis(5) -> getText(Res.string.duration_under_5_min)
+                    audio.duration < TimeUnit.MINUTES.toMillis(10) -> getText(Res.string.duration_under_10_min)
+                    else -> getText(Res.string.duration_over_10_min)
                 }
             }
             // groupby length

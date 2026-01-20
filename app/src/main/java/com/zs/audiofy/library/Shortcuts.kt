@@ -44,6 +44,7 @@ import com.zs.audiofy.R
 import com.zs.audiofy.audios.directory.RouteAlbums
 import com.zs.audiofy.audios.directory.RouteArtists
 import com.zs.audiofy.audios.directory.RouteGenres
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LocalNavController
 import com.zs.audiofy.common.shapes.FolderShape
@@ -126,33 +127,33 @@ fun Shortcuts(
             Shortcut(
                 onAction = { navigator.navigate(RouteAlbums()) },
                 icon = Icons.Outlined.Album,
-                label = textResource(id = R.string.albums),
+                label = textResource(id = Res.string.albums),
             )
 
             // Shortcut for Genres navigation
             Shortcut(
                 onAction = { navigator.navigate(RouteGenres()) },
                 icon = Icons.Outlined.Grain,
-                label = textResource(id = R.string.genres),
+                label = textResource(id = Res.string.genres),
             )
 
             // Shortcut for Artists navigation
             Shortcut(
                 onAction = { navigator.navigate(RouteArtists()) },
                 icon = Icons.Outlined.Person,
-                label = textResource(id = R.string.artists),
+                label = textResource(id = Res.string.artists),
             )
 
             // Favourites
             Shortcut(
                 onAction = { navigator.navigate(RouteMembers(Remote.PLAYLIST_FAVOURITE)) },
                 icon = Icons.Outlined.FolderSpecial,
-                label = textResource(id = R.string.liked),
+                label = textResource(id = Res.string.liked),
             )
 
             //
             Header(
-                textResource(R.string.folders),
+                textResource(Res.string.folders),
                 style = AppTheme.typography.label3,
                 color = AppTheme.colors.accent,
                 modifier = Modifier.padding(top = ContentPadding.small)

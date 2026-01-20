@@ -76,6 +76,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
 import com.zs.audiofy.R
 import com.zs.audiofy.common.IAP_TAG_EDITOR_PRO
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.FloatingLargeTopAppBar
 import com.zs.audiofy.common.compose.LocalNavController
 import com.zs.audiofy.common.compose.LocalSystemFacade
@@ -172,7 +173,7 @@ private fun ExtraInfo(
                 when (value) {
                     is Uri if (isUnlocked) -> viewState.setArtwork(value)
                     null -> return@Launcher // this should not happen
-                    else -> facade.showSnackbar(R.string.msg_upgrade_to_pro)
+                    else -> facade.showSnackbar(Res.string.msg_upgrade_to_pro)
                 }
             }
         IconButton(onClick = { launcher.launch(PickArtwork) }) {
@@ -276,9 +277,9 @@ fun Editor(viewState: EditorViewState) {
                     Text(
                         textResource(
                             if (isProVersion.purchased)
-                                R.string.scr_tag_editor_pro_title
+                                Res.string.scr_tag_editor_pro_title
                             else
-                                R.string.scr_tag_editor_title
+                                Res.string.scr_tag_editor_title
                         ),
                         maxLines = 2,
                         fontWeight = FontWeight.Light,
@@ -344,10 +345,10 @@ fun Editor(viewState: EditorViewState) {
                     // Title
                     item(span = fullLineSpan, contentType = "property") {
                         Property(
-                            title = R.string.title,
+                            title = Res.string.title,
                             value = viewState.title,
                             onValueChange = { viewState.title = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder
+                            placeholder = Res.string.scr_tag_editor_property_placeholder
                         )
                     }
 
@@ -359,7 +360,7 @@ fun Editor(viewState: EditorViewState) {
                                 heading = { Spacer(modifier = Modifier) },
                                 footer = {
                                     TextButton(
-                                        text = textResource(id = R.string.scr_tag_editor_screen_buy_now_action),
+                                        text = textResource(id = Res.string.scr_tag_editor_screen_buy_now_action),
                                         onClick = { facade.initiatePurchaseFlow(Paymaster.IAP_TAG_EDITOR_PRO) })
                                 },
                                 contentColor = AppTheme.colors.onBackground,
@@ -370,7 +371,7 @@ fun Editor(viewState: EditorViewState) {
                                         tint = Color.MetroGreen
                                     )
                                 },
-                                subheading = { Text(text = textResource(id = R.string.msg_tag_editor_buy_me_banner)) },
+                                subheading = { Text(text = textResource(id = Res.string.msg_tag_editor_buy_me_banner)) },
                                 modifier = Modifier.background(
                                     color = AppTheme.colors.background(1.dp),
                                     AppTheme.shapes.small
@@ -381,86 +382,86 @@ fun Editor(viewState: EditorViewState) {
                     // Album
                     item(contentType = "property") {
                         Property(
-                            title = R.string.album,
+                            title = Res.string.album,
                             value = viewState.album,
                             onValueChange = { viewState.album = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder
+                            placeholder = Res.string.scr_tag_editor_property_placeholder
                         )
                     }
                     // Artist
                     item(contentType = "property") {
                         Property(
-                            title = R.string.artist,
+                            title = Res.string.artist,
                             value = viewState.artist,
                             onValueChange = { viewState.artist = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder
+                            placeholder = Res.string.scr_tag_editor_property_placeholder
                         )
                     }
                     // Album Artist
                     item(contentType = "property") {
                         Property(
-                            title = R.string.album_artist,
+                            title = Res.string.album_artist,
                             value = viewState.albumArtist,
                             onValueChange = { viewState.albumArtist = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder
+                            placeholder = Res.string.scr_tag_editor_property_placeholder
                         )
                     }
                     // Composer
                     item(contentType = "property") {
                         Property(
-                            title = R.string.composer,
+                            title = Res.string.composer,
                             value = viewState.composer,
                             onValueChange = { viewState.composer = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder
+                            placeholder = Res.string.scr_tag_editor_property_placeholder
                         )
                     }
                     // Genre
                     item(contentType = "property") {
                         Property(
-                            title = R.string.genre,
+                            title = Res.string.genre,
                             value = viewState.genre,
                             onValueChange = { viewState.genre = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder,
+                            placeholder = Res.string.scr_tag_editor_property_placeholder,
                         )
                     }
 
                     // comment
                     item(span = fullLineSpan, contentType = "property") {
                         Property(
-                            title = R.string.comment,
+                            title = Res.string.comment,
                             value = viewState.comment,
                             onValueChange = { viewState.comment = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder,
+                            placeholder = Res.string.scr_tag_editor_property_placeholder,
                         )
                     }
 
                     // Original Artist
                     item(contentType = "property") {
                         Property(
-                            title = R.string.original_artist,
+                            title = Res.string.original_artist,
                             value = viewState.originalArtist,
                             onValueChange = { viewState.originalArtist = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder
+                            placeholder = Res.string.scr_tag_editor_property_placeholder
                         )
                     }
 
                     // Publisher
                     item(contentType = "property") {
                         Property(
-                            title = R.string.publisher,
+                            title = Res.string.publisher,
                             value = viewState.publisher,
                             onValueChange = { viewState.publisher = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder
+                            placeholder = Res.string.scr_tag_editor_property_placeholder
                         )
                     }
 
                     // Copywriter
                     item(contentType = "property") {
                         Property(
-                            title = R.string.copywriter,
+                            title = Res.string.copywriter,
                             value = viewState.copyright,
                             onValueChange = { viewState.copyright = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder,
+                            placeholder = Res.string.scr_tag_editor_property_placeholder,
                         )
                     }
                     // number
@@ -472,50 +473,50 @@ fun Editor(viewState: EditorViewState) {
                     // Year
                     item(contentType = "property") {
                         Property(
-                            title = R.string.year,
+                            title = Res.string.year,
                             value = viewState.year,
                             onValueChange = { viewState.year = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder,
+                            placeholder = Res.string.scr_tag_editor_property_placeholder,
                             keyboardOptions = KeyboardTypeNumber
                         )
                     }
                     // Track Number
                     item(contentType = "property") {
                         Property(
-                            title = R.string.track_number,
+                            title = Res.string.track_number,
                             value = viewState.trackNumber,
                             onValueChange = { viewState.trackNumber = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder,
+                            placeholder = Res.string.scr_tag_editor_property_placeholder,
                             keyboardOptions = KeyboardTypeNumber
                         )
                     }
                     // Url
                     item(contentType = "property") {
                         Property(
-                            title = R.string.url,
+                            title = Res.string.url,
                             value = viewState.url,
                             onValueChange = { viewState.url = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder,
-                            //   visualTransformation = AffixVisualTransformation(ctx.resources.getText2(R.string.tag_editor_web_address_prefix))
+                            placeholder = Res.string.scr_tag_editor_property_placeholder,
+                            //   visualTransformation = AffixVisualTransformation(ctx.resources.getText2(Res.string.tag_editor_web_address_prefix))
                         )
                     }
                     // Disk Number
                     item(contentType = "property") {
                         Property(
-                            title = R.string.disk_number,
+                            title = Res.string.disk_number,
                             value = viewState.diskNumber,
                             onValueChange = { viewState.diskNumber = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder,
+                            placeholder = Res.string.scr_tag_editor_property_placeholder,
                             keyboardOptions = KeyboardTypeNumber
                         )
                     }
                     // Total Disks
                     item(contentType = "property") {
                         Property(
-                            title = R.string.total_disks,
+                            title = Res.string.total_disks,
                             value = viewState.totalDisks,
                             onValueChange = { viewState.totalDisks = it },
-                            placeholder = R.string.scr_tag_editor_property_placeholder,
+                            placeholder = Res.string.scr_tag_editor_property_placeholder,
                             keyboardOptions = KeyboardTypeNumber
                         )
                     }
@@ -523,7 +524,7 @@ fun Editor(viewState: EditorViewState) {
                     // Header
                     item(contentType = "header", span = fullLineSpan) {
                         Header(
-                            stringResource(R.string.lyrics),
+                            stringResource(Res.string.lyrics),
                             style = AppTheme.typography.title3,
                             color = AppTheme.colors.accent,
                             modifier = Modifier.padding(top = CP.medium)
@@ -547,7 +548,7 @@ fun Editor(viewState: EditorViewState) {
                             textStyle = AppTheme.typography.body2,
                             placeholder = {
                                 Text(
-                                    textResource(id = R.string.scr_tag_editor_lyrics_placeholder),
+                                    textResource(id = Res.string.scr_tag_editor_lyrics_placeholder),
                                     style = AppTheme.typography.body2
                                 )
                             },

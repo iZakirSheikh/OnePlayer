@@ -51,6 +51,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogWindowProvider
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LocalNavController
 import com.zs.audiofy.common.compose.fadingEdge2
@@ -116,99 +117,99 @@ private fun Details(viewState: PropertiesViewState, modifier: Modifier = Modifie
         content = {
             // Title
             Property(
-                title = R.string.title,
+                title = Res.string.title,
                 value = viewState.title,
                 span = fullLineSpan
             )
 
             // Path
             Property(
-                title = R.string.file_path,
+                title = Res.string.file_path,
                 value = viewState.path,
                 span = fullLineSpan
             )
 
             // Size
             Property(
-                title = R.string.size,
+                title = Res.string.size,
                 value = viewState.size,
             )
 
             // Format
             Property(
-                title = R.string.format,
+                title = Res.string.format,
                 value = viewState.mimeType
             )
 
             // Bitrate
             Property(
-                title = R.string.bitrate, value = viewState.bitrate
+                title = Res.string.bitrate, value = viewState.bitrate
             )
 
             // SampleRate
             Property(
-                title = R.string.sampling_rate, value = viewState.sampleRate
+                title = Res.string.sampling_rate, value = viewState.sampleRate
             )
 
             // BitsPerSample
             Property(
-                title = R.string.bits_per_sample, value = viewState.bitsPerSample
+                title = Res.string.bits_per_sample, value = viewState.bitsPerSample
             )
 
             // Duration
             Property(
-                title = R.string.duration, value = viewState.duration
+                title = Res.string.duration, value = viewState.duration
             )
 
             // Year
             Property(
-                title = R.string.year,
+                title = Res.string.year,
                 value = viewState.year
             )
 
 
             // Disk Number
             Property(
-                title = R.string.disk_number,
+                title = Res.string.disk_number,
                 value = viewState.diskNumber
             )
 
             // Track Number
             Property(
-                title = R.string.track_number,
+                title = Res.string.track_number,
                 value = viewState.trackNumber
             )
 
             // Artist
             Property(
-                title = R.string.artist,
+                title = Res.string.artist,
                 value = viewState.artist
             )
             // Album
             Property(
-                title = R.string.album,
+                title = Res.string.album,
                 value = viewState.album
             )
 
             // Genre
             Property(
-                title = R.string.genre,
+                title = Res.string.genre,
                 value = viewState.genre
             )
 
             // Composer
             Property(
-                title = R.string.composer,
+                title = Res.string.composer,
                 value = viewState.composer
             )
             // Author
             Property(
-                title = R.string.author,
+                title = Res.string.author,
                 value = viewState.author
             )
             // Writer
             Property(
-                title = R.string.writer,
+                title = Res.string.writer,
                 value = viewState.writer
             )
         }
@@ -228,7 +229,7 @@ private fun Artwork(bitmap: ImageBitmap?, modifier: Modifier = Modifier) {
         )
     else
         Image(
-            painterResource(R.drawable.ic_error_image_placeholder),
+            painterResource(Res.drawable.ic_error_image_placeholder),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = modifier
@@ -270,7 +271,7 @@ fun Properties(viewState: PropertiesViewState) {
         // Fab - Dismiss Button
         val navController = LocalNavController.current
         Button(
-            textResource(R.string.dismiss),
+            textResource(Res.string.dismiss),
             onClick = navController::navigateUp,
             modifier = Modifier
                 .align(Alignment.BottomEnd)

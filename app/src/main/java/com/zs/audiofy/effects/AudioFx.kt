@@ -48,6 +48,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogWindowProvider
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.LocalNavController
 import com.zs.audiofy.common.compose.shine
 import com.zs.compose.foundation.Background
@@ -97,7 +98,7 @@ fun AudioFx(viewState: AudioFxViewState) {
         // Header
         Row(verticalAlignment = Alignment.CenterVertically) {
             Label(
-                stringResource(R.string.equalizer),
+                stringResource(Res.string.equalizer),
                 color = colors.accent,
                 style = AppTheme.typography.title3
             )
@@ -121,15 +122,15 @@ fun AudioFx(viewState: AudioFxViewState) {
                         val start = range.start;
                         val end = range.endInclusive
                         Label(
-                            text = stringResource(id = R.string.scr_effects_db_suffix_d, start / 1000),
+                            text = stringResource(id = Res.string.scr_effects_db_suffix_d, start / 1000),
                             style = AppTheme.typography.label3
                         )
                         Label(
-                            text = stringResource(id = R.string.scr_effects_db_suffix_d, 0),
+                            text = stringResource(id = Res.string.scr_effects_db_suffix_d, 0),
                             style = AppTheme.typography.label3
                         )
                         Label(
-                            text = stringResource(id = R.string.scr_effects_db_suffix_d, end / 1000),
+                            text = stringResource(id = Res.string.scr_effects_db_suffix_d, end / 1000),
                             style = AppTheme.typography.label3
                         )
                     }
@@ -150,7 +151,7 @@ fun AudioFx(viewState: AudioFxViewState) {
                         )
 
                         Label(
-                            text = stringResource(id = R.string.scr_effects_hz_suffix_d, fx.getBandCenterFreq(band) / 1000),
+                            text = stringResource(id = Res.string.scr_effects_hz_suffix_d, fx.getBandCenterFreq(band) / 1000),
                             style = AppTheme.typography.label3
                         )
                     }
@@ -211,7 +212,7 @@ fun AudioFx(viewState: AudioFxViewState) {
                     },
                     title = {
                         Label(
-                            textResource(R.string.scr_effects_title),
+                            textResource(Res.string.scr_effects_title),
                             fontWeight = FontWeight.Light,
                             maxLines = 2
                         )

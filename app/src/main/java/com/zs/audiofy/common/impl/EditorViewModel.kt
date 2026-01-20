@@ -48,6 +48,7 @@ import androidx.lifecycle.viewModelScope
 import com.mpatric.mp3agic.ID3v1Genres
 import com.mpatric.mp3agic.Mp3File
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.editor.EditorViewState
 import com.zs.audiofy.editor.RouteEditor
 import com.zs.audiofy.editor.get
@@ -375,10 +376,10 @@ class EditorViewModel(handle: SavedStateHandle) : KoinViewModel(), EditorViewSta
         url = TextFieldValue(file.url ?: "")
         originalArtist = TextFieldValue(file.originalArtist ?: "")
         publisher = TextFieldValue(file.publisher ?: "")
-        val na = getText(R.string.abbr_not_available)
+        val na = getText(Res.string.abbr_not_available)
         // initialize the extra info.
         extraInfo = getText(
-            R.string.scr_tag_editor_extra_info_ssss,
+            Res.string.scr_tag_editor_extra_info_ssss,
             file.channelMode ?: na,
             file.bitrate,
             DateUtils.formatElapsedTime(file.lengthInSeconds),

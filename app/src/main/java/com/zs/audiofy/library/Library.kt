@@ -67,6 +67,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
 import com.zs.audiofy.about.RouteAboutUs
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LocalNavController
 import com.zs.audiofy.common.compose.LocalSystemFacade
@@ -131,7 +132,7 @@ private fun LibraryTopAppBar(
         },
         title = {
             Text(
-                text = textResource(id = R.string.scr_library_title),
+                text = textResource(id = Res.string.scr_library_title),
                 fontWeight = FontWeight.Light,
                 maxLines = 2,
                 lineHeight = 23.sp
@@ -312,7 +313,7 @@ fun Library(viewState: LibraryViewState) {
                 content = {
                     Column {
                         LibraryHeader(
-                            text = textResource(R.string.library_shortcuts),
+                            text = textResource(Res.string.library_shortcuts),
                             style = AppTheme.typography.title2,
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -350,7 +351,7 @@ fun Library(viewState: LibraryViewState) {
                         // header
                         item(contentType = "header") {
                             LibraryHeader(
-                                text = textResource(R.string.library_shortcuts),
+                                text = textResource(Res.string.library_shortcuts),
                                 padding = PaddingValues.Zero
                             )
                         }
@@ -367,7 +368,7 @@ fun Library(viewState: LibraryViewState) {
                     item {
                         LibraryHeader(
                             modifier = Modifier.fillMaxWidth() then HeaderMargin,
-                            text = textResource(R.string.library_history),
+                            text = textResource(Res.string.library_history),
                         )
                     }
                     item {
@@ -388,7 +389,7 @@ fun Library(viewState: LibraryViewState) {
                     item {
                         LibraryHeader(
                             modifier = Modifier.fillMaxWidth() then HeaderMargin,
-                            text = textResource(id = R.string.library_recently_added),
+                            text = textResource(id = Res.string.library_recently_added),
                         )
                     }
                     item {

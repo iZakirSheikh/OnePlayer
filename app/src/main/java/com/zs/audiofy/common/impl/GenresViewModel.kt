@@ -30,6 +30,7 @@ import com.zs.audiofy.common.Filter
 import com.zs.audiofy.common.Mapped
 import com.zs.audiofy.common.compose.FilterDefaults
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.core.store.MediaProvider
 import com.zs.core.store.models.Audio.Genre
 import com.zs.preferences.stringPreferenceKey
@@ -72,7 +73,7 @@ class GenresViewModel(provider: MediaProvider) : LocalDirectoryViewModel<Genre>(
             else -> MediaStore.Audio.Genres.DEFAULT_SORT_ORDER
         }
 
-    override val title: CharSequence = getText(R.string.scr_genres_title)
+    override val title: CharSequence = getText(Res.string.scr_genres_title)
     override val orders: List<Action> = listOf(ORDER_BY_NONE, ORDER_BY_TITLE)
 
     override suspend fun fetch(filter: Filter, query: String?): Mapped<Genre> {

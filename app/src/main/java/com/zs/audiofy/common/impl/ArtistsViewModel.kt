@@ -31,6 +31,7 @@ import com.zs.audiofy.common.Mapped
 import com.zs.audiofy.common.compose.FilterDefaults
 import com.zs.audiofy.common.compose.FilterDefaults.FilterSaver
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.core.store.MediaProvider
 import com.zs.core.store.models.Audio.Artist
 import com.zs.preferences.stringPreferenceKey
@@ -67,7 +68,7 @@ class ArtistsViewModel(provider: MediaProvider) : LocalDirectoryViewModel<Artist
         preferences[filterKey] ?: (true to ORDER_BY_TITLE)
     )
 
-    override val title: CharSequence = getText(R.string.scr_artists_title)
+    override val title: CharSequence = getText(Res.string.scr_artists_title)
     override val orders: List<Action> = listOf(ORDER_BY_NONE, ORDER_BY_TITLE)
 
     private val Action.toMediaStoreOrder

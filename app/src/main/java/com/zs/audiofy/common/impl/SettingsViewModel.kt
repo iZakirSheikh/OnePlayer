@@ -30,6 +30,7 @@ import androidx.lifecycle.viewModelScope
 import com.zs.audiofy.R
 import com.zs.audiofy.common.SystemFacade
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.settings.Settings
 import com.zs.audiofy.settings.SettingsViewState
 import com.zs.compose.theme.snackbar.SnackbarResult
@@ -97,8 +98,8 @@ class SettingsViewModel : KoinViewModel(), SettingsViewState {
             // [USER_FEEDBACK] Inform the user that a restart is required for some changes to take effect
             // Display a snackbar with a "Restart" action.
             val result = showSnackbar(
-                R.string.msg_apply_changes_restart,
-                R.string.restart,
+                Res.string.msg_apply_changes_restart,
+                Res.string.restart,
                 icon = Icons.Outlined.PowerSettingsNew
             )
             // [APP_LIFECYCLE] If the user confirms, trigger an application restart via the SystemFacade

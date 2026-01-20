@@ -26,6 +26,7 @@ import com.zs.audiofy.R
 import com.zs.audiofy.common.Action
 import com.zs.audiofy.common.Filter
 import com.zs.audiofy.common.Mapped
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.directory.DirectoryViewState
 import com.zs.audiofy.common.raw
 import com.zs.compose.theme.snackbar.SnackbarResult
@@ -75,7 +76,7 @@ abstract class LocalDirectoryViewModel<T>(
         }
         // catch any exceptions.
         .catch {
-            val report = report(it.message ?: getText(R.string.msg_unknown_error))
+            val report = report(it.message ?: getText(Res.string.msg_unknown_error))
             if (report == SnackbarResult.ActionPerformed) analytics.record(it)
         }
         // make sure the flow is released after sometime.

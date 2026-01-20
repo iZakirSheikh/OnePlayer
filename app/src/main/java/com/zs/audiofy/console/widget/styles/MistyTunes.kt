@@ -62,6 +62,7 @@ import com.zs.audiofy.common.compose.shine
 import com.zs.audiofy.console.RouteConsole
 import com.zs.audiofy.console.widget.Widget
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.background
 import com.zs.compose.foundation.textResource
 import com.zs.compose.theme.AppTheme
@@ -116,7 +117,7 @@ fun MistyTunes(
                     .clipToBounds(),
                 content = {
                     Label(
-                        state.title ?: textResource(R.string.unknown),
+                        state.title ?: textResource(Res.string.unknown),
                         style = AppTheme.typography.title1,
                         modifier = Modifier
                             .marque(Int.MAX_VALUE),
@@ -129,7 +130,7 @@ fun MistyTunes(
         // Subtitle as subheading
         subheading = {
             Label(
-                state.subtitle ?: textResource(R.string.unknown),
+                state.subtitle ?: textResource(Res.string.unknown),
                 style = AppTheme.typography.label3,
                 color = LocalContentColor.current.copy(ContentAlpha.medium),
                 modifier = Modifier.sharedElement(RouteConsole.ID_SUBTITLE),
@@ -155,7 +156,7 @@ fun MistyTunes(
                     append(
                         "$fPos / $fDuration (${
                             stringResource(
-                                R.string.postfix_x_f,
+                                Res.string.postfix_x_f,
                                 state.speed
                             )
                         })"
@@ -189,7 +190,7 @@ fun MistyTunes(
                 content = {
                     Icon(
                         painter = lottieAnimationPainter(
-                            id = R.raw.lt_play_pause,
+                            id = Res.raw.lt_play_pause,
                             atEnd = state.playing,
                             progressRange = 0.0f..0.29f,
                             animationSpec = tween(easing = LinearEasing)
@@ -214,7 +215,7 @@ fun MistyTunes(
 
                     when {
                         AppConfig.inAppWidgetLongPressOpenConfig -> LottieAnimatedButton(
-                            R.raw.lt_twitter_heart_filled_unfilled,
+                            Res.raw.lt_twitter_heart_filled_unfilled,
                             onClick = { onRequest(Widget.REQUEST_LIKED) },
                             animationSpec = tween(800),
                             atEnd = state.favourite, // if fav

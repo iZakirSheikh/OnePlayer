@@ -35,6 +35,7 @@ import com.zs.audiofy.common.ShareFilesIntent
 import com.zs.audiofy.common.compose.FilterDefaults
 import com.zs.audiofy.common.raw
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.settings.Settings
 import com.zs.compose.foundation.Rose
 import com.zs.compose.foundation.runCatching
@@ -58,11 +59,11 @@ abstract class StoreViewModel<T>(
     val ORDER_BY_NONE = FilterDefaults.ORDER_NONE
     val ORDER_BY_TITLE = FilterDefaults.ORDER_BY_TITLE
     val ORDER_BY_DATE_MODIFIED = FilterDefaults.ORDER_BY_DATE_MODIFIED
-    val ORDER_BY_LENGTH get() = Action(R.string.length, id = "filter_by_length")
+    val ORDER_BY_LENGTH get() = Action(Res.string.length, id = "filter_by_length")
 
     // common actions
-    val ACTION_DELETE = Action(R.string.delete, Icons.Default.DeleteOutline)
-    val ACTION_SHARE = Action(R.string.share, Icons.Outlined.Share)
+    val ACTION_DELETE = Action(Res.string.delete, Icons.Default.DeleteOutline)
+    val ACTION_SHARE = Action(Res.string.share, Icons.Outlined.Share)
     val ACTION_INFO = Action.INFO
 
     abstract suspend fun refresh(query: String?, ascending: Boolean, order: Action)
@@ -79,7 +80,7 @@ abstract class StoreViewModel<T>(
             .onEach() { (query, ascending, order) -> refresh(query, ascending, order) }
             .catch { exception ->
                 Log.d(TAG, "provider: ${exception.stackTraceToString()}")
-                val action = report(exception.message ?: getText(R.string.msg_unknown_error))
+                val action = report(exception.message ?: getText(Res.string.msg_unknown_error))
             }
     }
 
@@ -95,8 +96,8 @@ abstract class StoreViewModel<T>(
             // If the user performs the action, proceed with deletion
             // Otherwise, return -3 to indicate user cancellation
             val action = showSnackbar(
-                message = R.string.msg_deletion_confirm,
-                action = R.string.delete,
+                message = Res.string.msg_deletion_confirm,
+                action = Res.string.delete,
                 icon = Icons.Outlined.NearbyError,
                 accent = Color.Rose,
                 duration = SnackbarDuration.Indefinite
@@ -110,7 +111,7 @@ abstract class StoreViewModel<T>(
         }
         // Display a message based on the result of the deletion operation.
         if (result == null || result == 0 || result == -1)
-            showPlatformToast(R.string.msg_files_delete_unknown_error)// General error
+            showPlatformToast(Res.string.msg_files_delete_unknown_error)// General error
     }
 
     @Suppress("NewApi")
@@ -123,7 +124,7 @@ abstract class StoreViewModel<T>(
         }
         // General error
         if (result == null || result == 0 || result == -1)
-            showPlatformToast(R.string.msg_files_trash_unknown_error)
+            showPlatformToast(Res.string.msg_files_trash_unknown_error)
     }
 
     /** Deletes or Trashes file(s) represented by id(s).*/
@@ -148,7 +149,7 @@ abstract class StoreViewModel<T>(
         // Display a message based on the result of the deletion operation.
         // General error
         if (result == null || result == 0 || result == -1)
-            showPlatformToast(R.string.msg_files_restore_unknown_error)
+            showPlatformToast(Res.string.msg_files_restore_unknown_error)
     }
 
     fun share(resolver: Activity, vararg ids: Long) {
@@ -158,7 +159,7 @@ abstract class StoreViewModel<T>(
             }
             // If sharing fails, display an error message.
             if (result.isFailure)
-                error(getText(R.string.msg_error_sharing_files))
+                error(getText(Res.string.msg_error_sharing_files))
         }
     }
 }

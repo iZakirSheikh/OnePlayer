@@ -42,6 +42,7 @@ import com.zs.audiofy.common.compose.LocalNavController
 import com.zs.audiofy.common.compose.directory.Directory
 import com.zs.audiofy.common.compose.directory.DirectoryViewState
 import androidx.compose.ui.draw.scale
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.shadow
 import com.zs.compose.theme.AppTheme
 import com.zs.compose.theme.Icon
@@ -86,7 +87,7 @@ private fun Artist(
                 contentColor = AppTheme.colors.onBackground,
                 content = {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_artist),
+                        painter = painterResource(id = Res.drawable.ic_artist),
                         contentDescription = null,
                         modifier = IconModifier,
                     )

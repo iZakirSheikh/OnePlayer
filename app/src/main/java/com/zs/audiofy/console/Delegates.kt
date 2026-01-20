@@ -54,6 +54,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.BuildConfig
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.SystemFacade
 import com.zs.audiofy.common.compose.Acrylic
 import com.zs.audiofy.common.compose.lottie
@@ -176,7 +177,7 @@ private fun OutlinedPlayButton(
         content = {
             Icon(
                 painter = lottieAnimationPainter(
-                    id = R.raw.lt_play_pause,
+                    id = Res.raw.lt_play_pause,
                     atEnd = isPlaying,
                     progressRange = 0.0f..0.29f,
                     animationSpec = tween(easing = LinearEasing)
@@ -198,7 +199,7 @@ private fun SimplePlayButton(
     IconButton(onClick = onClick, modifier = modifier, enabled = enabled) {
         Icon(
             painter = lottieAnimationPainter(
-                id = R.raw.lt_play_pause,
+                id = Res.raw.lt_play_pause,
                 atEnd = isPlaying,
                 progressRange = 0.0f..0.29f,
                 animationSpec = tween(easing = LinearEasing)
@@ -232,7 +233,7 @@ fun PlayButton(
 context(_: RC)
 fun SystemFacade.launchEqualizer(id: Int) {
     if (id == AudioEffect.ERROR_BAD_VALUE)
-        return showToast(R.string.msg_unknown_error)
+        return showToast(Res.string.msg_unknown_error)
     val intent =
         android.content.Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL).apply {
             putExtra(AudioEffect.EXTRA_PACKAGE_NAME, BuildConfig.APPLICATION_ID)
@@ -242,7 +243,7 @@ fun SystemFacade.launchEqualizer(id: Int) {
     val res = runCatching { launch(intent) }
     if (!res.isFailure)
         return
-    showToast(message = R.string.msg_3rd_party_equalizer_not_found)
+    showToast(message = Res.string.msg_3rd_party_equalizer_not_found)
 }
 
 

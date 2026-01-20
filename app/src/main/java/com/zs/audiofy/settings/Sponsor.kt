@@ -42,6 +42,7 @@ import com.zs.audiofy.BuildConfig
 import com.zs.audiofy.R
 import com.zs.audiofy.common.IAP_BUY_ME_COFFEE
 import com.zs.audiofy.common.IAP_NO_ADS
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.LocalSystemFacade
 import com.zs.audiofy.common.compose.purchase
 import com.zs.compose.foundation.shapes.SquircleShape
@@ -70,7 +71,7 @@ fun Sponsor(modifier: Modifier = Modifier) {
         // App name.
         overline = {
             Text(
-                text = textResource(R.string.app_name),
+                text = textResource(Res.string.app_name),
                 style = AppTheme.typography.display3,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.DancingScriptFontFamily,
@@ -80,7 +81,7 @@ fun Sponsor(modifier: Modifier = Modifier) {
         // Build version info.
         heading = {
             Text(
-                text = textResource(R.string.version_info_s, BuildConfig.VERSION_NAME),
+                text = textResource(Res.string.version_info_s, BuildConfig.VERSION_NAME),
                 style = AppTheme.typography.label3,
                 fontWeight = FontWeight.Normal
             )
@@ -93,7 +94,7 @@ fun Sponsor(modifier: Modifier = Modifier) {
                 modifier = Modifier.size(64.dp),
                 content = {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                        painter = painterResource(id = Res.drawable.ic_launcher_foreground),
                         contentDescription = null,
                         tint = Color.Unspecified
                     )
@@ -111,7 +112,7 @@ fun Sponsor(modifier: Modifier = Modifier) {
 
                     // RateUs
                     FilledTonalButton(
-                        textResource(R.string.rate_us),
+                        textResource(Res.string.rate_us),
                         icon = Icons.Outlined.RateReview,
                         onClick = facade::launchAppStore,
                         colors = ButtonDefaults.filledTonalButtonColors(
@@ -130,7 +131,7 @@ fun Sponsor(modifier: Modifier = Modifier) {
                         )
                         else -> Button(
                             "Unlock Ad-free",
-                            icon = ImageVector.vectorResource(R.drawable.ic_remove_ads),
+                            icon = ImageVector.vectorResource(Res.drawable.ic_remove_ads),
                             onClick = { facade.initiatePurchaseFlow(Paymaster.IAP_NO_ADS) },
                         )
                     }

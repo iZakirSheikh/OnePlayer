@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
 import com.zs.audiofy.audios.RouteAudios
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.Route
 import com.zs.audiofy.common.compose.LocalNavController
 import com.zs.audiofy.common.compose.directory.Directory
@@ -81,7 +82,7 @@ private fun Album(
 
             // Caption
             Label(
-                text = stringResource(R.string.scr_albums_year_d, value.firstYear),
+                text = stringResource(Res.string.scr_albums_year_d, value.firstYear),
                 style = AppTheme.typography.body2,
                 color = LocalContentColor.current.copy(ContentAlpha.medium)
             )

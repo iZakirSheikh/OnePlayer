@@ -54,6 +54,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LottieAnimatedButton
 import com.zs.audiofy.common.compose.chronometer
@@ -139,7 +140,7 @@ fun RedVioletCake(
                 // Subtitle
                 heading = {
                     Label(
-                        state.subtitle ?: stringResource(R.string.unknown),
+                        state.subtitle ?: stringResource(Res.string.unknown),
                         color = contentColor.copy(ContentAlpha.medium),
                         style = AppTheme.typography.label3,
                         modifier = Modifier.fillMaxWidth(0.85f)
@@ -153,7 +154,7 @@ fun RedVioletCake(
                             .clipToBounds(),
                         content = {
                             Label(
-                                state.title ?: textResource(R.string.unknown),
+                                state.title ?: textResource(Res.string.unknown),
                                 style = AppTheme.typography.title2,
                                 modifier = Modifier
                                     .marque(Int.MAX_VALUE),
@@ -166,7 +167,7 @@ fun RedVioletCake(
                 trailing = {
                     Icon(
                         painter = lottieAnimationPainter(
-                            R.raw.playback_indicator,
+                            Res.raw.playback_indicator,
                             isPlaying = state.playing
                         ),
                         contentDescription = null,
@@ -193,7 +194,7 @@ fun RedVioletCake(
 
                             // Play/Pause
                             LottieAnimatedButton(
-                                id = R.raw.lt_play_pause,
+                                id = Res.raw.lt_play_pause,
                                 atEnd = state.playing,
                                 scale = 1.8f,
                                 progressRange = 0.0f..0.29f,
@@ -216,7 +217,7 @@ fun RedVioletCake(
 
                             // Like Button
                             LottieAnimatedButton(
-                                R.raw.lt_twitter_heart_filled_unfilled,
+                                Res.raw.lt_twitter_heart_filled_unfilled,
                                 onClick = { onRequest(Widget.REQUEST_LIKED) },
                                 animationSpec = tween(800),
                                 atEnd = state.favourite, // if fav
@@ -250,7 +251,7 @@ fun RedVioletCake(
                             val position = chronometer.elapsed
                             Label(
                                 when (position) {
-                                    Long.MIN_VALUE -> stringResource(R.string.abbr_not_available)
+                                    Long.MIN_VALUE -> stringResource(Res.string.abbr_not_available)
                                     else -> DateUtils.formatElapsedTime((position / 1000))
                                 },
                                 style = AppTheme.typography.label3,
@@ -278,7 +279,7 @@ fun RedVioletCake(
                             val duration = state.duration
                             Label(
                                 when (duration) {
-                                    Remote.TIME_UNSET -> stringResource(R.string.abbr_not_available)
+                                    Remote.TIME_UNSET -> stringResource(Res.string.abbr_not_available)
                                     else -> DateUtils.formatElapsedTime((duration / 1000))
                                 },
                                 style = AppTheme.typography.label3,

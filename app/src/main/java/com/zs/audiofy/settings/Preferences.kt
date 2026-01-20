@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import com.zs.audiofy.R
 import com.zs.audiofy.common.AccentColorPolicy
 import com.zs.audiofy.common.NightMode
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.preference
 import com.zs.compose.foundation.textArrayResource
 import com.zs.compose.foundation.textResource
@@ -64,7 +65,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     // General
     item(contentType = RS.CONTENT_TYPE_HEADER) {
         Header(
-            textResource(R.string.general),
+            textResource(Res.string.general),
             style = AppTheme.typography.title3,
             color = AppTheme.colors.accent,
             contentPadding = RS.HeaderPadding
@@ -73,7 +74,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     // Recycle Bin
     item(contentType = CONTENT_TYPE_PREF) {
         SwitchPreference(
-            text = textResource(R.string.pref_enable_trash_can),
+            text = textResource(Res.string.pref_enable_trash_can),
             checked = viewState.trashCanEnabled,
             onCheckedChange = { viewState.trashCanEnabled = it },
             icon = Icons.Outlined.Recycling,
@@ -83,7 +84,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     // Legacy Artwork Method
     item(contentType = CONTENT_TYPE_PREF) {
         SwitchPreference(
-            text = textResource(R.string.pref_fetch_artwork_from_media_store),
+            text = textResource(Res.string.pref_fetch_artwork_from_media_store),
             checked = viewState.preferCachedThumbnails,
             onCheckedChange = { viewState.preferCachedThumbnails = it },
             icon = Icons.Outlined.Camera,
@@ -94,7 +95,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     // The duration from which below tracks are excluded from the library.
     item(contentType = CONTENT_TYPE_PREF) {
         SliderPreference(
-            text = textResource(R.string.pref_minimum_track_length),
+            text = textResource(Res.string.pref_minimum_track_length),
             value = viewState.minTrackLengthSecs.toFloat(),
             onRequestChange = { viewState.minTrackLengthSecs = it.toInt() },
             valueRange = 0f..100f,
@@ -102,7 +103,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
             icon = Icons.Outlined.Straighten,
             preview = {
                 Label(
-                    text = textResource(R.string.postfix_s_d, it.roundToInt()),
+                    text = textResource(Res.string.postfix_s_d, it.roundToInt()),
                     modifier = Modifier
                         .minimumInteractiveComponentSize()
                         .wrapContentSize(Alignment.Center)
@@ -114,7 +115,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     // File grouping
     item(contentType = CONTENT_TYPE_PREF) {
         SwitchPreference(
-            text = textResource(R.string.pref_enable_file_grouping),
+            text = textResource(Res.string.pref_enable_file_grouping),
             checked = viewState.isFileGroupingEnabled,
             onCheckedChange = { viewState.isFileGroupingEnabled = it },
             icon = Icons.AutoMirrored.Default.Segment,
@@ -126,7 +127,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     // Appearance
     item(contentType = RS.CONTENT_TYPE_HEADER) {
         Header(
-            textResource(R.string.appearance),
+            textResource(Res.string.appearance),
             style = AppTheme.typography.title3,
             color = AppTheme.colors.accent,
             contentPadding = RS.HeaderPadding
@@ -136,9 +137,9 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     // The strategy to use for night mode.
     item(contentType = CONTENT_TYPE_PREF) {
         val strategy by preference(Settings.NIGHT_MODE)
-        val entries = textArrayResource(R.array.pref_night_mode_entries)
+        val entries = textArrayResource(Res.array.pref_night_mode_entries)
         DropDownPreference(
-            text = textResource(R.string.pref_app_theme_s, entries[strategy.ordinal]),
+            text = textResource(Res.string.pref_app_theme_s, entries[strategy.ordinal]),
             value = strategy,
             icon = Icons.Default.LightMode,
             entries = entries,
@@ -151,7 +152,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     item(contentType = CONTENT_TYPE_PREF) {
         SwitchPreference(
             checked = viewState.isSplashAnimWaitEnabled,
-            text = textResource(R.string.pref_enable_splash_anim_wait),
+            text = textResource(Res.string.pref_enable_splash_anim_wait),
             onCheckedChange = { should: Boolean ->
                 viewState.isSplashAnimWaitEnabled = should
             },
@@ -164,7 +165,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     item(contentType = CONTENT_TYPE_PREF) {
         SwitchPreference(
             checked = viewState.isWidgetToConsoleTransitionEnabled,
-            text = textResource(R.string.pref_is_widget_to_console_transition_enabled),
+            text = textResource(Res.string.pref_is_widget_to_console_transition_enabled),
             onCheckedChange = { should: Boolean ->
                 viewState.isWidgetToConsoleTransitionEnabled = should
             },
@@ -177,7 +178,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     item(contentType = CONTENT_TYPE_PREF) {
         SwitchPreference(
             checked = viewState.enabledBackgroundBlur,
-            text = textResource(R.string.pref_acrylic_effect),
+            text = textResource(Res.string.pref_acrylic_effect),
             onCheckedChange = { should: Boolean ->
                 viewState.enabledBackgroundBlur = should
             },
@@ -190,7 +191,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
         val use by preference(Settings.USE_ACCENT_IN_NAV_BAR)
         SwitchPreference(
             checked = use,
-            text = textResource(R.string.pref_accent_nav),
+            text = textResource(Res.string.pref_accent_nav),
             onCheckedChange = { should: Boolean ->
                 viewState.set(Settings.USE_ACCENT_IN_NAV_BAR, should)
             },
@@ -203,7 +204,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
         val colorizationStrategy by preference(Settings.COLORIZATION_STRATEGY)
         SwitchPreference(
             checked = colorizationStrategy == AccentColorPolicy.WALLPAPER,
-            text = textResource(R.string.pref_colorization_strategy),
+            text = textResource(Res.string.pref_colorization_strategy),
             onCheckedChange = { should: Boolean ->
                 val strategy =
                     if (should) AccentColorPolicy.WALLPAPER else AccentColorPolicy.DEFAULT
@@ -218,16 +219,16 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     item(contentType = CONTENT_TYPE_PREF) {
         SliderPreference(
             value = viewState.fontScale,
-            text = textResource(R.string.pref_font_scale),
+            text = textResource(Res.string.pref_font_scale),
             valueRange = 0.75f..1.5f,
             steps = 14,   // steps=(max−min)stepSize−1/ (2.0 - 0.7) / 0.1 - 1 =  12 steps
             icon = Icons.Outlined.FormatSize,
             preview = {
                 Label(
                     text = if (it <= 0.75f)
-                        textResource(R.string.system)
+                        textResource(Res.string.system)
                     else
-                        textResource(R.string.postfix_x_f, it),
+                        textResource(Res.string.postfix_x_f, it),
                     fontWeight = FontWeight.Bold
                 )
             },
@@ -244,13 +245,13 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     item(contentType = CONTENT_TYPE_PREF) {
         SliderPreference(
             value = viewState.gridItemSizeMultiplier,
-            text = textResource(R.string.pref_grid_item_size_multiplier),
+            text = textResource(Res.string.pref_grid_item_size_multiplier),
             valueRange = 0.8f..1.6f,
             steps = 15, // (2.0 - 0.7) / 0.1 = 13 steps
             icon = Icons.Outlined.Dashboard,
             preview = {
                 Label(
-                    text = textResource(R.string.postfix_x_f, it),
+                    text = textResource(Res.string.postfix_x_f, it),
                     fontWeight = FontWeight.Bold
                 )
             },
@@ -266,7 +267,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
         val translucentSystemBars by preference(Settings.TRANSPARENT_SYSTEM_BARS)
         SwitchPreference(
             checked = translucentSystemBars,
-            text = textResource(R.string.pref_translucent_system_bars),
+            text = textResource(Res.string.pref_translucent_system_bars),
             onCheckedChange = { should: Boolean ->
                 viewState.set(Settings.TRANSPARENT_SYSTEM_BARS, should)
             },
@@ -277,7 +278,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     // Playback
     item(contentType = RS.CONTENT_TYPE_HEADER) {
         Header(
-            textResource(R.string.playback),
+            textResource(Res.string.playback),
             style = AppTheme.typography.title3,
             color = AppTheme.colors.accent,
             contentPadding = RS.HeaderPadding
@@ -287,7 +288,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     // Whether to use inbuilt audio effects or inApp.
     item(contentType = CONTENT_TYPE_PREF) {
         SwitchPreference(
-            text = textResource(R.string.pref_use_inbuilt_audio_effects),
+            text = textResource(Res.string.pref_use_inbuilt_audio_effects),
             checked = viewState.inAppAudioEffectsEnabled,
             onCheckedChange = { viewState.inAppAudioEffectsEnabled = it},
             icon = Icons.Outlined.Tune,
@@ -297,7 +298,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     // FAB player long press behaviour
     item(contentType = CONTENT_TYPE_PREF) {
         SwitchPreference(
-            text = textResource(R.string.pref_fab_player_tap_behaviour),
+            text = textResource(Res.string.pref_fab_player_tap_behaviour),
             checked = !viewState.fabLongPressLaunchConsole,
             onCheckedChange = { viewState.fabLongPressLaunchConsole = !it},
             icon = Icons.Outlined.TouchApp,
@@ -308,7 +309,7 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
     // Texture View/Surface view
     item(contentType = CONTENT_TYPE_PREF) {
         SwitchPreference(
-            text = textResource(R.string.pref_use_surface_view_video_rendering),
+            text = textResource(Res.string.pref_use_surface_view_video_rendering),
             checked = viewState.isSurfaceViewVideoRenderingPreferred,
             onCheckedChange = { viewState.isSurfaceViewVideoRenderingPreferred = it},
             modifier = Modifier.background(AppTheme.colors.background(1.dp), RS.BottomTileShape)

@@ -81,6 +81,7 @@ import com.zs.audiofy.audios.directory.RouteArtists
 import com.zs.audiofy.audios.directory.RouteGenres
 import com.zs.audiofy.common.AccentColorPolicy
 import com.zs.audiofy.common.NightMode
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.Route
 import com.zs.audiofy.common.SystemFacade
 import com.zs.audiofy.common.WindowStyle
@@ -312,15 +313,15 @@ private fun Permission() {
         }
     // If the permissions are not granted, show the permission screen.
     com.zs.audiofy.common.compose.Placeholder(
-        iconResId = R.raw.lt_permission,
-        title = stringResource(R.string.scr_permission_title),
-        message = textResource(R.string.scr_permission_desc),
+        iconResId = Res.raw.lt_permission,
+        title = stringResource(Res.string.scr_permission_title),
+        message = textResource(Res.string.scr_permission_desc),
         vertical = LocalWindowSize.current.width == Category.Small,
         action = {
             OutlinedButton(
                 onClick = permission::launchMultiplePermissionRequest,
                 modifier = Modifier.size(width = 200.dp, height = 46.dp),
-                text = stringResource(R.string.allow),
+                text = stringResource(Res.string.allow),
                 shape = CircleShape
             )
         }
@@ -457,7 +458,7 @@ private fun NavigationBar(
         val facade = LocalSystemFacade.current
         // Library
         NavigationItem(
-            label = { Label(text = textResource(R.string.home)) },
+            label = { Label(text = textResource(Res.string.home)) },
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Weekend,
@@ -473,7 +474,7 @@ private fun NavigationBar(
 
         // Audios
         NavigationItem(
-            label = { Label(text = textResource(R.string.audios)) },
+            label = { Label(text = textResource(Res.string.audios)) },
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Headset,
@@ -489,7 +490,7 @@ private fun NavigationBar(
 
         // Videos
         NavigationItem(
-            label = { Label(text = textResource(R.string.videos)) },
+            label = { Label(text = textResource(Res.string.videos)) },
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Subscriptions,
@@ -505,7 +506,7 @@ private fun NavigationBar(
 
         // Playlists
         NavigationItem(
-            label = { Label(text = textResource(R.string.playlists)) },
+            label = { Label(text = textResource(Res.string.playlists)) },
             icon = {
                 Icon(
                     imageVector = Icons.Filled.FeaturedPlayList,

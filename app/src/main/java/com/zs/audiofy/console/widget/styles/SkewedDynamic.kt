@@ -52,6 +52,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LottieAnimatedButton
 import com.zs.audiofy.common.compose.chronometer
@@ -98,7 +99,7 @@ fun SkewedDynamic(
         // subtitle
         heading = {
             Label(
-                state.subtitle ?: stringResource(R.string.unknown),
+                state.subtitle ?: stringResource(Res.string.unknown),
                 style = AppTheme.typography.label3,
                 color = contentColor.copy(ContentAlpha.medium)
             )
@@ -111,7 +112,7 @@ fun SkewedDynamic(
                     .clipToBounds(),
                 content = {
                     Label(
-                        state.title ?: stringResource(R.string.unknown),
+                        state.title ?: stringResource(Res.string.unknown),
                         modifier = Modifier.marque(Int.MAX_VALUE),
                         style = AppTheme.typography.title2,
                         fontWeight = FontWeight.Bold
@@ -169,7 +170,7 @@ fun SkewedDynamic(
 
                     // Play/Pause
                     LottieAnimatedButton(
-                        id = R.raw.lt_play_pause5,
+                        id = Res.raw.lt_play_pause5,
                         atEnd = state.playing,
                         scale = 2.3f,
                         progressRange = 0.0f..0.45f,
@@ -202,7 +203,7 @@ fun SkewedDynamic(
                     val position = chronometer.elapsed
                     Label(
                         when (position) {
-                            Long.MIN_VALUE -> stringResource(R.string.abbr_not_available)
+                            Long.MIN_VALUE -> stringResource(Res.string.abbr_not_available)
                             else -> DateUtils.formatElapsedTime((position / 1000))
                         },
                         style = AppTheme.typography.headline2.copy(
@@ -239,7 +240,7 @@ fun SkewedDynamic(
                     val duration = state.duration
                     Label(
                         when {
-                            duration == Remote.TIME_UNSET -> stringResource(R.string.abbr_not_available)
+                            duration == Remote.TIME_UNSET -> stringResource(Res.string.abbr_not_available)
                             else -> DateUtils.formatElapsedTime(((duration) / 1000))
                         },
                         style = AppTheme.typography.label3,

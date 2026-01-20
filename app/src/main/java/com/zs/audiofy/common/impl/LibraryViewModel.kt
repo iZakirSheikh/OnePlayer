@@ -30,6 +30,7 @@ import androidx.lifecycle.viewModelScope
 import com.zs.audiofy.R
 import com.zs.audiofy.library.LibraryViewState
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.Rose
 import com.zs.core.common.debounceAfterFirst
 import com.zs.core.db.playlists.Playlist.Track
@@ -201,7 +202,7 @@ class LibraryViewModel(
 
             // Show a toast to inform the user that playback has started.
             // This is a platform-specific feedback mechanism.
-            showPlatformToast(R.string.playing)
+            showPlatformToast(Res.string.playing)
         }
         // Errors from setMediaItem or play are not handled inside the block.
         // Instead, they bubble up and are caught by runCatching, allowing centralized error handling elsewhere.

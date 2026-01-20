@@ -50,6 +50,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.chronometer
 import com.zs.audiofy.common.compose.lottie
@@ -131,7 +132,7 @@ fun Tiramisu(
                             .clipToBounds(),
                         content = {
                             Label(
-                                state.title ?: stringResource(R.string.unknown),
+                                state.title ?: stringResource(Res.string.unknown),
                                 modifier = Modifier.marque(Int.MAX_VALUE),
                                 color = contentColor.copy(ContentAlpha.medium),
                                 style = AppTheme.typography.label3,
@@ -142,7 +143,7 @@ fun Tiramisu(
                 // subtitle
                 heading = {
                     Label(
-                        state.title ?: stringResource(R.string.unknown),
+                        state.title ?: stringResource(Res.string.unknown),
                         style = AppTheme.typography.title2,
                         modifier = Modifier.fillMaxWidth(0.85f),
                         fontWeight = FontWeight.Bold,
@@ -161,7 +162,7 @@ fun Tiramisu(
                         content = {
                             Icon(
                                 painter = lottieAnimationPainter(
-                                    id = R.raw.lt_play_pause,
+                                    id = Res.raw.lt_play_pause,
                                     atEnd = state.playing,
                                     progressRange = 0.0f..0.29f,
                                     animationSpec = tween(easing = LinearEasing)

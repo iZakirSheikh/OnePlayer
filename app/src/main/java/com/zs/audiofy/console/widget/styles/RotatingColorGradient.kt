@@ -67,6 +67,7 @@ import com.zs.audiofy.common.shapes.RoundedStarShape
 import com.zs.audiofy.console.RouteConsole
 import com.zs.audiofy.console.widget.Widget
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.UmbraGrey
 import com.zs.compose.foundation.textResource
 import com.zs.compose.theme.AppTheme
@@ -122,13 +123,13 @@ fun RotatingColorGradient(
             .shadow(8.dp, Shape)
             .border(AppTheme.colors.shine, Shape)
             .background(
-                lottieAnimationPainter(R.raw.bg_rotating_color_gradient),
+                lottieAnimationPainter(Res.raw.bg_rotating_color_gradient),
                 contentScale = ContentScale.Crop
             ),
         // subtitle
         overline = {
             Label(
-                state.subtitle ?: textResource(R.string.unknown),
+                state.subtitle ?: textResource(Res.string.unknown),
                 style = AppTheme.typography.label3,
                 color = contentColor.copy(ContentAlpha.medium),
                 modifier = Modifier
@@ -145,7 +146,7 @@ fun RotatingColorGradient(
                     .clipToBounds(),
                 content = {
                     Label(
-                        state.title ?: textResource(R.string.unknown),
+                        state.title ?: textResource(Res.string.unknown),
                         style = AppTheme.typography.headline3.copy(
                             drawStyle = TitleDrawStyle,
                             fontWeight = FontWeight.Medium,
@@ -199,7 +200,7 @@ fun RotatingColorGradient(
 
                     // Play/Pause
                     LottieAnimatedButton(
-                        id = R.raw.lt_play_pause_circle_bordered,
+                        id = Res.raw.lt_play_pause_circle_bordered,
                         atEnd = state.playing,
                         scale = 7f,
                         progressRange = 0.0f..0.7f,
@@ -230,7 +231,7 @@ fun RotatingColorGradient(
                     // Playing bars.
                     Icon(
                         painter = lottieAnimationPainter(
-                            R.raw.playback_indicator,
+                            Res.raw.playback_indicator,
                             isPlaying = state.playing
                         ),
                         contentDescription = null,
@@ -245,7 +246,7 @@ fun RotatingColorGradient(
                     // Position
                     Label(
                         when (position) {
-                            Long.MIN_VALUE-> stringResource(R.string.abbr_not_available)
+                            Long.MIN_VALUE-> stringResource(Res.string.abbr_not_available)
                             else -> DateUtils.formatElapsedTime((position / 1000 ))
                         },
                         style = AppTheme.typography.label3,
@@ -279,7 +280,7 @@ fun RotatingColorGradient(
                     val duration = state.duration
                     Label(
                         when  {
-                            duration == Remote.TIME_UNSET -> stringResource(R.string.abbr_not_available)
+                            duration == Remote.TIME_UNSET -> stringResource(Res.string.abbr_not_available)
                             else -> DateUtils.formatElapsedTime(duration / 1000)
                         },
                         style = AppTheme.typography.label3,
@@ -289,7 +290,7 @@ fun RotatingColorGradient(
 
                     when {
                         AppConfig.inAppWidgetLongPressOpenConfig -> LottieAnimatedButton(
-                            R.raw.lt_twitter_heart_filled_unfilled,
+                            Res.raw.lt_twitter_heart_filled_unfilled,
                             onClick = { onRequest(Widget.REQUEST_LIKED) },
                             animationSpec = tween(800),
                             atEnd = state.favourite, // if fav

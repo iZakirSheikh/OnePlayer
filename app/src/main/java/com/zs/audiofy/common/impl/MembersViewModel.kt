@@ -44,6 +44,7 @@ import com.zs.audiofy.playlists.members.MembersViewState
 import com.zs.audiofy.playlists.members.RouteMembers
 import com.zs.audiofy.playlists.members.get
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.castTo
 import com.zs.core.common.debounceAfterFirst
 import com.zs.core.db.playlists.Playlist
@@ -69,7 +70,7 @@ private val Track.firstTitleChar
     inline get() = title.uppercase(Locale.ROOT)[0].toString()
 
 private val ACTION_REMOVE =
-    Action(R.string.remove, id = "remove", icon = Icons.Outlined.PlaylistRemove)
+    Action(Res.string.remove, id = "remove", icon = Icons.Outlined.PlaylistRemove)
 
 class MembersViewModel(
     handle: SavedStateHandle, playlists: Playlists, remote: Remote
@@ -84,7 +85,7 @@ class MembersViewModel(
     override var info: MetaData = let {
         val playlist = runBlocking { playlists[playlistName] }
         MetaData(
-            if (playlistName == Remote.PLAYLIST_FAVOURITE) getText(R.string.scr_members_liked_playlist_title) else playlist?.name ?:"",
+            if (playlistName == Remote.PLAYLIST_FAVOURITE) getText(Res.string.scr_members_liked_playlist_title) else playlist?.name ?:"",
             null,
             playlist?.artwork?.toUri(),
             playlist?.count ?: -1,
@@ -136,7 +137,7 @@ class MembersViewModel(
         data = castTo(it) as Mapped<Track>
     }.catch { exception ->
         Log.d(TAG, "provider: ${exception.stackTraceToString()}")
-        val action = report(exception.message ?: getText(R.string.msg_unknown_error))
+        val action = report(exception.message ?: getText(Res.string.msg_unknown_error))
     }
 
     init {

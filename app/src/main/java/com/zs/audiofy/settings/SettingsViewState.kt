@@ -15,6 +15,7 @@ import com.zs.audiofy.common.AccentColorPolicy
 import com.zs.audiofy.common.IAP_ARTWORK_SHAPE_ROUNDED_RECT
 import com.zs.audiofy.common.IAP_PLATFORM_WIDGET_IPHONE
 import com.zs.audiofy.common.NightMode
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.SystemFacade
 import com.zs.audiofy.settings.Settings.GitHubIssuesPage
 import com.zs.audiofy.settings.Settings.GithubIntent
@@ -36,7 +37,7 @@ private const val TAG = "Settings"
 private val provider = GoogleFont.Provider(
     providerAuthority = "com.google.android.gms.fonts",
     providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs
+    certificates = Res.array.com_google_android_gms_fonts_certs
 )
 
 /**

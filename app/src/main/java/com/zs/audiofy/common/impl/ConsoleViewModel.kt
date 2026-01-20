@@ -16,6 +16,7 @@ import com.zs.audiofy.R
 import com.zs.audiofy.console.ConsoleViewState
 import com.zs.audiofy.console.RouteConsole
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.OrientRed
 import com.zs.compose.theme.snackbar.SnackbarResult
 import com.zs.core.playback.MediaFile
@@ -77,12 +78,12 @@ class ConsoleViewModel(
     override fun sleepAt(mills: Long) {
         viewModelScope.launch {
             if (!remote.isPlaying()) {
-                return@launch showPlatformToast(R.string.msg_sleep_timer_playback_inactive)
+                return@launch showPlatformToast(Res.string.msg_sleep_timer_playback_inactive)
             }
 
             remote.setSleepTimer(mills)
             if (mills == Remote.TIME_UNSET) {
-                showPlatformToast(R.string.msg_sleep_timer_turned_off)
+                showPlatformToast(Res.string.msg_sleep_timer_turned_off)
             } else {
                 val endTime = System.currentTimeMillis() + mills
                 val text = DateUtils.getRelativeTimeSpanString(
@@ -92,7 +93,7 @@ class ConsoleViewModel(
                     DateUtils.FORMAT_ABBREV_RELATIVE
                 )
                 val fMessage =
-                    context.getString(R.string.msg_sleep_timer_set_playback_stops_s, text)
+                    context.getString(Res.string.msg_sleep_timer_set_playback_stops_s, text)
                 showPlatformToast(fMessage)
             }
         }
@@ -101,7 +102,7 @@ class ConsoleViewModel(
     override fun shuffle(enable: Boolean) {
         runCatching {
             remote.shuffle(enable)
-            showPlatformToast(if (enable) R.string.msg_shuffle_on else R.string.msg_shuffle_off)
+            showPlatformToast(if (enable) Res.string.msg_shuffle_on else Res.string.msg_shuffle_off)
         }
     }
 
@@ -109,9 +110,9 @@ class ConsoleViewModel(
         runCatching {
             val new = remote.cycleRepeatMode()
             val msg = when (new) {
-                Remote.REPEAT_MODE_OFF -> R.string.msg_repeat_mode_off
-                Remote.REPEAT_MODE_ONE -> R.string.msg_repeat_mode_one
-                else -> R.string.msg_repeat_mode_all
+                Remote.REPEAT_MODE_OFF -> Res.string.msg_repeat_mode_off
+                Remote.REPEAT_MODE_ONE -> Res.string.msg_repeat_mode_one
+                else -> Res.string.msg_repeat_mode_all
             }
             showPlatformToast(msg)
         }
@@ -120,8 +121,8 @@ class ConsoleViewModel(
     override fun clear() {
         viewModelScope.launch {
             val permission = showSnackbar(
-                R.string.msg_clear_queue_confirmation,
-                R.string.clear,
+                Res.string.msg_clear_queue_confirmation,
+                Res.string.clear,
                 icon = Icons.Outlined.ClearAll,
                 accent = Color.OrientRed
             )
@@ -167,8 +168,8 @@ class ConsoleViewModel(
                 // For older Android versions, show a confirmation dialog before deleting.
                 else -> {
                     val concent = showSnackbar(
-                        R.string.msg_deletion_confirm,
-                        R.string.delete,
+                        Res.string.msg_deletion_confirm,
+                        Res.string.delete,
                         icon = Icons.Outlined.Delete,
                         accent = Color.OrientRed
                     )
@@ -180,7 +181,7 @@ class ConsoleViewModel(
             }
             // Check the result code from the dataProvider operation. A negative code (except -3) indicates an error.
             if (code < 0 && code != -3)
-                throw Exception(context.getString(R.string.msg_files_delete_unknown_error))
+                throw Exception(context.getString(Res.string.msg_files_delete_unknown_error))
             // If deletion was successful (or file was moved to trash), remove the item from the remote queue.
             if (code != -3)
                 remote.remove(key)
@@ -199,7 +200,7 @@ class ConsoleViewModel(
             viewModelScope.launch {
                 val updated = remote.setPlaybackSpeed(value)
                 if (!updated)
-                     showPlatformToast(R.string.msg_error_playback_speed)
+                     showPlatformToast(Res.string.msg_error_playback_speed)
             }
         }
 

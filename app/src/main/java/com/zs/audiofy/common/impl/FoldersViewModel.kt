@@ -39,6 +39,7 @@ import com.zs.audiofy.folders.FoldersViewState
 import com.zs.audiofy.folders.RouteFolders
 import com.zs.audiofy.folders.get
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.castTo
 import com.zs.compose.theme.snackbar.SnackbarResult
 import com.zs.core.store.MediaProvider
@@ -96,7 +97,7 @@ class FoldersViewModel(
         )
 
     override val title: CharSequence =
-        getText(if (ofAudios) R.string.scr_audio_folders_title else R.string.scr_video_folders_title)
+        getText(if (ofAudios) Res.string.scr_audio_folders_title else Res.string.scr_video_folders_title)
 
 
     override val orders: List<Action> =
@@ -149,7 +150,7 @@ class FoldersViewModel(
         .debounceAfterFirst(300L)
         // catch any exceptions.
         .catch {
-            val report = report(it.message ?: getText(R.string.msg_unknown_error))
+            val report = report(it.message ?: getText(Res.string.msg_unknown_error))
             if (report == SnackbarResult.ActionPerformed) analytics.record(it)
         }
         // make sure the flow is released after sometime.

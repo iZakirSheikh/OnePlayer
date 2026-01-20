@@ -52,6 +52,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.background
 import com.zs.audiofy.common.compose.chronometer
 import com.zs.audiofy.common.compose.lottie
@@ -102,14 +103,14 @@ fun WavyGradientDots(
             .shadow(8.dp, Shape)
             .border(1.dp, Color.Gray.copy(0.24f), Shape)
             .background(
-                lottieAnimationPainter(R.raw.bg_gradeint_dots),
+                lottieAnimationPainter(Res.raw.bg_gradeint_dots),
                 contentScale = ContentScale.Crop,
                 overlay = Color.Black.copy(0.3f)
             ),
         // subtitle
         heading = {
             Label(
-                state.subtitle ?: stringResource(R.string.unknown),
+                state.subtitle ?: stringResource(Res.string.unknown),
                 color = LocalContentColor.current.copy(ContentAlpha.medium),
                 style = AppTheme.typography.label3,
                 modifier = Modifier.fillMaxWidth(0.85f) then Modifier.sharedElement(RouteConsole.ID_SUBTITLE),
@@ -123,7 +124,7 @@ fun WavyGradientDots(
                     .clipToBounds(),
                 content = {
                     Label(
-                        state.title ?: textResource(R.string.unknown),
+                        state.title ?: textResource(Res.string.unknown),
                         modifier = Modifier.marque(Int.MAX_VALUE),
                         style = AppTheme.typography.headline3.copy(
                             drawStyle = TitleDrawStyle,
@@ -162,7 +163,7 @@ fun WavyGradientDots(
                 content = {
                     Icon(
                         painter = lottieAnimationPainter(
-                            id = R.raw.lt_play_pause,
+                            id = Res.raw.lt_play_pause,
                             atEnd = state.playing,
                             progressRange = 0.0f..0.29f,
                             animationSpec = tween(easing = LinearEasing)

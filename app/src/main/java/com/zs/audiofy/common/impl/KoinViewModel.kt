@@ -36,6 +36,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.viewModelScope
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.OrientRed
 import com.zs.compose.foundation.getText2
 import com.zs.compose.theme.snackbar.SnackbarDuration
@@ -107,12 +108,12 @@ abstract class KoinViewModel : ScopeViewModel() {
      */
     suspend fun report(message: CharSequence) = showSnackbar(
         message = buildAnnotatedString {
-            appendLine(getText(R.string.error))
+            appendLine(getText(Res.string.error))
             withStyle(SpanStyle(color = Color.Gray)) {
                 append(message)
             }
         },
-        action = getText(R.string.report),
+        action = getText(Res.string.report),
         icon = Icons.Outlined.ErrorOutline,
         accent = Color.OrientRed,
         duration = SnackbarDuration.Indefinite
@@ -141,7 +142,7 @@ abstract class KoinViewModel : ScopeViewModel() {
             catch (e: Exception) {
                 // Handle any exceptions that occurred during the coroutine execution.
                 // Display an error message to the user, providing context and error details.
-                val report = report(e.message ?: getText(R.string.msg_unknown_error))
+                val report = report(e.message ?: getText(Res.string.msg_unknown_error))
                 if (report == SnackbarResult.ActionPerformed)
                     analytics.record(e)
             }

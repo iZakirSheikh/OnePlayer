@@ -39,6 +39,7 @@ import com.zs.audiofy.common.IAP_PLATFORM_WIDGET_SKEWED_DYNAMIC
 import com.zs.audiofy.common.IAP_PLATFORM_WIDGET_SNOW_CONE
 import com.zs.audiofy.common.IAP_PLATFORM_WIDGET_TIRAMISU
 import com.zs.audiofy.common.IAP_WIDGETS_PLATFORM
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.WindowStyle
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LocalSystemFacade
@@ -212,7 +213,7 @@ fun Config(
                         val unlocked =
                             purchase.purchased || info?.isFreemium == true || bundle?.first?.purchased == true
                         Button(
-                            if (unlocked) "APPLY" else info?.formattedPrice ?: stringResource(R.string.abbr_not_available),
+                            if (unlocked) "APPLY" else info?.formattedPrice ?: stringResource(Res.string.abbr_not_available),
                             onClick = {
                                 if (!unlocked)
                                     activity.initiatePurchaseFlow(key)
@@ -240,7 +241,7 @@ fun Config(
                                 if (!purchase.purchased)
                                     activity.initiatePurchaseFlow(key)
                                 else
-                                    activity.showToast(R.string.msg_settings_upgrade_unlocked)
+                                    activity.showToast(Res.string.msg_settings_upgrade_unlocked)
                             },
                         )
                     }

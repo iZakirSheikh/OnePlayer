@@ -41,6 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.window.DialogProperties
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.compose.foundation.textResource
 import com.zs.compose.theme.AlertDialog
@@ -87,7 +88,7 @@ fun NewPlaylist(
         properties = DialogProperties(usePlatformDefaultWidth = false),
         title = {
             Text(
-                textResource(R.string.scr_new_playlists_title),
+                textResource(Res.string.scr_new_playlists_title),
                 fontWeight = FontWeight.Light,
                 maxLines = 2
             )
@@ -106,7 +107,7 @@ fun NewPlaylist(
                 isError -> {}
                 value != null -> TonalIconButton(
                     Icons.Outlined.Update,
-                    contentDescription = stringResource(R.string.update),
+                    contentDescription = stringResource(Res.string.update),
                     onClick = {
                         onConfirm(value.copy(title.text.toString(), desc.text.toString()))
                     },
@@ -114,7 +115,7 @@ fun NewPlaylist(
                 )
                 else -> TonalIconButton(
                     Icons.Outlined.Save,
-                    contentDescription = stringResource(R.string.create),
+                    contentDescription = stringResource(Res.string.create),
                     onClick = {
                         onConfirm(Playlist(title.text.toString(), desc.text.toString()))
                     },
@@ -128,14 +129,14 @@ fun NewPlaylist(
             OutlinedTextField(
                 title,
                 shape = AppTheme.shapes.small,
-                label = { Label(stringResource(R.string.scr_new_playlist_enter_name)) },
+                label = { Label(stringResource(Res.string.scr_new_playlist_enter_name)) },
                 modifier = Modifier then padding.fillMaxWidth(),
                 lineLimits = SingleLine,
                 leadingIcon = {
                     Icon(Icons.Outlined.Title, contentDescription = null)
                 },
                 placeholder = {
-                    Label(stringResource(R.string.scr_new_playlist_text_field_placeholder))
+                    Label(stringResource(Res.string.scr_new_playlist_text_field_placeholder))
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = ImeAction.Next
@@ -154,7 +155,7 @@ fun NewPlaylist(
                     unfocusedIndicatorColor = Color.Transparent
                 ),
                 lineLimits = MultiLine(minHeightInLines = 5),
-                placeholder = { Label(stringResource(R.string.scr_new_playlist_desc_placeholder)) },
+                placeholder = { Label(stringResource(Res.string.scr_new_playlist_desc_placeholder)) },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = ImeAction.Done
                 ),

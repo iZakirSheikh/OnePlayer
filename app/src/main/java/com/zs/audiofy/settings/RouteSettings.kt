@@ -49,6 +49,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.Route
 import com.zs.audiofy.common.compose.FloatingLargeTopAppBar
 import com.zs.audiofy.common.compose.LocalSystemFacade
@@ -118,7 +119,7 @@ object RouteSettings : Route {
                 FloatingLargeTopAppBar(
                     title = {
                         Text(
-                            textResource(R.string.scr_settings_title),
+                            textResource(Res.string.scr_settings_title),
                             maxLines = 2,
                             fontWeight = FontWeight.Light,
                             lineHeight = 24.sp,
@@ -168,7 +169,7 @@ object RouteSettings : Route {
                         ),
                     content = {
                         Header(
-                            stringResource(R.string.about_us),
+                            stringResource(Res.string.about_us),
                             color = AppTheme.colors.accent,
                             drawDivider = true,
                             style = AppTheme.typography.title3,
@@ -213,7 +214,7 @@ object RouteSettings : Route {
                         // upgrades
                         item(contentType = CONTENT_TYPE_HEADER) {
                             Header(
-                                stringResource(R.string.upgrades),
+                                stringResource(Res.string.upgrades),
                                 color = AppTheme.colors.accent,
                                 drawDivider = true,
                                 style = AppTheme.typography.title3,
@@ -229,7 +230,7 @@ object RouteSettings : Route {
                             return@LazyColumn
                         item(contentType = CONTENT_TYPE_HEADER) {
                             Header(
-                                stringResource(R.string.about_us),
+                                stringResource(Res.string.about_us),
                                 color = AppTheme.colors.accent,
                                 drawDivider = true,
                                 style = AppTheme.typography.title3,

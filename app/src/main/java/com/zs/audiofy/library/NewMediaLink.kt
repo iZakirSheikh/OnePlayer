@@ -47,6 +47,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.zs.audiofy.R
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.textResource
 import com.zs.compose.theme.AlertDialog
 import com.zs.compose.theme.AppTheme
@@ -108,7 +109,7 @@ fun NewMediaLink(
         },
         title = {
             Text(
-                textResource(R.string.scr_network_stream_title), fontWeight = FontWeight.Light,
+                textResource(Res.string.scr_network_stream_title), fontWeight = FontWeight.Light,
                 maxLines = 2
             )
         },
@@ -183,7 +184,7 @@ fun NewMediaLink(
             )
             // Button
             Button(
-                stringResource(R.string.play),
+                stringResource(Res.string.play),
                 onClick = { onNewLink(link.text.toString()) },
                 modifier = Modifier
                     .align(Alignment.End)

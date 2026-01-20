@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.zs.audiofy.R
 import com.zs.audiofy.audios.RouteAudios
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.ContentPadding
 import com.zs.audiofy.common.compose.LocalNavController
 import com.zs.audiofy.common.compose.directory.Directory
@@ -158,7 +159,7 @@ private fun Folder(
         // More Info
         Label(
             text = pluralStringResource(
-                R.plurals.files_d,
+                Res.plurals.files_d,
                 value.count,
                 value.count
             ) + " - " + ctx.fileSizeFormatted(value.size.toLong()),

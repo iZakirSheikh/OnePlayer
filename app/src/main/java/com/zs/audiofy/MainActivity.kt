@@ -75,6 +75,7 @@ import com.zs.audiofy.common.products
 import com.zs.audiofy.console.RouteConsole
 import com.zs.audiofy.library.RouteLibrary
 import com.zs.audiofy.common.AppConfig
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.settings.Settings
 import com.zs.compose.foundation.getText2
 import com.zs.compose.foundation.runCatching
@@ -213,8 +214,8 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
                         Log.d("SplitInstall", "Module installed successfully!")
                         // Show a toast message requesting the app restart
                         val res = snackbarHostState.showSnackbar(
-                            getString(R.string.msg_apply_changes_restart),
-                            getString(R.string.restart),
+                            getString(Res.string.msg_apply_changes_restart),
+                            getString(Res.string.restart),
                             duration = SnackbarDuration.Indefinite
                         )
                         // Restart the app if the user chooses to
@@ -224,7 +225,7 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
                     }
                     Flag.FAILED, Flag.UNKNOWN -> {
                        val res = snackbarHostState.showSnackbar(
-                           getText(R.string.msg_unknown_error),
+                           getText(Res.string.msg_unknown_error),
                            action = "Details."
                        )
                         if (res == SnackbarResult.ActionPerformed)
@@ -259,11 +260,11 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
             // Prompt the user to install the dynamic feature
             val response = snackbarHostState.showSnackbar(
                 resources.getText2(
-                    id = R.string.msg_install_dynamic_module_ss,
+                    id = Res.string.msg_install_dynamic_module_ss,
                     details.title
                 ),
                 duration = SnackbarDuration.Indefinite,
-                action = resources.getText2(R.string.install),
+                action = resources.getText2(Res.string.install),
                 icon = Icons.Default.InstallMobile,
             )
             if (response == SnackbarResult.ActionPerformed)
@@ -391,7 +392,7 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
         val manager = AppUpdateManagerFactory.create(this@MainActivity)
         manager.requestUpdateFlow().onEach { result ->
             when (result) {
-                is AppUpdateResult.NotAvailable -> if (report) showToast(R.string.msg_no_new_update_available)
+                is AppUpdateResult.NotAvailable -> if (report) showToast(Res.string.msg_no_new_update_available)
                 is AppUpdateResult.InProgress -> {
                     val state = result.installState
                     val total = state.totalBytesToDownload()
@@ -419,8 +420,8 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
                     }
                     // else show the toast.
                     val res = snackbarHostState.showSnackbar(
-                        message = resources.getText2(R.string.msg_new_update_downloaded),
-                        action = resources.getText2(R.string.install),
+                        message = resources.getText2(Res.string.msg_new_update_downloaded),
+                        action = resources.getText2(Res.string.install),
                         duration = SnackbarDuration.Long,
                         icon = Icons.Outlined.Downloading
                     )
@@ -444,7 +445,7 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
         }.catch {
             analytics.record(it)
             if (!report) return@catch
-            showToast(R.string.msg_update_check_error)
+            showToast(Res.string.msg_update_check_error)
         }.launchIn(lifecycleScope)
     }
 
@@ -490,7 +491,7 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
             if (delay > 0) delay(delay) // delay at least some
             when (index) {
                 0 -> showSnackbar(
-                    R.string.release_notes,
+                    Res.string.release_notes,
                     duration = SnackbarDuration.Indefinite,
                     icon = Icons.Outlined.NewReleases
                 )

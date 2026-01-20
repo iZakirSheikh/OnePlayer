@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import com.zs.audiofy.R
 import com.zs.audiofy.common.Action
 import com.zs.audiofy.common.Filter
+import com.zs.audiofy.common.Res
 import com.zs.compose.foundation.composableIf
 import com.zs.compose.foundation.fadingEdge
 import com.zs.compose.theme.AppTheme
@@ -54,11 +55,11 @@ private val REC_SPACING =
 
 object FilterDefaults {
 
-    val ORDER_NONE get() =  Action(R.string.none,  id = "filter_by_none")
-    val ORDER_BY_TITLE get() = Action(R.string.title,  id = "filter_by_title")
-    val ORDER_BY_ARTIST get() = Action(R.string.artist,  id = "filter_by_artist")
-    val ORDER_BY_DATE_MODIFIED get() = Action(R.string.date_added,id = "filter_by_date_modified")
-    val ORDER_BY_DATE_LENGTH get() = Action(R.string.length,  id = "filter_by_date_length")
+    val ORDER_NONE get() =  Action(Res.string.none,  id = "filter_by_none")
+    val ORDER_BY_TITLE get() = Action(Res.string.title,  id = "filter_by_title")
+    val ORDER_BY_ARTIST get() = Action(Res.string.artist,  id = "filter_by_artist")
+    val ORDER_BY_DATE_MODIFIED get() = Action(Res.string.date_added,id = "filter_by_date_modified")
+    val ORDER_BY_DATE_LENGTH get() = Action(Res.string.length,  id = "filter_by_date_length")
 
 
     val NO_FILTER get() =  Filter(true, ORDER_NONE)
