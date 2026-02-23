@@ -621,7 +621,7 @@ object RouteConsole : Route {
         val clazz = LocalWindowSize.current
         val insets = WindowInsets.systemBars
         val strategy = when {
-            !showQueue || clazz.height < Category.Medium && clazz.width <= Category.Medium -> SinglePaneStrategy
+            clazz.height < Category.Medium && clazz.width <= Category.Medium -> SinglePaneStrategy
             clazz.width < clazz.height -> VerticalTwoPaneStrategy(0.35f)
             else -> HorizontalTwoPaneStrategy(0.55f)
         }
@@ -633,16 +633,19 @@ object RouteConsole : Route {
             containerColor = COLOR_BACKGROUND,
             spacing = CP.normal,
             secondary = {
-                val insets = when {
-                    strategy is VerticalTwoPaneStrategy -> insets.only(WindowInsetsSides.Bottom)
-                    else -> insets.only(WindowInsetsSides.End + WindowInsetsSides.Top)
+                Box(modifier = Modifier.animateContentSize()) {
+                    if (!showQueue) return@Box
+                    val insets = when {
+                        strategy is VerticalTwoPaneStrategy -> insets.only(WindowInsetsSides.Bottom)
+                        else -> insets.only(WindowInsetsSides.End + WindowInsetsSides.Top)
+                    }
+                    val shape = when (strategy) {
+                        SinglePaneStrategy -> RectangleShape
+                        is HorizontalTwoPaneStrategy -> SecondaryHorizontal
+                        else -> SecondaryVertical
+                    }
+                    Queue(viewState, shape, insets)
                 }
-                val shape = when (strategy) {
-                    SinglePaneStrategy -> RectangleShape
-                    is HorizontalTwoPaneStrategy -> SecondaryHorizontal
-                    else -> SecondaryVertical
-                }
-                Queue(viewState, shape, insets)
             },
             primary = {
                 BoxWithConstraints {
@@ -704,7 +707,6 @@ object RouteConsole : Route {
                             content = content,
                             modifier = Modifier
                                 .fillMaxSize()
-                                .animateContentSize()
                                 .then(
                                     when (strategy) {
                                         SinglePaneStrategy -> Modifier

@@ -61,6 +61,7 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.common.SystemFacade
 import com.zs.audiofy.common.compose.LocalSystemFacade
 import com.zs.compose.theme.ContentAlpha
@@ -343,7 +344,7 @@ private class PlayerGestureHandlerNode(
         val topY = 40.dp.toPx()
 
         // Padding
-        val vPadding = 4.dp.toPx()
+        val vPadding = 2.dp.toPx()
         val hPadding = 12.dp.toPx()
 
         // Rect bounds
@@ -406,6 +407,9 @@ private class PlayerGestureHandlerNode(
     // Backing field to store the original playback speed before a long press.
     var speed: Float = 1f
     fun onLongPress(released: Boolean) {
+        // This feature is still in preview mode; hence this
+        if (!AppConfig.isLabsModeOn)
+            return
         Log.d(TAG, "onLongPress: $released")
         // Hide the player controls if they are visible
         if (viewState.visibility != C.VISIBLE_NONE)

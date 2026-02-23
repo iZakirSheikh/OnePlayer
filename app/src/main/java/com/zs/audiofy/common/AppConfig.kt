@@ -92,6 +92,11 @@ object AppConfig {
      */
     @JvmField var isWidgetToConsoleTransitionEnabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
+    /**
+     * Enables or disables labs mode. Labs mode enables or disables features that are in preview/beta mode
+     */
+    @JvmField var isLabsModeOn = false
+
     // Delimiters
     private const val KEYS_DELIMITER = '\u001E'
     private const val RECORD_DELIMITER = ':'
@@ -111,6 +116,8 @@ object AppConfig {
     private const val KEY_INAPP_WIDGET_LONG_PRESS_OPEN_CONFIG = "param12"
     private const val KEY_IS_SPLASH_ANIM_WAIT_ENABLED = "param13"
     private const val KEY_IS_WIDGET_TO_CONSOLE_TRANSITION_ENABLED = "param14"
+    private const val KEY_IS_LABS_MODE_ON = "param15"
+
 
 
     /**
@@ -174,6 +181,7 @@ object AppConfig {
         records[KEY_INAPP_WIDGET_LONG_PRESS_OPEN_CONFIG] = inAppWidgetLongPressOpenConfig
         records[KEY_IS_SPLASH_ANIM_WAIT_ENABLED] = isSplashAnimWaitEnabled
         records[KEY_IS_WIDGET_TO_CONSOLE_TRANSITION_ENABLED] = isWidgetToConsoleTransitionEnabled
+        records[KEY_IS_LABS_MODE_ON] = isLabsModeOn
         Log.i(TAG, "stringify: $records")
         return records.toString()
     }
@@ -220,6 +228,7 @@ object AppConfig {
                 KEY_SHOW_INAPP_WIDGET_DEDICATED_OPEN_CONSOLE_BTN -> showInAppWidgetOpenConsoleButton = value.toBoolean()
                 KEY_IS_SPLASH_ANIM_WAIT_ENABLED -> isSplashAnimWaitEnabled = value.toBoolean()
                 KEY_IS_WIDGET_TO_CONSOLE_TRANSITION_ENABLED -> isWidgetToConsoleTransitionEnabled = value.toBoolean()
+                KEY_IS_LABS_MODE_ON -> isLabsModeOn = value.toBoolean()
             }
         }
     }

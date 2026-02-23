@@ -1,4 +1,5 @@
-✓ Performance Boost: Replaced the icon system with faster, local vector assets for a snappier experience.
-✓ Code Modernization: Refactored core components, build scripts, and theme handling to improve stability.
-✓ Internal Cleanup: Removed unused modules and streamlined dependencies for a leaner app.
-✓ Build System Refactor: Reorganized and commented build scripts for better long-term maintenance.
+✓ Labs Mode: Unlock experimental features, starting with Long-Press to Seek on the Now Playing screen.
+✓ Playback Flow: Videos now jump straight into Now Playing for a smoother experience.
+✓ Performance Boost: Replaced the icon system with faster, local vector assets for snappier performance.
+✓ Internal Cleanup: Removed unused modules and reorganized dependencies for a leaner app.
+✓ Build System Updates: Upgraded Gradle and refreshed key libraries for long-term maintainability.

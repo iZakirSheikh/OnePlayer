@@ -65,6 +65,7 @@ import com.zs.audiofy.common.compose.OverflowMenu
 import com.zs.audiofy.common.compose.background
 import com.zs.audiofy.common.compose.directory.Files
 import com.zs.audiofy.common.compose.shine
+import com.zs.audiofy.console.RouteConsole
 import com.zs.audiofy.playlists.Playlists
 import com.zs.audiofy.properties.RouteProperties
 import com.zs.compose.foundation.SignalWhite
@@ -216,7 +217,12 @@ fun Videos(viewState: VideosViewState) {
                     .animateItem()
                     .clickable(
                         onClick = {
-                            if (viewState.isInSelectionMode) viewState.select(video.id) else viewState.play(video)
+                            if (viewState.isInSelectionMode)
+                                viewState.select(video.id)
+                            else {
+                                viewState.play(video)
+                                navController.navigate(RouteConsole())
+                            }
                         },
                         onLongClick = { viewState.select(video.id) }
                     ),

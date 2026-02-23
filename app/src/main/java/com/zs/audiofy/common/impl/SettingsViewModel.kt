@@ -48,6 +48,7 @@ class SettingsViewModel : KoinViewModel(), SettingsViewState {
     override var isFileGroupingEnabled: Boolean by mutableStateOf(AppConfig.isFileGroupingEnabled)
     override var isSplashAnimWaitEnabled: Boolean by mutableStateOf(AppConfig.isSplashAnimWaitEnabled)
     override var isWidgetToConsoleTransitionEnabled: Boolean by mutableStateOf(AppConfig.isWidgetToConsoleTransitionEnabled)
+    override var isLabsModeOn: Boolean by mutableStateOf(AppConfig.isLabsModeOn)
 
     override val save: Boolean by derivedStateOf {
         trashCanEnabled != AppConfig.isTrashCanEnabled ||
@@ -61,7 +62,8 @@ class SettingsViewModel : KoinViewModel(), SettingsViewState {
                 isSurfaceViewVideoRenderingPreferred != AppConfig.isSurfaceViewVideoRenderingPreferred ||
                 isFileGroupingEnabled != AppConfig.isFileGroupingEnabled ||
                 isSplashAnimWaitEnabled != AppConfig.isSplashAnimWaitEnabled ||
-                isWidgetToConsoleTransitionEnabled != AppConfig.isWidgetToConsoleTransitionEnabled
+                isWidgetToConsoleTransitionEnabled != AppConfig.isWidgetToConsoleTransitionEnabled ||
+                isLabsModeOn != AppConfig.isLabsModeOn
     }
 
     override fun commit(facade: SystemFacade) {
@@ -84,6 +86,7 @@ class SettingsViewModel : KoinViewModel(), SettingsViewState {
             AppConfig.isFileGroupingEnabled = isFileGroupingEnabled
             AppConfig.isSplashAnimWaitEnabled = isSplashAnimWaitEnabled
             AppConfig.isWidgetToConsoleTransitionEnabled = isWidgetToConsoleTransitionEnabled
+            AppConfig.isLabsModeOn = isLabsModeOn
 
             // [PERSISTENCE] Serialize and save the updated AppConfig to preferences
             // The `stringify()` method likely converts the AppConfig object into a JSON or similar string format
@@ -121,6 +124,7 @@ class SettingsViewModel : KoinViewModel(), SettingsViewState {
                 isSurfaceViewVideoRenderingPreferred = AppConfig.isSurfaceViewVideoRenderingPreferred
                 isFileGroupingEnabled = AppConfig.isFileGroupingEnabled
                 isSplashAnimWaitEnabled = AppConfig.isSplashAnimWaitEnabled
+                isLabsModeOn = AppConfig.isLabsModeOn
             }
         }
     }

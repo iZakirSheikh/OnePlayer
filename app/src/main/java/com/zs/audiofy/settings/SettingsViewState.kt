@@ -243,6 +243,7 @@ interface SettingsViewState {
     var isFileGroupingEnabled: Boolean
     var isSplashAnimWaitEnabled: Boolean
     var isWidgetToConsoleTransitionEnabled: Boolean
+    var isLabsModeOn: Boolean
 
     /**
      * Commits [com.zs.audiofy.common.AppConfig] to memory.

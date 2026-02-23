@@ -99,6 +99,18 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
             modifier = Modifier.background(AppTheme.colors.background(1.dp), RS.CentreTileShape),
         )
     }
+
+    // Labs Mode
+    item(contentType = CONTENT_TYPE_PREF) {
+        SwitchPreference(
+            text = textResource(Res.string.pref_is_labs_mode_on_s, "Long press seek"),
+            checked = viewState.isLabsModeOn,
+            onCheckedChange = { viewState.isLabsModeOn = it },
+            icon = vectorResource(Res.drawable.ic_science),
+            modifier = Modifier.background(AppTheme.colors.background(1.dp), RS.BottomTileShape),
+        )
+    }
+
     // File grouping
     item(contentType = CONTENT_TYPE_PREF) {
         SwitchPreference(

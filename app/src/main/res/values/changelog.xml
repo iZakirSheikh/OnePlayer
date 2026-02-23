@@ -12,6 +12,7 @@
 <resources>
     <!--Changelog-->
     <string-array name="changelog" translatable="false">
+        <item>@string/changelog_156_beta</item>
         <item>@string/changelog_155_beta</item>
         <item>@string/changelog_154_beta</item>
         <item>@string/changelog_153_beta</item>
@@ -34,7 +35,20 @@
     </string-array>
 
     <!--Points to the changelog of current version.-->
-    <string name="release_notes" translatable="false">@string/changelog_156_beta</string>
+    <string name="release_notes" translatable="false">@string/changelog_158_beta</string>
+
+    <!--1.5.8-beta-->
+    <string name="changelog_158_beta" translatable="false">
+    <b>What’s New <font color='purple'>(v1.5.8-beta)\n</font></b>
+    <font color='grey'>
+        \n✓ <b>Labs Mode:</b> A new experimental features hub. First experiment: Long-Press to Seek on the Now Playing screen.
+        \n✓ <b>Playback UX:</b> Clicking a video now jumps directly to Now Playing after starting playback.
+        \n✓ <b>Icon System Refactor:</b> Replaced `material-icons-extended` with local XML vector drawables for better performance and simpler icon management.
+        \n✓ <b>Build &amp; Dependency Updates:</b>
+        \n    • Upgraded Gradle (9.1.0 → 9.3.1) and refreshed key dependencies (AGP, Kotlin, Media3, Compose BOM, Navigation, etc.).
+    </font>
+</string>
+
 
     <!--1.5.6-beta-->
     <string name="changelog_156_beta" translatable="false">

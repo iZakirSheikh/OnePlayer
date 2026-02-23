@@ -1,13 +1,13 @@
 [versions]
-agp = "9.0.0"                # Android Gradle Plugin
-kotlin = "2.3.0"             # Kotlin language + Compose plugin
-media3 = "1.9.0"             # Media3 playback libraries
-toolkit = "3.7.11-dev"       # Prime Toolkit modules
+agp = "9.0.1"                # Android Gradle Plugin
+kotlin = "2.3.10"             # Kotlin language + Compose plugin
+media3 = "1.9.2"             # Media3 playback libraries
+toolkit = "3.7.14-dev"       # Prime Toolkit modules
 material_icons = "1.7.8"     # Material Icons for Compose
 coil = "3.3.0"               # Coil image loader
 room = "2.8.4"               # Room persistence library
 glance = "1.1.1"             # Glance widgets
-nav3 = "1.1.0-alpha01"       # Navigation 3 experimental
+nav3 = "1.1.0-alpha04"       # Navigation 3 experimental
 
 [plugins]
 # ─── Android Build Plugins ───
@@ -31,8 +31,8 @@ androidx-splashscreen = { module = "androidx.core:core-splashscreen", version = 
 androidx-startup = { module = "androidx.startup:startup-runtime", version = "1.2.0" }   # App startup init
 androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version = "1.4.2" } # Image metadata
 androidx-biometric = { module = "androidx.biometric:biometric-ktx", version = "1.4.0-alpha02" } # Biometric auth
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.12.2" } # Compose Activity
-androidx-work = { module = "androidx.work:work-runtime-ktx", version = "2.11.0" }    # WorkManager
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.12.4" } # Compose Activity
+androidx-work = { module = "androidx.work:work-runtime-ktx", version = "2.11.1" }    # WorkManager
 androidx-palette = { module = "androidx.palette:palette-ktx", version = "1.0.0" }  # Color palette extraction
 androidx-constraint-layout = { module = "androidx.constraintlayout:constraintlayout-compose", version = "1.1.1" } # ConstraintLayout in Compose
 androidx-graphics-shapes = { module = "androidx.graphics:graphics-shapes", version = "1.1.0" } # Shape utilities
@@ -41,7 +41,7 @@ androidx-graphics-shapes = { module = "androidx.graphics:graphics-shapes", versi
 media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" } # Video/audio playback
 media3-session = { module = "androidx.media3:media3-session", version.ref = "media3" }     # Media session
 mp3agic = { module = "com.mpatric:mp3agic", version = "0.9.1" }                            # MP3 tag parsing
-nextlib = { module = "io.github.anilbeesetti:nextlib-media3ext", version = "1.9.0-0.10.0" } # Media3 extensions
+nextlib = { module = "io.github.anilbeesetti:nextlib-media3ext", version = "1.9.1-0.11.0" } # Media3 extensions
 
 # ─── Google Play Services ───
 play-app_update = { module = "com.google.android.play:app-update-ktx", version = "2.1.0" } # In-app updates
@@ -54,11 +54,11 @@ firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx", ve
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version = "19.4.4" } # Crash reporting
 
 # ─── Ads & Monetization ───
-unity_ads_mediation = { module = "com.unity3d.ads-mediation:mediation-sdk", version = "9.2.0" } # Ad mediation
-unity_ads_adquality = { module = "com.unity3d.ads-mediation:adquality-sdk", version = "9.2.1" } # Ad quality SDK
+unity_ads_mediation = { module = "com.unity3d.ads-mediation:mediation-sdk", version = "9.3.0" } # Ad mediation
+unity_ads_adquality = { module = "com.unity3d.ads-mediation:adquality-sdk", version = "9.3.1" } # Ad quality SDK
 
 # ─── Jetpack Compose ───
-compose-bom = { module = "androidx.compose:compose-bom", version = "2026.01.00" } # BOM for Compose
+compose-bom = { module = "androidx.compose:compose-bom", version = "2026.02.00" } # BOM for Compose
 compose-ui = { module = "androidx.compose.ui:ui" }                                # Core UI
 compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }              # Graphics utilities
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }                # Preview tooling
@@ -71,10 +71,10 @@ compose-animation = {module = "androidx.compose.animation:animation-graphics"}
 material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "material_icons" } # Core icons
 material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material_icons" } # Extended icons
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.7.1" } # Lottie animations
-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version = "1.10.1" } # Google Fonts
+google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version = "1.10.3" } # Google Fonts
 
 # ─── Navigation ───
-nav2-compose = { module = "androidx.navigation:navigation-compose", version = "2.9.6" } # Navigation 2
+nav2-compose = { module = "androidx.navigation:navigation-compose", version = "2.9.7" } # Navigation 2
 nav3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3" } # Navigation 3 runtime
 nav3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3" }         # Navigation 3 UI
 nav3_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version = "2.10.0" } # ViewModel integration
@@ -113,8 +113,8 @@ glance-material3 = { module = "androidx.glance:glance-material3", version.ref = 
 
 # ─── Paging ───
 # Paging runtime + Compose integration
-androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version = "3.3.6" }   # Paging runtime
-androidx-paging-compose = { module = "androidx.paging:paging-compose", version = "3.4.0-rc01" } # Paging in Compose
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version = "3.4.1" }   # Paging runtime
+androidx-paging-compose = { module = "androidx.paging:paging-compose", version = "3.4.1" } # Paging in Compose
 
 [bundles]
 analytics = ["firebase-analytics", "firebase-crashlytics"] # Firebase analytics + crash reporting
