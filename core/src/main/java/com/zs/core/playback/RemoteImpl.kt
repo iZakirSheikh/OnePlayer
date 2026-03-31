@@ -41,14 +41,12 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -414,6 +412,25 @@ internal class RemoteImpl(private val context: Context) : Remote {
             }
         }
 
+    override val cues2: Flow<List<Any>?> = events
+        .filter { events ->
+            // Check if the received events are relevant for a subtitle update.
+            // If `events` is null (initial emission from callbackFlow) or if it doesn't contain
+            // `Player.EVENT_CUES`, it means the subtitle cue hasn't changed,
+            // so we don't need to re-fetch and emit it.
+            events?.contains(Player.EVENT_CUES) == true
+        }.transform { _ ->
+            // Suspend until the MediaBrowser instance is connected and ready.
+            // This ensures we always work with a valid provider before accessing cues.
+            val provider = fBrowser.await()
+
+            // Collect all current subtitle cues into a single string.
+            // Each cue's text is converted to a string (or empty if null),
+            // and joined together with newline separators.
+            val cues = provider.currentCues.cues
+
+            emit(cues)
+        }
 
     override suspend fun setPlaybackSpeed(value: Float): Boolean {
         val browser = fBrowser.await() // Await the MediaBrowser instance.

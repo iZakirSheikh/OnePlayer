@@ -81,6 +81,7 @@ dependencies {
     // Media3 → modern media playback APIs
     implementation(libs.media3.session)             // Media session management
     implementation(libs.media3.exoplayer)           // ExoPlayer for playback
+    implementation(libs.media3.ui) // for using SubtitleView
     implementation(libs.play.billing.client) // Play Billing → in-app purchases
     implementation(libs.coil.core)  // Coil → lightweight image loading library
     implementation(libs.androidx.palette) // AndroidX Palette → extract prominent colors from images

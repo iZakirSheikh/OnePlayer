@@ -1,13 +1,13 @@
 [versions]
-agp = "9.0.1"                # Android Gradle Plugin
-kotlin = "2.3.10"             # Kotlin language + Compose plugin
-media3 = "1.9.2"             # Media3 playback libraries
+agp = "9.1.0"                # Android Gradle Plugin
+kotlin = "2.3.20"             # Kotlin language + Compose plugin
+media3 = "1.9.3"             # Media3 playback libraries
 toolkit = "3.7.14-dev"       # Prime Toolkit modules
 material_icons = "1.7.8"     # Material Icons for Compose
-coil = "3.3.0"               # Coil image loader
+coil = "3.4.0"               # Coil image loader
 room = "2.8.4"               # Room persistence library
 glance = "1.1.1"             # Glance widgets
-nav3 = "1.1.0-alpha04"       # Navigation 3 experimental
+nav3 = "1.1.0-rc01"       # Navigation 3 experimental
 
 [plugins]
 # ─── Android Build Plugins ───
@@ -26,13 +26,13 @@ crashanlytics = { id = "com.google.firebase.crashlytics", version = "3.0.6" } # 
 
 [libraries]
 # ─── Core AndroidX ───
-androidx-core-ktx = { module = "androidx.core:core-ktx", version = "1.17.0" }           # Kotlin extensions
+androidx-core-ktx = { module = "androidx.core:core-ktx", version = "1.18.0" }           # Kotlin extensions
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.2.0" } # Splash API
 androidx-startup = { module = "androidx.startup:startup-runtime", version = "1.2.0" }   # App startup init
 androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version = "1.4.2" } # Image metadata
 androidx-biometric = { module = "androidx.biometric:biometric-ktx", version = "1.4.0-alpha02" } # Biometric auth
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.12.4" } # Compose Activity
-androidx-work = { module = "androidx.work:work-runtime-ktx", version = "2.11.1" }    # WorkManager
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.13.0" } # Compose Activity
+androidx-work = { module = "androidx.work:work-runtime-ktx", version = "2.11.2" }    # WorkManager
 androidx-palette = { module = "androidx.palette:palette-ktx", version = "1.0.0" }  # Color palette extraction
 androidx-constraint-layout = { module = "androidx.constraintlayout:constraintlayout-compose", version = "1.1.1" } # ConstraintLayout in Compose
 androidx-graphics-shapes = { module = "androidx.graphics:graphics-shapes", version = "1.1.0" } # Shape utilities
@@ -40,8 +40,10 @@ androidx-graphics-shapes = { module = "androidx.graphics:graphics-shapes", versi
 # ─── Media & Playback ───
 media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" } # Video/audio playback
 media3-session = { module = "androidx.media3:media3-session", version.ref = "media3" }     # Media session
+media3-ui = {module = "androidx.media3:media3-ui", version.ref = "media3"}
 mp3agic = { module = "com.mpatric:mp3agic", version = "0.9.1" }                            # MP3 tag parsing
-nextlib = { module = "io.github.anilbeesetti:nextlib-media3ext", version = "1.9.1-0.11.0" } # Media3 extensions
+nextlib = { module = "io.github.anilbeesetti:nextlib-media3ext", version = "1.9.3-0.12.0" } # Media3 extensions
+
 
 # ─── Google Play Services ───
 play-app_update = { module = "com.google.android.play:app-update-ktx", version = "2.1.0" } # In-app updates
@@ -58,7 +60,7 @@ unity_ads_mediation = { module = "com.unity3d.ads-mediation:mediation-sdk", vers
 unity_ads_adquality = { module = "com.unity3d.ads-mediation:adquality-sdk", version = "9.3.1" } # Ad quality SDK
 
 # ─── Jetpack Compose ───
-compose-bom = { module = "androidx.compose:compose-bom", version = "2026.02.00" } # BOM for Compose
+compose-bom = { module = "androidx.compose:compose-bom", version = "2026.03.01" } # BOM for Compose
 compose-ui = { module = "androidx.compose.ui:ui" }                                # Core UI
 compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }              # Graphics utilities
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }                # Preview tooling
@@ -71,7 +73,7 @@ compose-animation = {module = "androidx.compose.animation:animation-graphics"}
 material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "material_icons" } # Core icons
 material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material_icons" } # Extended icons
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.7.1" } # Lottie animations
-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version = "1.10.3" } # Google Fonts
+google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version = "1.10.6" } # Google Fonts
 
 # ─── Navigation ───
 nav2-compose = { module = "androidx.navigation:navigation-compose", version = "2.9.7" } # Navigation 2
@@ -91,7 +93,7 @@ coil-core = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }          
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }  # Compose integration
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" } # Networking via Ktor
 coil-svg = { module = "io.coil-kt.coil3:coil-svg", version.ref = "coil" }          # SVG rendering
-coil-video = { module = "io.coil-kt.coil3:coil-video", version = "3.3.0" }         # Video frame thumbnails
+coil-video = { module = "io.coil-kt.coil3:coil-video", version = "3.4.0" }         # Video frame thumbnails
 coil-avif-coder = { module = "com.github.awxkee:avif-coder-coil", version = "2.1.4" } # AVIF format support
 
 # ─── Toolkit ───
@@ -103,7 +105,7 @@ toolkit-theme = { module = "com.github.prime-zs.toolkit:theme", version.ref = "t
 # ─── UI Enhancements ───
 # Extra UI libraries for Compose
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version = "0.37.3" } # Runtime permissions
-androidx-koin = { module = "io.insert-koin:koin-androidx-compose", version = "4.1.1" }                     # Dependency injection
+androidx-koin = { module = "io.insert-koin:koin-androidx-compose", version = "4.2.0" }                     # Dependency injection
 chrisbanes-haze = { module = "dev.chrisbanes.haze:haze", version = "1.6.10" }                              # Blur/haze effects
 
 # ─── Glance ───
@@ -113,8 +115,8 @@ glance-material3 = { module = "androidx.glance:glance-material3", version.ref = 
 
 # ─── Paging ───
 # Paging runtime + Compose integration
-androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version = "3.4.1" }   # Paging runtime
-androidx-paging-compose = { module = "androidx.paging:paging-compose", version = "3.4.1" } # Paging in Compose
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version = "3.4.2" }   # Paging runtime
+androidx-paging-compose = { module = "androidx.paging:paging-compose", version = "3.4.2" } # Paging in Compose
 
 [bundles]
 analytics = ["firebase-analytics", "firebase-crashlytics"] # Firebase analytics + crash reporting
