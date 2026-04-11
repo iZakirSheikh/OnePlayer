@@ -88,6 +88,7 @@ private const val PREF_KEY_EQUALIZER_PROPERTIES = "_equalizer_properties"
 private const val PREF_KEY_CLOSE_WHEN_REMOVED = "_stop_playback_when_removed"
 private const val PREF_KEY_ORDERS = "_orders"
 private const val PREF_CONTENT_DURATION = "_content_duration"
+private const val PREF_BG_PLAYBACK_POLICY = "_bg_playback_policy"
 
 
 //
@@ -169,6 +170,8 @@ class Playback : MediaLibraryService(), Callback, Player.Listener {
      * @see ACTION_EQUALIZER_CONFIG
      */
     private var equalizer: Equalizer? = null
+    
+    private var bgPlaybackPolicy = Remote.BG_PLAYBACK_AUDIO_ONLY
 
     // init
     override fun onCreate() {
@@ -179,6 +182,8 @@ class Playback : MediaLibraryService(), Callback, Player.Listener {
         // Asynchronously restore the saved state of the service
         scope.launch {
             runCatching(TAG) {
+                // restore the default bg playback policy 
+                bgPlaybackPolicy = preferences[PREF_BG_PLAYBACK_POLICY, Remote.BG_PLAYBACK_AUDIO_ONLY]
                 // Restore shuffle mode and repeat mode
                 player.shuffleModeEnabled = preferences[PREF_KEY_SHUFFLE_MODE, false]
                 player.repeatMode = preferences[PREF_KEY_REPEAT_MODE, Player.REPEAT_MODE_OFF]
@@ -650,6 +655,21 @@ class Playback : MediaLibraryService(), Callback, Player.Listener {
                 showPlatformToast(if (isLiked) "Liked ❤️✨" else "Unliked 💔")
                 SessionResult(SessionResult.RESULT_SUCCESS)
             }
+            // app visbility
+            Remote.APP_VISIBILITY -> {
+                val visible = args.getBoolean(Remote.EXTRA_KEY_APP_VISIBILITY)
+                onAppVisibilityUpdated(visible)
+                Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
+            }
+            // Bg Playback Policy 
+            Remote.BG_PLAYBACK_POLICY -> {
+                val newPolicy = args.getInt(Remote.EXTRA_KEY_BG_PLAYBACK_POLICY, Remote.BG_PLAYBACK_AUDIO_ONLY)
+                bgPlaybackPolicy = newPolicy
+                // don't save session policy in pref
+                if (newPolicy != Remote.BG_PLAYBACK_ALL_SESSION)
+                   scope.launch { preferences[PREF_BG_PLAYBACK_POLICY] = newPolicy }
+                Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
+            }
             // Handle unrecognized or unsupported commands.
             else -> Futures.immediateFuture(SessionResult(SessionError.ERROR_UNKNOWN))
         }
@@ -682,5 +702,9 @@ class Playback : MediaLibraryService(), Callback, Player.Listener {
                 stopForeground(STOP_FOREGROUND_REMOVE)
             stopSelf()
         }
+    }
+
+    fun onAppVisibilityUpdated(visible: Boolean) {
+        Log.d(TAG, "onAppVisibilityUpdated: $visible")
     }
 }

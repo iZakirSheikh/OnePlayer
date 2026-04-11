@@ -84,6 +84,12 @@ interface Remote {
         const val TRACK_TYPE_AUDIO = C.TRACK_TYPE_AUDIO
         const val TRACK_TYPE_VIDEO = C.TRACK_TYPE_VIDEO
 
+        // Background playback policy
+        const val BG_PLAYBACK_NONE = 0          // No playback allowed
+        const val BG_PLAYBACK_AUDIO_ONLY = 1    // Only audio continues in background
+        const val BG_PLAYBACK_ALL = 2           // All media continues in background
+        const val BG_PLAYBACK_ALL_SESSION = 3   // All media continues for this session only
+
         // Commands
         private const val PREFIX = "com.prime.player"
         internal val AUDIO_SESSION_ID = SessionCommand("_audio_session_id", Bundle.EMPTY)
@@ -98,6 +104,10 @@ interface Remote {
         internal val TOGGLE_LIKE = SessionCommand("_toggle_like", Bundle.EMPTY)
         internal val CONTENT_DURATION  = SessionCommand("_media_duration", Bundle.EMPTY)
         internal const val EXTRA_KEY_CONTENT_DURATION = "_extra_media_duration"
+        internal val APP_VISIBILITY = SessionCommand("_app_visibility", Bundle.EMPTY)
+        internal const val EXTRA_KEY_APP_VISIBILITY = "extra_app_visibility"
+        internal val BG_PLAYBACK_POLICY = SessionCommand("_bg_playback_policy", Bundle.EMPTY)
+        internal const val EXTRA_KEY_BG_PLAYBACK_POLICY = "extra_bg_playback_policy"
 
         internal val commands get() = arrayOf(
             AUDIO_SESSION_ID,
@@ -336,4 +346,11 @@ interface Remote {
     suspend fun prepare()
 
     suspend fun duration(): Long
+
+    suspend fun setAppVisibility(visible: Boolean)
+
+    /**
+     * @see [Remote.BG_PLAYBACK_ALL_SESSION]
+     */
+    suspend fun setBgPlaybackPolicy(newPolicy: Int)
 }

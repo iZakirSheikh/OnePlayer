@@ -121,7 +121,7 @@ object Widget {
     @Composable
     operator fun invoke(surface: HazeState, modifier: Modifier = Modifier) {
         val facade = LocalSystemFacade.current
-        val remote = (facade as? MainActivity)?.relay ?: return Spacer(modifier)
+        val remote = (facade as? MainActivity)?.remote ?: return Spacer(modifier)
         // Get the navigation controller.
         val navController = LocalNavController.current
         val s by remote.state.collectAsState()

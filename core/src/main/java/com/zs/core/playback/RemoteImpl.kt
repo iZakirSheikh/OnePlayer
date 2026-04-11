@@ -712,4 +712,18 @@ internal class RemoteImpl(private val context: Context) : Remote {
           return  browser[Remote.CONTENT_DURATION].extras.getLong(Remote.EXTRA_KEY_CONTENT_DURATION)
         return browser.contentDuration
     }
+
+    override suspend fun setAppVisibility(visible: Boolean) {
+        val browser = fBrowser.await()
+        browser[Remote.APP_VISIBILITY] = bundleOf(
+            Remote.EXTRA_KEY_APP_VISIBILITY to visible
+        )
+    }
+
+    override suspend fun setBgPlaybackPolicy(newPolicy: Int) {
+        val browser = fBrowser.await()
+        browser[Remote.BG_PLAYBACK_POLICY] = bundleOf(
+            Remote.EXTRA_KEY_BG_PLAYBACK_POLICY to newPolicy
+        )
+    }
 }

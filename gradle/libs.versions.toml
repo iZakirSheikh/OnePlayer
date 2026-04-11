@@ -7,7 +7,7 @@ material_icons = "1.7.8"     # Material Icons for Compose
 coil = "3.4.0"               # Coil image loader
 room = "2.8.4"               # Room persistence library
 glance = "1.1.1"             # Glance widgets
-nav3 = "1.1.0-rc01"       # Navigation 3 experimental
+nav3 = "1.1.0"       # Navigation 3 experimental
 
 [plugins]
 # ─── Android Build Plugins ───
@@ -105,7 +105,7 @@ toolkit-theme = { module = "com.github.prime-zs.toolkit:theme", version.ref = "t
 # ─── UI Enhancements ───
 # Extra UI libraries for Compose
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version = "0.37.3" } # Runtime permissions
-androidx-koin = { module = "io.insert-koin:koin-androidx-compose", version = "4.2.0" }                     # Dependency injection
+androidx-koin = { module = "io.insert-koin:koin-androidx-compose", version = "4.2.1" }                     # Dependency injection
 chrisbanes-haze = { module = "dev.chrisbanes.haze:haze", version = "1.6.10" }                              # Blur/haze effects
 
 # ─── Glance ───

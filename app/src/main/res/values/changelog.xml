@@ -12,6 +12,7 @@
 <resources>
     <!--Changelog-->
     <string-array name="changelog" translatable="false">
+        <item>@string/changelog_1_5_10_beta</item>
         <item>@string/changelog_158_beta</item>
         <item>@string/changelog_156_beta</item>
         <item>@string/changelog_155_beta</item>
@@ -36,7 +37,15 @@
     </string-array>
 
     <!--Points to the changelog of current version.-->
-    <string name="release_notes" translatable="false">@string/changelog_1_5_10_beta</string>
+    <string name="release_notes" translatable="false">@string/changelog_1_6_0_beta</string>
+
+    <!--1.6.0-beta-->
+    <string name="changelog_1_6_0_beta" translatable="false">
+    <b>What’s New <font color='purple'>(v1.6.0-beta)\n</font></b>
+    <font color='grey'>
+        \n✓
+    </font>
+    </string>
 
     <!--1.5.10-beta-->
     <string name="changelog_1_5_10_beta" translatable="false">

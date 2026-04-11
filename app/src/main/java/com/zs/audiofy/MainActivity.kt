@@ -165,7 +165,7 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
     }
 
     // This needs to be a non- private; because i require this in composable mini-player.
-    val relay: Remote by inject()
+    val remote: Remote by inject()
 
     //
     private var _style by mutableIntStateOf(WindowStyle.FLAG_STYLE_AUTO)
@@ -518,8 +518,8 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
         val data = intent.data ?: return
         // Use a coroutine to handle the media item construction and playback.
         lifecycleScope.launch {
-            relay.setMediaItem(data)
-            relay.play()
+            remote.setMediaItem(data)
+            remote.play()
         }
         // FixMe - Don't navigate if this is main intent; as we have already set it as origin.
         navController?.navigate(RouteConsole())
@@ -528,6 +528,16 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
     override fun onResume() {
         super.onResume()
         paymaster.sync()  // trigger sync in paymaster
+        lifecycleScope.launch {
+            remote.setAppVisibility(true)
+        }
+    }
+
+    override fun onPause() {
+        lifecycleScope.launch {
+            remote.setAppVisibility(false)
+        }
+        super.onPause()
     }
 
     override fun onDestroy() {
