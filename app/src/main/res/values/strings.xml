@@ -338,8 +338,23 @@
     <string name="audio">Audio</string>
     <string name="video">Video</string>
     <string name="subtitle">Subtitle</string>
-    <string name="pref_enable_splash_anim_wait"><b>Splash Animation</b>\n<font color="grey" size="14"><b>Waits (<i> Max 1000ms</i>)</b> for the splash animation to fully finish before continuing.<br/><u>Available on Android 12+ only</u></font></string>
+    <string name="pref_enable_splash_anim_wait"><b>Splash Animation</b>\n<font color="grey" size="14"><b>Waits (<i> Max 1000ms</i>)</b> for the splash animation to fully finish before continuing.<br /><u>Available on Android 12+ only</u></font></string>
     <string name="pref_is_widget_to_console_transition_enabled"><b>Widget Transition</b>\n<font color="grey" size="14"><b>Enables</b> the <u>shared transition animation</u> between the in‑app <b>Widget</b> and the <b>Now Playing</b> screen.</font></string>
     <string name="pref_is_labs_mode_on_s"> <b>Labs Mode</b>\n <font color="grey" size="14"> <b>Enables</b> access to <i>%1$s</i> <u>experimental features</u> that are currently in <b>preview mode</b>,allowing you to explore upcoming functionality before general release.</font></string>
+    <string name="all">All</string>
+
+    <string-array name="pref_bg_playback_policy_entries">
+        <item>@string/none</item>
+        <item>@string/audio</item>
+        <item>@string/all</item>
+    </string-array>
+
+    <string name="pref_bg_playback_policy_s">
+    <b>Background Play Mode (%1$s)</b>\n
+    <font color="grey" size="14">
+        <b>Control</b> whether media pauses, plays audio only, or continues fully when the app isn’t visible.
+    </font>
+</string>
+
 
 </resources>

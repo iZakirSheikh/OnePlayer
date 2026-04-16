@@ -661,6 +661,7 @@ class Playback : MediaLibraryService(), Callback, Player.Listener {
             Remote.APP_VISIBILITY -> {
                 val visible = args.getBoolean(Remote.EXTRA_KEY_APP_VISIBILITY)
                 isAppVisibleToUser = visible
+                enforceBgPlaybackRules()
                 Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
             }
             // Bg Playback Policy 

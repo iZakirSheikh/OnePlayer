@@ -25,17 +25,17 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import com.zs.audiofy.R
-import com.zs.audiofy.common.SystemFacade
 import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.common.Res
+import com.zs.audiofy.common.SystemFacade
 import com.zs.audiofy.settings.Settings
 import com.zs.audiofy.settings.SettingsViewState
 import com.zs.compose.theme.snackbar.SnackbarResult
+import com.zs.core.playback.Remote
 import com.zs.preferences.Key
 import kotlinx.coroutines.launch
 
-class SettingsViewModel : KoinViewModel(), SettingsViewState {
+class SettingsViewModel(val remote: Remote) : KoinViewModel(), SettingsViewState {
     override var trashCanEnabled: Boolean by mutableStateOf(AppConfig.isTrashCanEnabled)
     override var preferCachedThumbnails: Boolean by mutableStateOf(AppConfig.isLoadThumbnailFromCache)
     override var enabledBackgroundBlur: Boolean by mutableStateOf(AppConfig.isBackgroundBlurEnabled)
@@ -49,6 +49,14 @@ class SettingsViewModel : KoinViewModel(), SettingsViewState {
     override var isSplashAnimWaitEnabled: Boolean by mutableStateOf(AppConfig.isSplashAnimWaitEnabled)
     override var isWidgetToConsoleTransitionEnabled: Boolean by mutableStateOf(AppConfig.isWidgetToConsoleTransitionEnabled)
     override var isLabsModeOn: Boolean by mutableStateOf(AppConfig.isLabsModeOn)
+    @set:JvmName("setBgPlaybackPolicy2")
+    override var bgPlaybackPolicy: Int by mutableIntStateOf(Remote.BG_PLAYBACK_AUDIO_ONLY)
+
+    init {
+        viewModelScope.launch {
+            bgPlaybackPolicy = remote.getBgPlaybackPolicy()
+        }
+    }
 
     override val save: Boolean by derivedStateOf {
         trashCanEnabled != AppConfig.isTrashCanEnabled ||
@@ -106,6 +114,14 @@ class SettingsViewModel : KoinViewModel(), SettingsViewState {
             // [APP_LIFECYCLE] If the user confirms, trigger an application restart via the SystemFacade
             if (result == SnackbarResult.ActionPerformed)
                 facade.restart(global)
+        }
+    }
+
+
+    override fun setBgPlaybackPolicy(policy: Int) {
+        bgPlaybackPolicy = policy
+        viewModelScope.launch {
+            remote.setBgPlaybackPolicy(policy)
         }
     }
 

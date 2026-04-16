@@ -244,11 +244,14 @@ interface SettingsViewState {
     var isSplashAnimWaitEnabled: Boolean
     var isWidgetToConsoleTransitionEnabled: Boolean
     var isLabsModeOn: Boolean
+    val bgPlaybackPolicy: Int
 
     /**
      * Commits [com.zs.audiofy.common.AppConfig] to memory.
      */
     fun commit(facade: SystemFacade)
+
+    fun setBgPlaybackPolicy(policy: Int)
 
     fun discard()
 

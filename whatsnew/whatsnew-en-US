@@ -1,4 +1,5 @@
-* Enhanced subtitle rendering with native Media3 support for richer, more accurate captions
-* Upgraded playback engine (Media3 v1.10.0) for improved stability and performance
-* Cleaner UI integration with new SubtitleView in Compose
-* Dependency updates and minor fixes for smoother playback experience
+* Introduced Background Playback Policies: Choose between "None", "Audio Only", or "All" when the app is hidden
+* Smart Enforcement: Automatically manages video playback state based on app visibility and user settings
+* Added new "Background Play Mode" selector in the settings screen
+* Improved MIME type detection for better distinction between audio and video content
+* Enhanced playback service to accurately track foreground and background transitions

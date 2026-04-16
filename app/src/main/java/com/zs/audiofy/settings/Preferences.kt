@@ -41,6 +41,7 @@ import com.zs.compose.theme.SwitchPreference
 import com.zs.compose.theme.minimumInteractiveComponentSize
 import com.zs.compose.theme.text.Header
 import com.zs.compose.theme.text.Label
+import com.zs.core.playback.Remote
 import kotlin.math.roundToInt
 import com.zs.audiofy.settings.RouteSettings as RS
 
@@ -294,6 +295,33 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
             modifier = Modifier.background(AppTheme.colors.background(1.dp), RS.TopTileShape)
         )
     }
+    // Background Playback Policy
+    item(contentType = CONTENT_TYPE_PREF) {
+        val strategy = viewState.bgPlaybackPolicy
+        val entries = textArrayResource(Res.array.pref_bg_playback_policy_entries)
+
+        val index = when(strategy) {
+            Remote.BG_PLAYBACK_NONE -> 0
+            Remote.BG_PLAYBACK_AUDIO_ONLY -> 1
+            else -> 2
+        }
+
+        val values = arrayOf(
+            Remote.BG_PLAYBACK_NONE,
+            Remote.BG_PLAYBACK_AUDIO_ONLY,
+            Remote.BG_PLAYBACK_ALL
+        )
+
+        DropDownPreference(
+            text = textResource(Res.string.pref_bg_playback_policy_s, entries[index]),
+            value = strategy,
+            icon = vectorResource(Res.drawable.ic_exit_to_app),
+            entries = entries,
+            onRequestChange = { viewState.setBgPlaybackPolicy(it) },
+            values = values,
+            modifier = Modifier.background(AppTheme.colors.background(1.dp), RS.CentreTileShape)
+        )
+    }
     // FAB player long press behaviour
     item(contentType = CONTENT_TYPE_PREF) {
         SwitchPreference(
@@ -304,7 +332,6 @@ fun LazyListScope.preferences(viewState: SettingsViewState) {
             modifier = Modifier.background(AppTheme.colors.background(1.dp), RS.CentreTileShape)
         )
     }
-
     // Texture View/Surface view
     item(contentType = CONTENT_TYPE_PREF) {
         SwitchPreference(

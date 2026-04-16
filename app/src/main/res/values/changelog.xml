@@ -43,7 +43,15 @@
     <string name="changelog_1_6_0_beta" translatable="false">
     <b>What’s New <font color='purple'>(v1.6.0-beta)\n</font></b>
     <font color='grey'>
-        \n✓
+        \n✓ <b>Background Playback Policies:</b> Introduced a new system to control media behavior when the app is hidden. Choose between "None" (pause), "Audio Only" (stops video but keeps audio), or "All" (keep playing).
+        \n✓ <b>App Visibility Tracking:</b> The playback service now accurately tracks when the app is in the foreground or background to enforce playback rules.
+        \n✓ <b>Settings Update:</b> Added a "Background Play Mode" selector in the settings screen.
+        \n✓ <b>Smart Enforcement:</b> Automatically pauses video playback when entering the background if the current policy doesn\'t allow it.
+        \n✓ <b>New Icon:</b> Added a new "Exit to App" icon for the background playback setting.
+        \n✓ <b>Under the Hood:</b>
+        \n    • Renamed the internal `relay` system to `remote` for better architectural clarity.
+        \n    • Improved MIME type detection to distinguish between audio and video content more reliably.
+        \n    • Updated key dependencies (nav3, androidx-koin) and bumped version to 1.6.0.
     </font>
     </string>
 
