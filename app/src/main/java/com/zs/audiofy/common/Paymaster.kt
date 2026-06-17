@@ -18,6 +18,7 @@
 
 package com.zs.audiofy.common
 
+import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -125,6 +126,15 @@ private val _products = arrayOf(
     Paymaster.IAP_ARTWORK_SHAPE_PENTAGON
 )
 
+private val featured_products = arrayOf(
+    Paymaster.IAP_NO_ADS,
+    Paymaster.IAP_TAG_EDITOR_PRO,
+    Paymaster.IAP_BUY_ME_COFFEE,
+    Paymaster.IAP_CODEX,
+    Paymaster.IAP_WIDGETS_PLATFORM,
+    Paymaster.IAP_COLOR_CROFT_WIDGET_BUNDLE,
+)
+
 /**
  * Creates a split install request for the module with [name]
  */
@@ -186,3 +196,26 @@ val Product.isFreemium: Boolean
             else -> false
         }
     }
+
+/**
+ * Controls whether this item should be showcased for purchase.
+ * Sometimes the group is not fully prepared and needs further improvements.
+ * This variable can be used to control whether to showcase this item for purchase.
+ */
+val Product.isPurchasable: Boolean
+    get() {
+        return when (id) {
+            //BuildConfig.IAP_COLOR_CROFT_WIDGET_BUNDLE -> false
+            else -> true
+        }
+    }
+
+val Product.action
+    @StringRes
+    get() = when (id) {
+        Paymaster.IAP_BUY_ME_COFFEE -> Res.string.sponsor
+        else -> Res.string.unlock
+    }
+
+
+val Paymaster.Companion.featuredProducts get() = featured_products

@@ -61,18 +61,23 @@ import com.google.android.play.core.ktx.status
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
+import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.common.IAP_NO_ADS
+import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.SystemFacade
 import com.zs.audiofy.common.WindowStyle
+import com.zs.audiofy.common.action
 import com.zs.audiofy.common.domain
 import com.zs.audiofy.common.dynamicFeatureRequest
 import com.zs.audiofy.common.dynamicModuleName
+import com.zs.audiofy.common.featuredProducts
 import com.zs.audiofy.common.isDynamicFeature
+import com.zs.audiofy.common.isFreemium
+import com.zs.audiofy.common.isPurchasable
 import com.zs.audiofy.common.products
+import com.zs.audiofy.common.richDesc
 import com.zs.audiofy.console.RouteConsole
 import com.zs.audiofy.library.RouteLibrary
-import com.zs.audiofy.common.AppConfig
-import com.zs.audiofy.common.Res
 import com.zs.audiofy.settings.Settings
 import com.zs.compose.foundation.getText2
 import com.zs.compose.foundation.runCatching
@@ -103,6 +108,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.inject
 import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.seconds
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen as initSplashScreen
 import androidx.navigation.NavController.OnDestinationChangedListener as NavDestListener
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus as Flag
@@ -126,7 +132,7 @@ private val MAX_PROMO_MESSAGES = 2
 // The number of app launches to skip between showing consecutive promotional messages.
 // After each promotional message is shown, the app will skip this many launches before
 // potentially showing another promotional message.
-private val PROMO_SKIP_LAUNCHES = 10
+private val PROMO_SKIP_LAUNCHES = 4
 
 // Minimum number of days between subsequent review prompts.
 // Since we cannot confirm if the user actually left a review, we use this interval
@@ -490,20 +496,63 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
         }
     }
 
-    private fun showPromoToast(index: Int, delay: Long = 5_000) {
-        // This function is designed to display promotional messages identified by index.
-        // - An index of 0 indicates the "What's New" message.
-        // - An index of 1 prompts the user to buy a coffee.
-        // If a message cannot be displayed for any reason, the index is incremented by 1 until the
-        // maximum index is reached.
+    private fun showPromoToast(counter: Int) {
+        // TODO - Rename arg counter with something more meaningful.
+        // Determine promo category and index.
+        //
+        // Formula:
+        //   index = (category * 1000) + promoInvocationCount
+        //
+        // Breakdown:
+        //   • category = promoInvocationCount % 3
+        //       - 0 → In-app purchase promos
+        //       - 1 → Featured app promos
+        //       - 2 → Tip of the day promos
+        //
+        //   • promoInvocationCount → app launch counter, used to vary the specific item
+        //                             within a category (ensures rotation and avoids repeats).
         lifecycleScope.launch {
-            if (delay > 0) delay(delay) // delay at least some
-            when (index) {
-                0 -> showSnackbar(
-                    Res.string.release_notes,
-                    duration = SnackbarDuration.Indefinite,
-                    icon = ImageVector.vectorResource(theme, resources, Res.drawable.ic_downloading)
-                )
+            delay(5.seconds)
+            val category = counter % 2 // counter % categories count
+            val index = (category * 1000) + (counter / 2) % 1000 //
+            Log.d(TAG, "showPromoToast: category: $category index: $index")
+            // calculate variable index and attempts
+            var currentIndex = index;
+            var attempts = 0
+            while (attempts++ < 30) {
+                when (currentIndex) {
+                    // Case → In-app purchase promotions
+                    in 0..999 -> {
+                        val ids = Paymaster.featuredProducts
+                        val id = ids[currentIndex % ids.size]
+                        Log.d(TAG, "showPromoToast: IAP: $id")
+                        // Retrieve purchase info; if missing, skip to next promo
+                        val (info, purchase) = paymaster[id] ?: run {
+                            currentIndex++   // skip to next promo
+                            continue
+                        }
+                        // Skip if purchased, not purchasable, or freemium
+                        if (purchase.purchased || !info.isPurchasable || info.isFreemium) {
+                            currentIndex++
+                            continue
+                        }
+                        // Show toast with item description and action
+                        val result = snackbarHostState.showSnackbar(
+                            info.richDesc,
+                            getText(info.action),
+                            duration = SnackbarDuration.Indefinite,
+                            icon = ImageVector.vectorResource(theme, resources, Res.drawable.ic_hotel_class_outline)
+                        )
+
+                        if (result == SnackbarResult.ActionPerformed) {
+                            initiatePurchaseFlow(id)
+                        }
+                        return@launch
+                    }
+                    // Case → Featured apps promotions
+                    in 1000..1999 -> { return@launch }
+                    else -> { return@launch }
+                }
             }
         }
     }
@@ -603,7 +652,16 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
                     preferences[KEY_LAST_REVIEW_TIME] = System.currentTimeMillis()
                 if (savedVersionCode != versionCode) {
                     preferences[KEY_APP_VERSION_CODE] = versionCode
-                    showPromoToast(0) // What's new
+                    delay(10.seconds) // delay for 10 sec
+                    showSnackbar(
+                        Res.string.release_notes,
+                        duration = SnackbarDuration.Indefinite,
+                        icon = ImageVector.vectorResource(
+                            theme,
+                            resources,
+                            Res.drawable.ic_downloading
+                        )
+                    ) // What's new
                     return@launch
                 }
 
@@ -629,10 +687,10 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
                             " skip = ${newCounter % interval}," +
                             " index = ${(newCounter / interval) % MAX_PROMO_MESSAGES + 1} ) "
                 )
-                if (newCounter % interval == 0) {
+                if (interval == 0 || newCounter % interval == 0) {
                     val index = (newCounter / interval) % MAX_PROMO_MESSAGES + 1
                     Log.d(TAG, "onCreate: $index")
-                    showPromoToast(index)
+                    showPromoToast(newCounter)
                 }
             }
         }

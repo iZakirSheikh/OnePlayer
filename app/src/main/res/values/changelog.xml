@@ -12,6 +12,7 @@
 <resources>
     <!--Changelog-->
     <string-array name="changelog" translatable="false">
+        <item>@string/changelog_1_6_0_beta</item>
         <item>@string/changelog_1_5_10_beta</item>
         <item>@string/changelog_158_beta</item>
         <item>@string/changelog_156_beta</item>
@@ -37,7 +38,24 @@
     </string-array>
 
     <!--Points to the changelog of current version.-->
-    <string name="release_notes" translatable="false">@string/changelog_1_6_0_beta</string>
+    <string name="release_notes" translatable="false">@string/changelog_1_6_1_beta</string>
+
+    <!--1.6.0-beta-->
+    <string name="changelog_1_6_1_beta" translatable="false">
+    <b>What’s New <font color='purple'>(v1.6.1-beta)\n</font></b>
+    <font color='grey'>
+        \n✓ <b>Enhanced Promotions:</b> Introduced a smarter rotation system for promotional messages and tips.
+        \n✓ <b>IAP Integration:</b> New dynamic prompts for In-App Purchases, featuring high-priority products with clear calls-to-action.
+        \n✓ <b>Frequency Adjustment:</b> Increased the frequency of helpful prompts and "What\'s New" notifications for a better discovery experience.
+        \n✓ <b>Modernized Foundation:</b>
+        \n    • Upgraded target SDK to <b>Android 37</b>.
+        \n    • Updated core dependencies including Kotlin 2.4.0 and AGP 9.2.1.
+        \n    • Refreshed Media3 (1.10.1), Coil (3.5.0), and Play Billing (9.0.0).
+        \n✓ <b>UX Improvements:</b>
+        \n    • Isolated "What\'s New" logic to trigger independently with a smoother delay.
+        \n    • Standardized snackbar durations and added specific iconography for purchase prompts.
+    </font>
+    </string>
 
     <!--1.6.0-beta-->
     <string name="changelog_1_6_0_beta" translatable="false">
