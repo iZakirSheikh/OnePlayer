@@ -47,7 +47,7 @@ nextlib = { module = "io.github.anilbeesetti:nextlib-media3ext", version = "1.10
 
 # ─── Google Play Services ───
 play-app_update = { module = "com.google.android.play:app-update-ktx", version = "2.1.0" } # In-app updates
-play-app_review = { module = "com.google.android.play:review-ktx", version = "2.0.2" }     # In-app reviews
+play-app_review = { module = "com.google.android.play:review-ktx", version = "2.0.1" }     # In-app reviews
 play-billing_client = { module = "com.android.billingclient:billing-ktx", version = "9.0.0" } # Billing
 play_feature_delivery = { module = "com.google.android.play:feature-delivery-ktx", version = "2.1.0" } # Dynamic delivery
 
