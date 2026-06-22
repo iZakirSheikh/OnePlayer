@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-
 // -----------------------------------------------------------------------------
 // PLUGINS
 // TODO - Find a way to apply these to only standard flavour

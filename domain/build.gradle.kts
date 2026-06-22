@@ -94,6 +94,39 @@ android {
         // Based on Community, but with all features enabled.
         create("gold") { dimension = "edition" }
     }
+    // -------------------------------------------------------------------------
+    // SOURCE SETS CONFIGURATION
+    // -------------------------------------------------------------------------
+    sourceSets {
+        // Community flavor → uses stubbed (no-op) implementations for all shared libs
+        getByName("community") {
+            kotlin.directories += "src/shared/analytics/stub/java"
+            kotlin.directories += "src/shared/ads/stub/java"
+            kotlin.directories += "src/shared/billing/stub/java"
+
+        }
+
+        // Premium flavor → also wired to stub implementations (restricted feature set)
+        getByName("plus") {
+            kotlin.directories += "src/shared/analytics/actual/java"
+            kotlin.directories += "src/shared/stub/actual/java"
+            kotlin.directories += "src/shared/billing/actual/java"
+        }
+
+        // Standard flavor → full/actual implementations of analytics, billing, and ads
+        getByName("standard") {
+            kotlin.directories += "src/shared/analytics/actual/java"
+            kotlin.directories += "src/shared/ads/actual/java"
+            kotlin.directories += "src/shared/billing/actual/java"
+        }
+
+        // Plus flavor → only requires actual billing implementation (no analytics/ads)
+        getByName("gold") {
+            kotlin.directories += "src/shared/analytics/stub/java"
+            kotlin.directories += "src/shared/ads/stub/java"
+            kotlin.directories += "src/shared/billing/stub/java"
+        }
+    }
 }
 
 // ============================================================================
@@ -109,4 +142,11 @@ dependencies {
     implementation(libs.bundles.media3)             // Media session management
     implementation(libs.coil.core)  // Coil → lightweight image loading library
     implementation(libs.androidx.palette) // AndroidX Palette → extract prominent colors from images
+    // Analytics & Monetization for standard flavor
+    "standardImplementation"(libs.bundles.analytics)
+    "standardImplementation"(libs.bundles.ads)
+    "standardImplementation"(libs.bundles.play.services)
+    // Plus flavor → only requires actual billing implementation (no analytics/ads)
+    "plusImplementation"(libs.bundles.analytics)
+    "plusImplementation"(libs.bundles.play.services)
 }
