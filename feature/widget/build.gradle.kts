@@ -52,6 +52,14 @@ android {
             )
         }
     }
+    // -------------------------------------------------------------------------
+    flavorDimensions += "edition"
+    productFlavors {
+        create("standard") { dimension = "edition" }
+        create("community") { dimension = "edition" }
+        create("plus") { dimension = "edition" }
+        create("gold") { dimension = "edition" }
+    }
 }
 
 // -----------------------------------------------------------------------------

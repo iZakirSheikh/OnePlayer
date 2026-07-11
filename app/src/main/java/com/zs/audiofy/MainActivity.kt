@@ -84,6 +84,7 @@ import com.zs.compose.foundation.runCatching
 import com.zs.compose.theme.snackbar.SnackbarDuration
 import com.zs.compose.theme.snackbar.SnackbarHostState
 import com.zs.compose.theme.snackbar.SnackbarResult
+import com.zs.core.BuildConfig
 import com.zs.core.billing.Paymaster
 import com.zs.core.billing.Product
 import com.zs.core.billing.Purchase
@@ -645,7 +646,7 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
             // TODO - properly handle promotional content.
             lifecycleScope.launch {
                 // Show "What's New" message if the app version has changed
-                val versionCode = BuildConfig.VERSION_CODE
+                val versionCode = AppConfig.VERSION_CODE
                 val savedVersionCode = preferences[KEY_APP_VERSION_CODE]
                 // Update review-time to current time if this is a new install.
                 if (savedVersionCode == -1)

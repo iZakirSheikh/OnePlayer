@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.core.net.toUri
 import com.google.android.play.core.splitinstall.SplitInstallRequest
-import com.zs.audiofy.BuildConfig
 import com.zs.audiofy.settings.Settings.PKG_MARKET_ID
 import com.zs.audiofy.settings.Settings.PREFIX_MARKET_FALLBACK
 import com.zs.audiofy.settings.Settings.PREFIX_MARKET_URL
@@ -85,7 +84,7 @@ interface SystemFacade {
      *
      * @param pkg the package name of the app to open on the App Store.
      */
-    fun launchAppStore(pkg: String = BuildConfig.APPLICATION_ID) {
+    fun launchAppStore(pkg: String = AppConfig.APPLICATION_ID) {
         val url = "$PREFIX_MARKET_URL$pkg"
         // Create an Intent to open the Play Store app.
         val intent = Intent(Intent.ACTION_VIEW, url.toUri()).apply {

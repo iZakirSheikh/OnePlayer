@@ -29,7 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.zs.audiofy.BuildConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.LocalSystemFacade
 import com.zs.audiofy.common.vectorResource
@@ -54,7 +54,7 @@ fun AboutUs() {
             heading = { Label(textResource(Res.string.version), fontWeight = FontWeight.Bold) },
             subheading = {
                 Label(
-                    textResource(Res.string.version_info_s, BuildConfig.VERSION_NAME)
+                    textResource(Res.string.version_info_s, AppConfig.VERSION_NAME)
                 )
             },
             footer = {

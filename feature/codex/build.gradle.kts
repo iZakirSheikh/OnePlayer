@@ -50,6 +50,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    // -------------------------------------------------------------------------
+    flavorDimensions += "edition"
+    productFlavors {
+        create("standard") { dimension = "edition" }
+        create("community") { dimension = "edition" }
+        create("plus") { dimension = "edition" }
+        create("gold") { dimension = "edition" }
+    }
 }
 
 // -----------------------------

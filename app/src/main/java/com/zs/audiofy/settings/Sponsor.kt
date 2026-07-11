@@ -33,7 +33,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.zs.audiofy.BuildConfig
+import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.common.IAP_BUY_ME_COFFEE
 import com.zs.audiofy.common.IAP_NO_ADS
 import com.zs.audiofy.common.Res
@@ -76,7 +76,7 @@ fun Sponsor(modifier: Modifier = Modifier) {
         // Build version info.
         heading = {
             Text(
-                text = textResource(Res.string.version_info_s, BuildConfig.VERSION_NAME),
+                text = textResource(Res.string.version_info_s, AppConfig.VERSION_NAME),
                 style = AppTheme.typography.label3,
                 fontWeight = FontWeight.Normal
             )

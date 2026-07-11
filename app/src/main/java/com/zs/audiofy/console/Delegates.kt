@@ -52,8 +52,8 @@ import androidx.compose.ui.unit.DpRect
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import com.zs.audiofy.BuildConfig
 import com.zs.audiofy.R
+import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.SystemFacade
 import com.zs.audiofy.common.compose.Acrylic
@@ -236,7 +236,7 @@ fun SystemFacade.launchEqualizer(id: Int) {
         return showToast(Res.string.msg_unknown_error)
     val intent =
         android.content.Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL).apply {
-            putExtra(AudioEffect.EXTRA_PACKAGE_NAME, BuildConfig.APPLICATION_ID)
+            putExtra(AudioEffect.EXTRA_PACKAGE_NAME, AppConfig.APPLICATION_ID)
             putExtra(AudioEffect.EXTRA_AUDIO_SESSION, id)
             putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC)
         }

@@ -24,7 +24,6 @@ import androidx.startup.Initializer
 import coil3.annotation.DelicateCoilApi
 import coil3.asImage
 import coil3.request.crossfade
-import com.zs.audiofy.R
 import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.common.Res
 import com.zs.audiofy.settings.Settings
@@ -123,15 +122,21 @@ private val KoinAppModules = module {
     // Declare a singleton instance of Preferences.
     single(createdAtStart = true) {
         // Initialize Preferences
-        val preferences = Preferences(get(), "Shared_Preferences")
+        val ctx: Context = get()
+        val preferences = Preferences(ctx, "Shared_Preferences")
         // Retrieve the app configuration from preferences and update config only if not null
         val config = preferences[Settings.KEY_APP_CONFIG]
-        if (config != null) {
-            val result = runCatching { AppConfig.update(config) }
-            if (result.isFailure) {
-                Log.e(TAG, "Error updating app config", result.exceptionOrNull())
-            }
+        val result = runCatching {
+            // initialize app config filed
+            val id = ctx.packageName
+            val code = ctx.packageManager.getPackageInfo(ctx.packageName, 0).versionCode
+            val name = ctx.packageManager.getPackageInfo(ctx.packageName, 0).versionName ?: ""
+            AppConfig(id, code, name,config)
         }
+        if (result.isFailure) {
+            Log.e(TAG, "Error updating app config", result.exceptionOrNull())
+        }
+
         // Retrieve the current launch counter value, defaulting to 0 if not set
         val counter = preferences[Settings.KEY_LAUNCH_COUNTER]
         // Increment the launch counter for cold starts

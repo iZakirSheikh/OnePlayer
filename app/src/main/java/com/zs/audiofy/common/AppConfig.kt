@@ -3,6 +3,11 @@ package com.zs.audiofy.common
 import android.os.Build
 import android.util.Log
 import androidx.compose.runtime.Stable
+import com.zs.audiofy.common.AppConfig.KEYS_DELIMITER
+import com.zs.audiofy.common.AppConfig.RECORD_DELIMITER
+import com.zs.audiofy.common.AppConfig.isBackgroundBlurEnabled
+import com.zs.audiofy.common.AppConfig.isLoadThumbnailFromCache
+import com.zs.audiofy.common.AppConfig.stringify
 
 /**
  * Singleton object for managing application-wide configuration settings.
@@ -24,40 +29,56 @@ object AppConfig {
 
     private const val TAG = "AppConfig"
 
+    //
+    var APPLICATION_ID: String = ""
+        private set
+    var VERSION_CODE: Int = -1
+        private set
+    var VERSION_NAME = ""
+        private set
+
     /** Determines if media thumbnails should be loaded from the cache. */
     @JvmField
     var isLoadThumbnailFromCache: Boolean = false
 
     /** Get/Set strategy enable background blur. */
-    @JvmField var isBackgroundBlurEnabled: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    @JvmField
+    var isBackgroundBlurEnabled: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
     /** Determines if the trash can feature for deleted media is enabled. */
-    @JvmField var isTrashCanEnabled: Boolean = true
+    @JvmField
+    var isTrashCanEnabled: Boolean = true
 
     /** Specifies the font scaling factor for the application. -1f indicates system default. */
-    @JvmField var fontScale: Float = -1f
+    @JvmField
+    var fontScale: Float = -1f
 
     /** Minimum duration in seconds for a track to be considered valid or displayed. */
-    @JvmField var minTrackLengthSecs: Int = 30
+    @JvmField
+    var minTrackLengthSecs: Int = 30
 
     /** Indicates whether to use the system's built-in audio effects. */
-    @JvmField var inAppAudioEffectsEnabled: Boolean = true
+    @JvmField
+    var inAppAudioEffectsEnabled: Boolean = true
 
     /** Multiplier for adjusting the size of items in grid layouts. */
-    @JvmField var gridItemSizeMultiplier: Float = 1.0f
+    @JvmField
+    var gridItemSizeMultiplier: Float = 1.0f
 
     /**
      * Determines FAB player long press action.
      * `true`: launch [com.zs.audiofy.console.Console].
      * `false`: launch in-app widget. Defaults to `true`.
      */
-    @JvmField var fabLongPressLaunchConsole = true
+    @JvmField
+    var fabLongPressLaunchConsole = true
 
     /**
      * Toggles between SurfaceView and TextureView for video rendering.
      * `true` enables SurfaceView, `false` enables TextureView. Defaults to `true`.
      */
-    @JvmField var isSurfaceViewVideoRenderingPreferred = true
+    @JvmField
+    var isSurfaceViewVideoRenderingPreferred = true
 
     /**
      * Controls whether files displayed in directories (e.g., playlist members, audio files,
@@ -70,32 +91,38 @@ object AppConfig {
      * When `false`, files will be displayed as a flat list without any grouping,
      * which might be preferred for smaller collections or specific user preferences.
      */
-    @JvmField var isFileGroupingEnabled = true
+    @JvmField
+    var isFileGroupingEnabled = true
 
     /**
      * If true, shows a launch console button in the in-app widget; otherwise, another media action is shown,
      * and the console can only be opened from the compact (FAB) player.
      */
-    @JvmField var showInAppWidgetOpenConsoleButton = true
+    @JvmField
+    var showInAppWidgetOpenConsoleButton = true
 
     /**
      * If true, long-pressing the in-app widget opens its config instead of showing the config button.
      */
-    @JvmField var inAppWidgetLongPressOpenConfig = false
+    @JvmField
+    var inAppWidgetLongPressOpenConfig = false
 
     /** If true, waits for the splash screen animation to finish before proceeding.  */
-    @JvmField var isSplashAnimWaitEnabled = false
+    @JvmField
+    var isSplashAnimWaitEnabled = false
 
     /**
      * Enables or disables the smooth transition animation when launching the
      * [Console][com.zs.audiofy.console.Console] from the in-app widget.
      */
-    @JvmField var isWidgetToConsoleTransitionEnabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    @JvmField
+    var isWidgetToConsoleTransitionEnabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
     /**
      * Enables or disables labs mode. Labs mode enables or disables features that are in preview/beta mode
      */
-    @JvmField var isLabsModeOn = false
+    @JvmField
+    var isLabsModeOn = false
 
     // Delimiters
     private const val KEYS_DELIMITER = '\u001E'
@@ -117,7 +144,6 @@ object AppConfig {
     private const val KEY_IS_SPLASH_ANIM_WAIT_ENABLED = "param13"
     private const val KEY_IS_WIDGET_TO_CONSOLE_TRANSITION_ENABLED = "param14"
     private const val KEY_IS_LABS_MODE_ON = "param15"
-
 
 
     /**
@@ -145,6 +171,7 @@ object AppConfig {
                 append(value)
                 append(KEYS_DELIMITER)
             }
+
             else -> throw IllegalArgumentException("Unsupported type: ${T::class}")
         }
     }
@@ -187,25 +214,29 @@ object AppConfig {
     }
 
     /**
-     * Updates the application configuration from a string representation.
+     * Initializes the application configuration and updates settings from a serialized string.
      *
-     * This function parses the input string, which is expected to be a series of
-     * key-value pairs delimited by [KEYS_DELIMITER]. Each record within the string
-     * should be in the format "key[RECORD_DELIMITER]value".
+     * This operator function sets the core application metadata and parses the [encoded]
+     * string to restore persisted configuration values. The string is expected to contain
+     * key-value pairs separated by [RECORD_DELIMITER] and [KEYS_DELIMITER].
      *
-     * The function iterates through each record, extracts the key and value,
-     * and updates the corresponding configuration property.
-     *
-     * Example of `from` string:
-     * `param1:true[KEYS_DELIMITER]param2:false[KEYS_DELIMITER]`
-     *
-     * @param from The string containing the configuration data to parse.
-     *             It should be a string generated by the [stringify] method or a string
-     *             following the same format.
+     * @param appID The unique application identifier (e.g., package name).
+     * @param versionCode The integer version code of the application.
+     * @param versionName The user-visible version name string.
      */
-    fun update(from: String){
-        Log.i(TAG, "update: $from")
-        val records = from.split(KEYS_DELIMITER).filter { it.isNotEmpty() }
+    operator fun invoke(
+        appID: String,
+        versionCode: Int,
+        versionName: String,
+        encoded: String? = null
+    ) {
+        APPLICATION_ID = appID
+        VERSION_CODE = versionCode
+        VERSION_NAME = versionName
+        Log.i(TAG, "update: $appID, $versionCode, $versionName")
+        if (encoded == null) return
+        Log.i(TAG, "update: $")
+        val records = encoded.split(KEYS_DELIMITER).filter { it.isNotEmpty() }
         for (record in records) {
             Log.i(TAG, "record: $record")
             val sepIndex = record.indexOf(RECORD_DELIMITER)
@@ -222,12 +253,20 @@ object AppConfig {
                 KEY_USE_SYSTEM_AUDIO_FX -> inAppAudioEffectsEnabled = value.toBoolean()
                 KEY_GRID_ITEM_SIZE_MULTIPLIER -> gridItemSizeMultiplier = value.toFloat()
                 KEY_FAB_LONG_PRESS_LAUNCH_CONSOLE -> fabLongPressLaunchConsole = value.toBoolean()
-                KEY_SURFACE_VIEW_VIDEO_RENDERING_PREFERRED -> isSurfaceViewVideoRenderingPreferred = value.toBoolean()
+                KEY_SURFACE_VIEW_VIDEO_RENDERING_PREFERRED -> isSurfaceViewVideoRenderingPreferred =
+                    value.toBoolean()
+
                 KEY_FILE_GROUPING_ENABLED -> isFileGroupingEnabled = value.toBoolean()
-                KEY_INAPP_WIDGET_LONG_PRESS_OPEN_CONFIG -> inAppWidgetLongPressOpenConfig = value.toBoolean()
-                KEY_SHOW_INAPP_WIDGET_DEDICATED_OPEN_CONSOLE_BTN -> showInAppWidgetOpenConsoleButton = value.toBoolean()
+                KEY_INAPP_WIDGET_LONG_PRESS_OPEN_CONFIG -> inAppWidgetLongPressOpenConfig =
+                    value.toBoolean()
+
+                KEY_SHOW_INAPP_WIDGET_DEDICATED_OPEN_CONSOLE_BTN -> showInAppWidgetOpenConsoleButton =
+                    value.toBoolean()
+
                 KEY_IS_SPLASH_ANIM_WAIT_ENABLED -> isSplashAnimWaitEnabled = value.toBoolean()
-                KEY_IS_WIDGET_TO_CONSOLE_TRANSITION_ENABLED -> isWidgetToConsoleTransitionEnabled = value.toBoolean()
+                KEY_IS_WIDGET_TO_CONSOLE_TRANSITION_ENABLED -> isWidgetToConsoleTransitionEnabled =
+                    value.toBoolean()
+
                 KEY_IS_LABS_MODE_ON -> isLabsModeOn = value.toBoolean()
             }
         }

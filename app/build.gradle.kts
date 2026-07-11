@@ -1,5 +1,4 @@
 // Import Gradle DSL helpers for Android and Kotlin configuration
-import com.android.build.api.dsl.ApplicationDefaultConfig
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 // -----------------------------
@@ -38,22 +37,10 @@ kotlin {
 }
 
 // -----------------------------
-// Secrets Management
-// -----------------------------
-// Secrets injected into BuildConfig at runtime (from GitHub Actions env variables)
-private val secrets = arrayOf("ADS_APP_ID", "PLAY_CONSOLE_APP_RSA_KEY")
-
-/**
- * Helper function to add a string BuildConfig field.
- */
-private fun ApplicationDefaultConfig.buildConfigField(name: String, value: String) =
-    buildConfigField("String", name, "\"" + value + "\"")
-
-// -----------------------------
 // Android Configuration
 // -----------------------------
 android {
-    buildFeatures { compose = true; buildConfig = true } // Enable Compose and BuildConfig generation
+    buildFeatures { compose = true} // Enable Compose and BuildConfig generation
     packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }  // Exclude redundant license files from packaging
     namespace = "com.zs.audiofy" // Unique namespace for the app
     compileSdk = 37 // Compile against Android SDK level 36 → latest APIs available
@@ -90,13 +77,26 @@ android {
         versionName = "1.6.3-beta"                          // User-facing version name
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
-
-        // Inject secrets into BuildConfig (from environment variables)
-        for (secret in secrets) {
-            buildConfigField(secret, System.getenv(secret) ?: "")
-        }
     }
 
+    // -------------------------------------------------------------------------
+    // PRODUCT FLAVORS
+    // -------------------------------------------------------------------------
+    flavorDimensions += "edition"
+    productFlavors {
+        // STANDARD (Default monetized edition: ads + telemetry + in-app purchases enabled)
+        create("standard") { dimension = "edition"; }
+        // COMMUNITY (Open-source edition: minimal free build, no ads, no telemetry, no purchases)
+        create("community") { dimension = "edition"; versionNameSuffix = "-foss" }
+        // PLUS (Privacy-friendly edition: ads + in-app purchases, but telemetry disabled)
+        create("plus") {
+            dimension = "edition"; versionNameSuffix = "-plus"; applicationIdSuffix = ".pro"
+        }
+        // PREMIUM (Full unlock edition: all features enabled, no ads, no telemetry, no purchases)
+        create("gold") {
+            dimension = "edition"; versionNameSuffix = "-gold"; applicationIdSuffix = ".full"
+        }
+    }
     // -----------------------------
     // Build Types
     // -----------------------------
