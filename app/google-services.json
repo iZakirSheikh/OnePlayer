@@ -42,6 +42,44 @@
           "other_platform_oauth_client": []
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842166484944:android:d41a8b1a2b27ad997043d5",
+        "android_client_info": {
+          "package_name": "com.googol.android.apps.oneplayer.full"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxOZBJl1UvB95ijdoIC1oIUFUdIG_rp9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842166484944:android:abc335249674468b7043d5",
+        "android_client_info": {
+          "package_name": "com.googol.android.apps.oneplayer.pro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxOZBJl1UvB95ijdoIC1oIUFUdIG_rp9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
     }
   ],
   "configuration_version": "1"
