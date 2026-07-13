@@ -28,12 +28,12 @@ import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.common.Res
 import com.zs.audiofy.settings.Settings
 import com.zs.compose.theme.snackbar.SnackbarHostState
+import com.zs.core.analytics.Analytics
 import com.zs.core.coil.MediaMetaDataArtFetcher
 import com.zs.core.coil.VideoThumbnailFetcher
 import com.zs.core.db.playlists.Playlists
 import com.zs.core.playback.Remote
 import com.zs.core.store.MediaProvider
-import com.zs.core.telemetry.Analytics
 import com.zs.preferences.Preferences
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
@@ -69,7 +69,7 @@ class KoinInitializer : Initializer<KoinApplication> {
 class AnalyticsInitializer : Initializer<Unit> {
     override fun create(context: Context): Unit {
         Log.d(TAG, "Initializer: starting firebase")
-        Analytics(context)
+        Analytics.initialize(context)
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
@@ -148,7 +148,7 @@ private val KoinAppModules = module {
     // Declare a ViewModel dependency (lifecycle managed by Koin).
     // viewModel { BatteryViewModel(get()) }
     singleOf(::SnackbarHostState)
-    single { Analytics(get()) }
+    single { Analytics.getInstance() }
     single { Playlists(get()) }
     single { Remote(get()) }
 

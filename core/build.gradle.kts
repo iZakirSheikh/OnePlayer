@@ -118,14 +118,28 @@ android {
     // -------------------------------------------------------------------------
     // SOURCE SETS CONFIGURATION
     // -------------------------------------------------------------------------
-//    sourceSets {
-//        // Community flavor → uses stubbed (no-op) implementations for all shared libs
-//        getByName("community") {
-//            kotlin.directories += "src/shared/analytics/stub/java"
-//            kotlin.directories += "src/shared/ads/stub/java"
-//            kotlin.directories += "src/shared/billing/stub/java"
-//        }
-//    }
+    sourceSets {
+        // Community flavor → uses stubbed (no-op) implementations for all shared libs
+        getByName("community") {
+            kotlin.directories += "src/shared/analytics/stub/java"
+        }
+
+        // Premium flavor → also wired to stub implementations (restricted feature set)
+        getByName("plus") {
+            kotlin.directories += "src/shared/analytics/actual/java"
+        }
+
+        // Standard flavor → full/actual implementations of analytics, billing, and ads
+        getByName("standard") {
+            kotlin.directories += "src/shared/analytics/actual/java"
+        }
+
+        // Plus flavor → only requires actual billing implementation (no analytics/ads)
+        getByName("gold") {
+            kotlin.directories += "src/shared/analytics/stub/java"
+        }
+    }
+
 }
 
 // -----------------------------
@@ -145,5 +159,8 @@ dependencies {
     implementation(libs.play.billing.client) // Play Billing → in-app purchases
     implementation(libs.coil.core)  // Coil → lightweight image loading library
     implementation(libs.androidx.palette) // AndroidX Palette → extract prominent colors from images
-    implementation(libs.bundles.analytics)  // Analytics bundle → tracking and reporting
+    // standard
+    "standardImplementation"(libs.bundles.analytics)
+    // plus
+    "plusImplementation"(libs.bundles.analytics)
 }

@@ -92,7 +92,7 @@ import com.zs.core.billing.purchased
 import com.zs.core.common.logEvent
 import com.zs.core.common.showPlatformToast
 import com.zs.core.playback.Remote
-import com.zs.core.telemetry.Analytics
+import com.zs.core.analytics.Analytics
 import com.zs.preferences.Key
 import com.zs.preferences.Key.Key1
 import com.zs.preferences.Key.Key2

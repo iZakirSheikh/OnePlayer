@@ -38,7 +38,7 @@ import com.zs.core.db.playlists.Playlist
 import com.zs.core.playback.MediaFile
 import com.zs.core.store.models.Audio
 import com.zs.core.store.models.Video
-import com.zs.core.telemetry.Analytics
+import com.zs.core.analytics.Analytics
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred

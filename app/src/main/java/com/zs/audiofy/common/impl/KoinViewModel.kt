@@ -40,7 +40,7 @@ import com.zs.compose.theme.snackbar.SnackbarDuration
 import com.zs.compose.theme.snackbar.SnackbarHostState
 import com.zs.compose.theme.snackbar.SnackbarResult
 import com.zs.core.common.showPlatformToast
-import com.zs.core.telemetry.Analytics
+import com.zs.core.analytics.Analytics
 import com.zs.preferences.Preferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
