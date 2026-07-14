@@ -142,7 +142,6 @@ dependencies {
     implementation(libs.coil.compose)                 // Image loading in Compose
     implementation(libs.coil.video)                   // Video thumbnails with Coil
     implementation(libs.androidx.constraint.layout)   // ConstraintLayout support
-    implementation(libs.bundles.play.services)  // Google Play Services bundle
     implementation(libs.mp3agic)  // Temporary MP3 library (to be moved later)
     implementation(libs.androidx.graphics.shapes) // Graphics utilities
 

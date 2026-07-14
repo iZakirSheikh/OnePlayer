@@ -24,8 +24,6 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
-import com.google.android.play.core.splitinstall.SplitInstallManager
-import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.zs.core.billing.Paymaster
 import com.zs.core.billing.Product
 
@@ -135,26 +133,12 @@ private val featured_products = arrayOf(
     Paymaster.IAP_COLOR_CROFT_WIDGET_BUNDLE,
 )
 
-/**
- * Creates a split install request for the module with [name]
- */
-inline fun SplitInstallRequest(name: String) =
-    SplitInstallRequest.newBuilder().addModule(name).build()
 
 /**
  * Checks if the product represents a dynamic feature.
  */
 val Product.isDynamicFeature
     inline get() = this.id == Paymaster.IAP_CODEX
-
-/**
- * Checks if a dynamic module with the given name is installed.
- *
- * @param id The name of the dynamic module.
- * @return True if the module is installed, false otherwise.
- */
-fun SplitInstallManager.isInstalled(id: String): Boolean =
-    installedModules.contains(id)
 
 /**
  * Returns the name of the dynamic feature module associated with this product.
@@ -172,12 +156,6 @@ val Product.dynamicModuleName
         Paymaster.IAP_CODEX -> "codex"
         else -> error("$id is not a dynamic module.")
     }
-
-/**
- * Creates a SplitInstallRequest for the dynamic feature associated with the product.
- */
-val Product.dynamicFeatureRequest
-    inline get() = SplitInstallRequest(dynamicModuleName)
 
 /**
  * @return - Indicates if the widget is free in the Play Console.
@@ -216,6 +194,5 @@ val Product.action
         Paymaster.IAP_BUY_ME_COFFEE -> Res.string.sponsor
         else -> Res.string.unlock
     }
-
 
 val Paymaster.Companion.featuredProducts get() = featured_products

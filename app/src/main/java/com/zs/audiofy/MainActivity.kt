@@ -49,18 +49,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.ktx.AppUpdateResult
-import com.google.android.play.core.ktx.errorCode
-import com.google.android.play.core.ktx.moduleNames
-import com.google.android.play.core.ktx.requestAppUpdateInfo
-import com.google.android.play.core.ktx.requestProgressFlow
-import com.google.android.play.core.ktx.requestReview
-import com.google.android.play.core.ktx.requestUpdateFlow
-import com.google.android.play.core.ktx.status
-import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
-import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.common.IAP_NO_ADS
 import com.zs.audiofy.common.Res
@@ -68,7 +56,6 @@ import com.zs.audiofy.common.SystemFacade
 import com.zs.audiofy.common.WindowStyle
 import com.zs.audiofy.common.action
 import com.zs.audiofy.common.domain
-import com.zs.audiofy.common.dynamicFeatureRequest
 import com.zs.audiofy.common.dynamicModuleName
 import com.zs.audiofy.common.featuredProducts
 import com.zs.audiofy.common.isDynamicFeature
@@ -85,14 +72,14 @@ import com.zs.compose.theme.snackbar.SnackbarDuration
 import com.zs.compose.theme.snackbar.SnackbarHostState
 import com.zs.compose.theme.snackbar.SnackbarResult
 import com.zs.core.BuildConfig
+import com.zs.core.analytics.Analytics
 import com.zs.core.billing.Paymaster
 import com.zs.core.billing.Product
 import com.zs.core.billing.Purchase
 import com.zs.core.billing.purchased
-import com.zs.core.common.logEvent
 import com.zs.core.common.showPlatformToast
+import com.zs.core.market.AppMarketManager
 import com.zs.core.playback.Remote
-import com.zs.core.analytics.Analytics
 import com.zs.preferences.Key
 import com.zs.preferences.Key.Key1
 import com.zs.preferences.Key.Key2
@@ -100,7 +87,6 @@ import com.zs.preferences.Preferences
 import com.zs.preferences.intPreferenceKey
 import com.zs.preferences.longPreferenceKey
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -112,7 +98,6 @@ import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.seconds
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen as initSplashScreen
 import androidx.navigation.NavController.OnDestinationChangedListener as NavDestListener
-import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus as Flag
 
 private const val TAG = "MainActivity"
 
@@ -184,69 +169,7 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
 
     var inAppUpdateProgress by mutableFloatStateOf(Float.NaN)
         private set
-
-    private val inAppFeatureManager by lazy {
-        val manager = SplitInstallManagerFactory.create(this@MainActivity)
-        // Request progress updates for dynamic feature installation
-        manager.requestProgressFlow()
-            .onEach { state ->
-                when (state.status) {
-                    Flag.DOWNLOADING -> {
-                        // Calculate the download progress as a percentage
-                        val percent =
-                            state.bytesDownloaded().toFloat() / state.totalBytesToDownload()
-                        Log.d("SplitInstall", "Download progress: $percent%")
-                        // Update the progress indicator
-                        inAppUpdateProgress = percent
-                    }
-
-                    Flag.INSTALLING, Flag.PENDING -> {
-                        // Set the progress to an indeterminate state
-                        inAppUpdateProgress = -1f
-                        Log.d("SplitInstall", "Installing...")
-                    }
-
-                    Flag.INSTALLED -> {
-                        // There is a known issue when observing the state of dynamic module installations.
-                        // If the user has requested the installation of the dynamic module during this session,
-                        // the inAppTaskProgress flag will not be NaN once the state is reached.
-                        // However, if inAppTaskProgress is NaN, it indicates that this callback was triggered due to an app restart,
-                        // and no installation request was made in the current session. Therefore, we can safely ignore this state.
-                        if (inAppUpdateProgress.isNaN()) return@onEach
-                        // Hide the progress bar
-                        inAppUpdateProgress = Float.NaN
-                        Log.d("SplitInstall", "Module installed successfully!")
-                        // Show a toast message requesting the app restart
-                        val res = snackbarHostState.showSnackbar(
-                            getString(Res.string.msg_apply_changes_restart),
-                            getString(Res.string.restart),
-                            duration = SnackbarDuration.Indefinite
-                        )
-                        // Restart the app if the user chooses to
-                        if (res == SnackbarResult.ActionPerformed)
-                            restart(true)
-                        // The dynamic feature module can now be accessed
-                    }
-
-                    Flag.FAILED, Flag.UNKNOWN -> {
-                        val res = snackbarHostState.showSnackbar(
-                            getText(Res.string.msg_unknown_error),
-                            action = "Details."
-                        )
-                        if (res == SnackbarResult.ActionPerformed)
-                            showSnackbar("Oops! Something went wrong (error ${state.errorCode}) while installing ${state.moduleNames}. Try again?")
-                    }
-
-                    else -> {
-                        // Hide the progress bar for unknown statuses
-                        inAppUpdateProgress = Float.NaN
-                        Log.d("SplitInstall", "Unknown status: ${state.status()}")
-                    }
-                }
-            }
-            .launchIn(lifecycleScope)
-        manager
-    }
+    val market = AppMarketManager()
 
     // Observe purchases and prompt the user to install any purchased dynamic features
     private val inAppPurchasesFlow
@@ -279,15 +202,63 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
                     ),
                 )
                 if (response == SnackbarResult.ActionPerformed)
-                    initiateFeatureInstall(details.dynamicFeatureRequest)
+                    initiateFeatureInstall(details.dynamicModuleName)
             }
         }
 
     override fun isFeatureInstalled(id: String): Boolean =
-        inAppFeatureManager.installedModules.contains(id)
+        market.isFeatureInstalled(activity = this, name = id)
 
-    override fun initiateFeatureInstall(request: SplitInstallRequest) {
-        inAppFeatureManager.startInstall(request)
+    override fun initiateFeatureInstall(name: String) {
+        lifecycleScope.launch {
+            market.initiateFeatureInstall(this@MainActivity, name){result ->
+                when (result) {
+                    // Update the progress indicator
+                    in 0f..1f -> {
+                        Log.d("SplitInstall", "Downloading... progress: $result")
+                        inAppUpdateProgress = result
+                    }
+                    AppMarketManager.MODULE_STATE_INSTALLING, AppMarketManager.MODULE_STATE_PENDING -> {
+                        // Set the progress to an indeterminate state
+                        inAppUpdateProgress = -1f
+                        Log.d("SplitInstall", "Installing...")
+                    }
+                    AppMarketManager.MODULE_STATE_INSTALLED -> {
+                        // There is a known issue when observing the state of dynamic module installations.
+                        // If the user has requested the installation of the dynamic module during this session,
+                        // the inAppTaskProgress flag will not be NaN once the state is reached.
+                        // However, if inAppTaskProgress is NaN, it indicates that this callback was triggered due to an app restart,
+                        // and no installation request was made in the current session. Therefore, we can safely ignore this state.
+                        if (inAppUpdateProgress.isNaN()) return@initiateFeatureInstall
+                        // Hide the progress bar
+                        inAppUpdateProgress = Float.NaN
+                        Log.d("SplitInstall", "Module installed successfully!")
+                        // Show a toast message requesting the app restart
+                        val res = snackbarHostState.showSnackbar(
+                            getString(Res.string.msg_apply_changes_restart),
+                            getString(Res.string.restart),
+                            duration = SnackbarDuration.Indefinite
+                        )
+                        // Restart the app if the user chooses to
+                        if (res == SnackbarResult.ActionPerformed)
+                            restart(true)
+                        // The dynamic feature module can now be accessed
+                    }
+                    AppMarketManager.MODULE_STATE_FAILED, AppMarketManager.MODULE_STATE_UNKNOWN -> {
+                        val res = snackbarHostState.showSnackbar(
+                            getText(Res.string.msg_unknown_error),
+
+                        )
+                    }
+
+                    else -> {
+                        // Hide the progress bar for unknown statuses
+                        inAppUpdateProgress = Float.NaN
+                        Log.d("SplitInstall", "Unknown status: ${result}")
+                    }
+                }
+            }
+        }
     }
 
     override fun attachBaseContext(newBase: Context?) {
@@ -401,68 +372,42 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
         paymaster.details.value.find { it.id == id }
 
     override fun initiateUpdateFlow(report: Boolean) {
-        val manager = AppUpdateManagerFactory.create(this@MainActivity)
-        manager.requestUpdateFlow().onEach { result ->
-            when (result) {
-                is AppUpdateResult.NotAvailable -> if (report) showToast(Res.string.msg_no_new_update_available)
-                is AppUpdateResult.InProgress -> {
-                    val state = result.installState
-                    val total = state.totalBytesToDownload()
-                    val downloaded = state.bytesDownloaded()
-                    val progress = when {
-                        total <= 0 -> -1f
-                        total == downloaded -> Float.NaN
-                        else -> downloaded / total.toFloat()
+        lifecycleScope.launch {
+            market.initiateUpdateFlow(this@MainActivity){ result ->
+                return@initiateUpdateFlow when(result){
+                    AppMarketManager.UPDATE_NOT_AVAILABLE -> {
+                        if (report) showToast(Res.string.msg_no_new_update_available)
+                        AppMarketManager.ACTION_IGNORE
                     }
-                    inAppUpdateProgress = progress
-                }
 
-                is AppUpdateResult.Downloaded -> {
-                    val info = manager.requestAppUpdateInfo()
-                    //when update first becomes available
-                    //don't force it.
-                    // make it required when staleness days overcome allowed limit
-                    val isFlexible = (info.clientVersionStalenessDays()
-                        ?: -1) <= FLEXIBLE_UPDATE_MAX_STALENESS_DAYS
-
-                    // forcefully update; if it's flexible
-                    if (!isFlexible) {
-                        manager.completeUpdate()
-                        return@onEach
+                    AppMarketManager.UPDATE_NOT_SUPPORTED -> {
+                        if (report) showToast("Non‑market installations do not support the in‑app update feature.")
+                        /*No-op*/
+                        AppMarketManager.ACTION_IGNORE
                     }
-                    // else show the toast.
-                    val res = snackbarHostState.showSnackbar(
-                        message = resources.getText2(Res.string.msg_new_update_downloaded),
-                        action = resources.getText2(Res.string.install),
-                        duration = SnackbarDuration.Long,
-                        icon = ImageVector.vectorResource(
-                            theme,
-                            resources,
-                            Res.drawable.ic_downloading
+
+                    AppMarketManager.UPDATE_DOWNLOADED -> {
+                        // else show the toast.
+                        val res = snackbarHostState.showSnackbar(
+                            message = resources.getText2(R.string.msg_new_update_downloaded),
+                            action = resources.getText2(R.string.install),
+                            duration = SnackbarDuration.Long,
+                            icon = ImageVector.vectorResource(theme, resources, Res.drawable.ic_downloading)
                         )
-                    )
-                    // complete update when ever user clicks on action.
-                    if (res == SnackbarResult.ActionPerformed) manager.completeUpdate()
-                }
-
-                is AppUpdateResult.Available -> {
-                    // if user choose to skip the update handle that case also.
-                    val isFlexible = (result.updateInfo.clientVersionStalenessDays()
-                        ?: -1) <= FLEXIBLE_UPDATE_MAX_STALENESS_DAYS
-                    if (isFlexible) result.startFlexibleUpdate(
-                        activity = this@MainActivity, 1000
-                    )
-                    else result.startImmediateUpdate(
-                        activity = this@MainActivity, 1000
-                    )
-                    // no message needs to be shown
+                        // complete update when ever user clicks on action.
+                        if (res == SnackbarResult.ActionPerformed) AppMarketManager.ACTION_INSTALL
+                        else AppMarketManager.ACTION_IGNORE
+                    }
+                    // progress
+                    else -> {
+                        inAppUpdateProgress = result
+                        Log.d(TAG, "initiateUpdateFlow: $result")
+                        AppMarketManager.ACTION_IGNORE
+                    }
                 }
             }
-        }.catch {
-            analytics.record(it)
-            if (!report) return@catch
-            showToast(Res.string.msg_update_check_error)
-        }.launchIn(lifecycleScope)
+        }
+
     }
 
     override fun <S, O> setPreference(key: Key<S, O>, value: O) {
@@ -486,11 +431,9 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
 
             // Request and launch the review flow.
             runCatching(TAG) {
-                val reviewManager = ReviewManagerFactory.create(this@MainActivity)
                 // Update the last asked time in preferences
                 preferences[KEY_LAST_REVIEW_TIME] = System.currentTimeMillis()
-                val info = reviewManager.requestReview()
-                reviewManager.launchReviewFlow(this@MainActivity, info)
+                market.initiateReviewFlow(this@MainActivity)
                 // Optionally log an event to Firebase Analytics.
                 // host.fAnalytics.logReviewPromptShown()
             }

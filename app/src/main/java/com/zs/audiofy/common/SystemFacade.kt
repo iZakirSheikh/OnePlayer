@@ -11,7 +11,6 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.core.net.toUri
-import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.zs.audiofy.settings.Settings.PKG_MARKET_ID
 import com.zs.audiofy.settings.Settings.PREFIX_MARKET_FALLBACK
 import com.zs.audiofy.settings.Settings.PREFIX_MARKET_URL
@@ -179,7 +178,17 @@ interface SystemFacade {
 
     fun isFeatureInstalled(id: String): Boolean
 
-    fun initiateFeatureInstall(request: SplitInstallRequest)
+
+    /**
+     * Initiates the installation of the dynamic feature modules.
+     *
+     * This method uses the Play Core Split Install API to download and install features
+     * requested via the [request]. Progress and status updates of this installation
+     * should be monitored via the implementation's internal listeners.
+     *
+     * @param name The name of the module to be installed.
+     */
+    fun initiateFeatureInstall(name: String)
 
     /**
      * Sets a key-value pair in the data store, where the [key] represents the key to associate with the [value].

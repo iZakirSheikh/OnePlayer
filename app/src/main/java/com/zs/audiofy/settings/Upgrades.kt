@@ -46,7 +46,6 @@ import com.zs.audiofy.common.IAP_TAG_EDITOR_PRO
 import com.zs.audiofy.common.Res
 import com.zs.audiofy.common.compose.LocalSystemFacade
 import com.zs.audiofy.common.compose.purchase
-import com.zs.audiofy.common.dynamicFeatureRequest
 import com.zs.audiofy.common.dynamicModuleName
 import com.zs.audiofy.common.ellipsize
 import com.zs.audiofy.common.isDynamicFeature
@@ -200,7 +199,7 @@ fun Upgrades(modifier: Modifier = Modifier) {
 
                     // If the product is a dynamic feature and is NOT installed, initiate the feature installation
                     if (upgrade.isDynamicFeature && !facade.isFeatureInstalled(upgrade.dynamicModuleName)) {
-                        facade.initiateFeatureInstall(upgrade.dynamicFeatureRequest)
+                        facade.initiateFeatureInstall(upgrade.dynamicModuleName)
                         return@Upgrade
                     }
                     // Otherwise (product is purchased or not a dynamic feature that needs installation), do nothing

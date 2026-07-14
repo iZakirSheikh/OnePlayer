@@ -122,21 +122,25 @@ android {
         // Community flavor → uses stubbed (no-op) implementations for all shared libs
         getByName("community") {
             kotlin.directories += "src/shared/analytics/stub/java"
+            kotlin.directories += "src/shared/market/stub/java"
         }
 
         // Premium flavor → also wired to stub implementations (restricted feature set)
         getByName("plus") {
             kotlin.directories += "src/shared/analytics/actual/java"
+            kotlin.directories += "src/shared/market/actual/java"
         }
 
         // Standard flavor → full/actual implementations of analytics, billing, and ads
         getByName("standard") {
             kotlin.directories += "src/shared/analytics/actual/java"
+            kotlin.directories += "src/shared/market/actual/java"
         }
 
         // Plus flavor → only requires actual billing implementation (no analytics/ads)
         getByName("gold") {
             kotlin.directories += "src/shared/analytics/stub/java"
+            kotlin.directories += "src/shared/market/actual/java"
         }
     }
 
@@ -161,6 +165,10 @@ dependencies {
     implementation(libs.androidx.palette) // AndroidX Palette → extract prominent colors from images
     // standard
     "standardImplementation"(libs.bundles.analytics)
+    "standardImplementation"(libs.bundles.play.services)
     // plus
     "plusImplementation"(libs.bundles.analytics)
+    "plusImplementation"(libs.bundles.play.services)
+    // gold
+    "goldImplementation"(libs.bundles.play.services)
 }
