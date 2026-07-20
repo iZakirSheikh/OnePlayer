@@ -25,6 +25,7 @@ package com.zs.core.billing
  *                       and price in the storefront UI.
  */
 class Product internal constructor(
+    internal val value: Any? = null,
     val id: String,
     val title: String,
     val formattedPrice: String?,
