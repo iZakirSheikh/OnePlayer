@@ -123,27 +123,30 @@ android {
         getByName("community") {
             kotlin.directories += "src/shared/analytics/stub/java"
             kotlin.directories += "src/shared/market/stub/java"
+            kotlin.directories += "src/shared/billing/stub/java"
         }
 
         // Premium flavor → also wired to stub implementations (restricted feature set)
         getByName("plus") {
             kotlin.directories += "src/shared/analytics/actual/java"
             kotlin.directories += "src/shared/market/actual/java"
+            kotlin.directories += "src/shared/billing/actual/java"
         }
 
         // Standard flavor → full/actual implementations of analytics, billing, and ads
         getByName("standard") {
             kotlin.directories += "src/shared/analytics/actual/java"
             kotlin.directories += "src/shared/market/actual/java"
+            kotlin.directories += "src/shared/billing/actual/java"
         }
 
         // Plus flavor → only requires actual billing implementation (no analytics/ads)
         getByName("gold") {
             kotlin.directories += "src/shared/analytics/stub/java"
             kotlin.directories += "src/shared/market/actual/java"
+            kotlin.directories += "src/shared/billing/stub/java"
         }
     }
-
 }
 
 // -----------------------------
@@ -160,15 +163,16 @@ dependencies {
     implementation(libs.media3.session)             // Media session management
     implementation(libs.media3.exoplayer)           // ExoPlayer for playback
     implementation(libs.media3.ui) // for using SubtitleView
-    implementation(libs.play.billing.client) // Play Billing → in-app purchases
     implementation(libs.coil.core)  // Coil → lightweight image loading library
     implementation(libs.androidx.palette) // AndroidX Palette → extract prominent colors from images
     // standard
     "standardImplementation"(libs.bundles.analytics)
     "standardImplementation"(libs.bundles.play.services)
+    "standardImplementation"(libs.play.billing.client) // Play Billing → in-app purchases
     // plus
     "plusImplementation"(libs.bundles.analytics)
     "plusImplementation"(libs.bundles.play.services)
+    "plusImplementation"(libs.play.billing.client) // Play Billing → in-app purchases
     // gold
     "goldImplementation"(libs.bundles.play.services)
 }
