@@ -65,7 +65,7 @@ interface Paymaster {
      *
      * @return `true` if the purchase flow was launched successfully, `false` otherwise.
      */
-    fun initiatePurchaseFlow(activity: Activity, productId: String): Boolean
+    fun beginTransition(activity: Activity, productId: String): Boolean
 
     /**
      * Releases resources held by this `Paymaster`.

@@ -366,7 +366,7 @@ class MainActivity : ComponentActivity(), SystemFacade, NavDestListener {
         startActivity(intent, options)
 
     override fun initiatePurchaseFlow(id: String) =
-        paymaster.initiatePurchaseFlow(this, id)
+        paymaster.beginTransition(this, id)
 
     override fun getProductInfo(id: String): Product? =
         paymaster.details.value.find { it.id == id }

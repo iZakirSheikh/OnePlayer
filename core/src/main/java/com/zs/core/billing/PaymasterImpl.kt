@@ -227,7 +227,7 @@ internal class PaymasterImpl(
         }
     }
 
-    override fun initiatePurchaseFlow(activity: Activity, productId: String): Boolean {
+    override fun beginTransition(activity: Activity, productId: String): Boolean {
         // Find the product details for the given product ID.
         val details = details.value.firstOrNull { it.id == productId } ?: return false
         // Build the billing flow parameters.
