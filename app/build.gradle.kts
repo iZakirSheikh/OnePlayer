@@ -74,7 +74,7 @@ android {
         minSdk = 28                                         // Minimum supported Android version
         targetSdk = 37                                      // Target SDK
         versionCode = 31                                    // Internal version code
-        versionName = "1.6.4-beta"                          // User-facing version name
+        versionName = "1.6.4"                               // User-facing version name
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
     }
@@ -114,7 +114,7 @@ android {
 
         // Debug build configuration
         debug {
-            applicationIdSuffix = ".debug"   // Allows installing debug + release side by side
+           // applicationIdSuffix = ".debug"   // Allows installing debug + release side by side
             resValue("string", "launcher_label", "Debug") // Custom launcher label
             versionNameSuffix = "-debug"     // Append suffix to version name
         }

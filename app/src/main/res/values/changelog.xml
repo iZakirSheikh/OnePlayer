@@ -44,9 +44,18 @@
 
     <!--1.6.3-beta-->
     <string name="changelog_1_6_3_beta" translatable="false">
-    <b>What’s New <font color='purple'>(v1.6.3-beta)\n</font></b>
+    <b>What’s New <font color='purple'>(v1.6.3)\n</font></b>
     <font color='grey'>
-        \n✓ <i>Working on it.</i>
+        \n✓ <b>Community Edition:</b> Introduced a new build flavor tailored for open-source environments, replacing Play Store links with GitHub "Stars" and removing proprietary billing components.
+        \n✓ <b>Abstracted Market Interactions:</b> Implemented a new App Market Manager to handle updates and reviews across different platforms (Play Store vs. GitHub).
+        \n✓ <b>Multi-Flavor Billing Support:</b> Refactored the billing system into "Actual" (Google Play) and "Stub" (Premium/Gold) implementations to support restricted regions and special editions.
+        \n✓ <b>Analytics Abstraction:</b> Telemetry is now flavor-aware; standard builds use Firebase/Crashlytics, while Community and Gold versions use a privacy-focused no-op implementation.
+        \n✓ <b>Security &amp; Stability:</b>
+        \n    • Added RSA signature verification for in-app purchases.
+        \n    • Improved update flow error handling to prevent crashes in non-Google Play environments.
+        \n✓ <b>Under the Hood:</b>
+        \n    • Upgraded build infrastructure: <b>Gradle 9.5.0</b>, <b>AGP 9.3.0</b>, and <b>Kotlin 2.4.10</b>.
+        \n    • Updated project metadata and branding from "Audiofy" to "OnePlayer".
     </font>
     </string>
 

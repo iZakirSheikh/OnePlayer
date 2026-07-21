@@ -151,13 +151,13 @@ object Settings {
             Uri.parse("https://docs.google.com/document/d/1RzR-KTeycsuQik4rTzWbJU-F5lNqrJkTI8BP8Pu7sOs/edit?usp=sharing")
     }
     val GitHubIssuesPage = Intent(Intent.ACTION_VIEW) {
-        data = Uri.parse("https://github.com/iZakirSheikh/Audiofy/issues")
+        data = Uri.parse("https://github.com/iZakirSheikh/OnePlayer/issues")
     }
     val TelegramIntent = Intent(Intent.ACTION_VIEW) {
         data = Uri.parse("https://t.me/audiofy_support")
     }
     val GithubIntent = Intent(Intent.ACTION_VIEW) {
-        data = Uri.parse("https://github.com/iZakirSheikh/Audiofy")
+        data = Uri.parse("https://github.com/iZakirSheikh/OnePlayer")
     }
     val JoinBetaIntent = Intent(Intent.ACTION_VIEW) {
         data = Uri.parse("https://play.google.com/apps/testing/com.prime.player/join")

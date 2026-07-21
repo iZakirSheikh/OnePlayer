@@ -13,6 +13,7 @@ import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.zs.core.market.AppMarketManager
+import kotlinx.coroutines.flow.catch
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus as Flag
 
 
@@ -67,7 +68,9 @@ internal class AppMarketManagerImpl() : AppMarketManager {
         provider: suspend (result: Float) -> Int
     ) {
         val manager = AppUpdateManagerFactory.create(activity)
-        manager.requestUpdateFlow().collect { result ->
+        manager.requestUpdateFlow()
+            .catch { e ->  provider(AppMarketManager.UPDATE_NOT_SUPPORTED) }
+            .collect { result ->
             when (result) {
                 is AppUpdateResult.NotAvailable -> provider(AppMarketManager.UPDATE_NOT_AVAILABLE)
                 is AppUpdateResult.InProgress -> {

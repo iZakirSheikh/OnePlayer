@@ -75,6 +75,7 @@ import com.zs.compose.theme.TonalIconButton
 import com.zs.compose.theme.sharedBounds
 import com.zs.compose.theme.sharedElement
 import com.zs.compose.theme.text.Label
+import com.zs.core.BuildConfig
 import com.zs.core.playback.NowPlaying
 import com.zs.core.playback.Remote
 import dev.chrisbanes.haze.HazeState
@@ -210,7 +211,7 @@ fun MistyTunes(
                     val size = Widget.SmallIconBtn
 
                     when {
-                        AppConfig.inAppWidgetLongPressOpenConfig -> LottieAnimatedButton(
+                        BuildConfig.FLAVOR == BuildConfig.FLAVOR_COMMUNITY || AppConfig.inAppWidgetLongPressOpenConfig -> LottieAnimatedButton(
                             Res.raw.lt_twitter_heart_filled_unfilled,
                             onClick = { onRequest(Widget.REQUEST_LIKED) },
                             animationSpec = tween(800),
@@ -221,6 +222,7 @@ fun MistyTunes(
                             tint = AppTheme.colors.accent,
                             modifier = Modifier.layoutId(RouteConsole.ID_BTN_LIKED) then size
                         )
+
                         else ->  IconButton(
                             icon = vectorResource(Res.drawable.ic_tune),
                             contentDescription = null,

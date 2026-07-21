@@ -50,6 +50,7 @@ import com.zs.compose.theme.FilledTonalButton
 import com.zs.compose.theme.Icon
 import com.zs.compose.theme.Surface
 import com.zs.compose.theme.text.Text
+import com.zs.core.BuildConfig
 import com.zs.core.billing.Paymaster
 import com.zs.core.billing.purchased
 import com.zs.audiofy.common.compose.ContentPadding as CP
@@ -105,17 +106,27 @@ fun Sponsor(modifier: Modifier = Modifier) {
                 content = {
                     val facade = LocalSystemFacade.current
 
+
                     // RateUs
                     FilledTonalButton(
-                        textResource(Res.string.rate_us),
-                        icon = com.zs.audiofy.common.vectorResource(Res.drawable.ic_rate_review_outline),
-                        onClick = facade::launchAppStore,
+                        textResource(Res.string.star_and_review),
+                        icon = vectorResource(Res.drawable.ic_rate_review_outline),
+                        onClick = {
+                            when (BuildConfig.FLAVOR){
+                                BuildConfig.FLAVOR_COMMUNITY -> facade.launch(Settings.GithubIntent)
+                                else -> facade.launchAppStore()
+                            }
+                        },
                         colors = ButtonDefaults.filledTonalButtonColors(
                             backgroundColor = AppTheme.colors.background(
                                 4.dp
                             )
                         )
                     )
+
+                    if (BuildConfig.FLAVOR == BuildConfig.FLAVOR_COMMUNITY)
+                        return@Row
+
                     val adFreePurchase by purchase(Paymaster.IAP_NO_ADS)
                     when {
                         // Coffee

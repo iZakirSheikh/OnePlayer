@@ -91,6 +91,7 @@ import com.zs.compose.theme.appbar.AppBarDefaults
 import com.zs.compose.theme.text.Header
 import com.zs.compose.theme.text.Label
 import com.zs.compose.theme.text.Text
+import com.zs.core.BuildConfig
 import com.zs.core.billing.Paymaster
 import androidx.compose.foundation.layout.PaddingValues as Padding
 import androidx.compose.foundation.layout.WindowInsetsSides as WIS
@@ -236,16 +237,22 @@ private fun Sponsor(modifier: Modifier = Modifier) {
 
                     // RateUs
                     FilledTonalButton(
-                        textResource(Res.string.rate_us),
+                        textResource(Res.string.star_and_review),
                         icon = vectorResource(Res.drawable.ic_rate_review_outline),
-                        onClick = facade::launchAppStore,
+                        onClick = {
+                            when (BuildConfig.FLAVOR){
+                                BuildConfig.FLAVOR_COMMUNITY -> facade.launch(Settings.GithubIntent)
+                                else -> facade.launchAppStore()
+                            }
+                        },
                         colors = ButtonDefaults.filledTonalButtonColors(
                             backgroundColor = AppTheme.colors.background(
                                 4.dp
                             )
                         )
                     )
-
+                    if (BuildConfig.FLAVOR == BuildConfig.FLAVOR_COMMUNITY)
+                        return@Row
                     // Coffee
                     Button(
                         "Buy me a coffee",

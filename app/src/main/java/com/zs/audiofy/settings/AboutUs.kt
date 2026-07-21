@@ -42,6 +42,7 @@ import com.zs.compose.theme.Icon
 import com.zs.compose.theme.Preference
 import com.zs.compose.theme.TextButton
 import com.zs.compose.theme.text.Label
+import com.zs.core.BuildConfig
 import com.zs.audiofy.common.compose.ContentPadding as CP
 
 context(_: RouteSettings, scope: ColumnScope)
@@ -101,9 +102,14 @@ fun AboutUs() {
                 contentColor = AppTheme.colors.accent
             )
             Chip(
-                content = { Label(textResource(Res.string.rate_us)) },
+                content = { Label(textResource(Res.string.star_and_review)) },
                 leadingIcon = { Icon(vectorResource(Res.drawable.ic_rate_review_outline), null) },
-                onClick = facade::launchAppStore,
+                onClick = {
+                    when (BuildConfig.FLAVOR){
+                        BuildConfig.FLAVOR_COMMUNITY -> facade.launch(Settings.GithubIntent)
+                        else -> facade.launchAppStore()
+                    }
+                },
                 colors = colors,
                 shape = AppTheme.shapes.xSmall
             )

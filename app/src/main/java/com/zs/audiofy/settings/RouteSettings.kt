@@ -69,6 +69,7 @@ import com.zs.compose.theme.appbar.AppBarDefaults
 import com.zs.compose.theme.minimumInteractiveComponentSize
 import com.zs.compose.theme.text.Header
 import com.zs.compose.theme.text.Text
+import com.zs.core.BuildConfig
 import androidx.compose.foundation.layout.PaddingValues as Padding
 import androidx.compose.foundation.layout.WindowInsetsSides as WIS
 import com.zs.audiofy.common.compose.ContentPadding as CP
@@ -157,7 +158,7 @@ object RouteSettings : Route {
                     modifier = Modifier
                         .verticalScroll(rememberScrollState())
                         .padding(top = CP.small)
-                       // .widthIn(max = sPaneMaxWidth)
+                        // .widthIn(max = sPaneMaxWidth)
                         .windowInsetsPadding(
                             WindowInsets.systemBars.union(inAppNavBarInsets).only(
                                 WIS.Vertical + WIS.End
@@ -208,16 +209,18 @@ object RouteSettings : Route {
                         item(contentType = "sponsor") { Sponsor() }
 
                         // upgrades
-                        item(contentType = CONTENT_TYPE_HEADER) {
-                            Header(
-                                stringResource(Res.string.upgrades),
-                                color = AppTheme.colors.accent,
-                                drawDivider = true,
-                                style = AppTheme.typography.title3,
-                                contentPadding = HeaderPadding
-                            )
+                        if (BuildConfig.FLAVOR != BuildConfig.FLAVOR_COMMUNITY && BuildConfig.FLAVOR != BuildConfig.FLAVOR_GOLD) {
+                            item(contentType = CONTENT_TYPE_HEADER) {
+                                Header(
+                                    stringResource(Res.string.upgrades),
+                                    color = AppTheme.colors.accent,
+                                    drawDivider = true,
+                                    style = AppTheme.typography.title3,
+                                    contentPadding = HeaderPadding
+                                )
+                            }
+                            item { Upgrades() }
                         }
-                        item { Upgrades() }
                         // App Preferences and Flags
                         preferences(viewState)
                         // AboutUs

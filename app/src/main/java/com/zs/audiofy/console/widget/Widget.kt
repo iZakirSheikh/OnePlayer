@@ -80,6 +80,7 @@ import com.zs.audiofy.console.widget.styles.WavyGradientDots
 import com.zs.audiofy.common.AppConfig
 import com.zs.audiofy.settings.Settings
 import com.zs.compose.theme.LocalNavAnimatedVisibilityScope
+import com.zs.core.BuildConfig
 import com.zs.core.billing.Paymaster
 import dev.chrisbanes.haze.HazeState
 import kotlinx.coroutines.launch
@@ -218,8 +219,8 @@ object Widget {
                         // If in FAB mode but the preference is disabled,
                         // expand the player to show the full-screen view instead.
                         expanded = true
-                    // show config screen always
-                    else -> showConfigScreen = true
+                    // show config screen always in playstore version.
+                    else -> showConfigScreen = BuildConfig.FLAVOR != BuildConfig.FLAVOR_COMMUNITY
                 }
             }
         )
