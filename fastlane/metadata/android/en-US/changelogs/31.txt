@@ -1,0 +1,7 @@
+* <b>Rebranding:</b> Renamed app to <b>OnePlayer</b>.
+* <b>Community Edition:</b> New flavor with GitHub "Stars" and no proprietary billing.
+* <b>Market Manager:</b> Improved update handling across Play Store and GitHub.
+* <b>Billing & Security:</b> Refactored billing for regional support and added RSA verification.
+* <b>Privacy:</b> Added flavor-aware telemetry and privacy-focused no-op analytics.
+* <b>Under the Hood:</b>
+* • Upgraded to Gradle 9.5.0, AGP 9.3.0, and Kotlin 2.4.10.
